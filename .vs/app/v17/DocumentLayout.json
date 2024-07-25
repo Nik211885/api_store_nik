@@ -3,16 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Le Khac Ninh 2\\AppData\\Roaming\\Microsoft\\UserSecrets\\b87503e4-d96d-4133-9d4d-c7efc508d5e9\\secrets.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\libman.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\WebApi\\libman.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{803EF05D-F4DE-484E-ABAE-D23FB4B7BE46}|src\\WebApi\\WebApi.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{803EF05D-F4DE-484E-ABAE-D23FB4B7BE46}|src\\WebApi\\WebApi.csproj|solutionrelative:src\\webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\infrastructure\\identity\\applicationrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|solutionrelative:src\\infrastructure\\identity\\applicationrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{803EF05D-F4DE-484E-ABAE-D23FB4B7BE46}|src\\WebApi\\WebApi.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\webapi\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{803EF05D-F4DE-484E-ABAE-D23FB4B7BE46}|src\\WebApi\\WebApi.csproj|solutionrelative:src\\webapi\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\infrastructure\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -23,8 +22,24 @@
       "RelativeMoniker": "D:0:0:{803EF05D-F4DE-484E-ABAE-D23FB4B7BE46}|src\\WebApi\\WebApi.csproj|solutionrelative:src\\webapi\\webapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\application\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|solutionrelative:src\\application\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\infrastructure\\identity\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|solutionrelative:src\\infrastructure\\identity\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\infrastructure\\identity\\applicationroleclaim.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|solutionrelative:src\\infrastructure\\identity\\applicationroleclaim.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\infrastructure\\identity\\applicationrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|solutionrelative:src\\infrastructure\\identity\\applicationrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\infrastructure\\data\\migrations\\20240725122735_initdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|solutionrelative:src\\infrastructure\\data\\migrations\\20240725122735_initdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\infrastructure\\data\\storenikdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|solutionrelative:src\\infrastructure\\data\\storenikdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{803EF05D-F4DE-484E-ABAE-D23FB4B7BE46}|src\\WebApi\\WebApi.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\webapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -33,6 +48,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\infrastructure\\infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|solutionrelative:src\\infrastructure\\infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\infrastructure\\identity\\applicationuserclaim.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|solutionrelative:src\\infrastructure\\identity\\applicationuserclaim.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -44,6 +63,33 @@
           "DockedWidth": 200,
           "SelectedChildIndex": 8,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "WebApi",
+              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\WebApi.csproj",
+              "RelativeDocumentMoniker": "src\\WebApi\\WebApi.csproj",
+              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\WebApi.csproj",
+              "RelativeToolTip": "src\\WebApi\\WebApi.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-07-25T13:16:27.441Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "libman.json",
+              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\libman.json",
+              "RelativeDocumentMoniker": "src\\WebApi\\libman.json",
+              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\libman.json",
+              "RelativeToolTip": "src\\WebApi\\libman.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-07-25T13:44:55.316Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
@@ -62,7 +108,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
+              "Title": "ApplicationRoleClaim.cs",
+              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Infrastructure\\Identity\\ApplicationRoleClaim.cs",
+              "RelativeDocumentMoniker": "src\\Infrastructure\\Identity\\ApplicationRoleClaim.cs",
+              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Infrastructure\\Identity\\ApplicationRoleClaim.cs",
+              "RelativeToolTip": "src\\Infrastructure\\Identity\\ApplicationRoleClaim.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T13:15:09.686Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "ApplicationRole.cs",
               "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Infrastructure\\Identity\\ApplicationRole.cs",
               "RelativeDocumentMoniker": "src\\Infrastructure\\Identity\\ApplicationRole.cs",
@@ -70,72 +129,46 @@
               "RelativeToolTip": "src\\Infrastructure\\Identity\\ApplicationRole.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T11:20:49.063Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "WebApi",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\WebApi.csproj",
-              "RelativeDocumentMoniker": "src\\WebApi\\WebApi.csproj",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\WebApi.csproj",
-              "RelativeToolTip": "src\\WebApi\\WebApi.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-07-23T11:17:30.508Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\appsettings.json",
-              "RelativeDocumentMoniker": "src\\WebApi\\appsettings.json",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\appsettings.json",
-              "RelativeToolTip": "src\\WebApi\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-07-23T11:12:40.446Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "WeatherForecast.cs",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\WeatherForecast.cs",
-              "RelativeDocumentMoniker": "src\\WebApi\\WeatherForecast.cs",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\WeatherForecast.cs",
-              "RelativeToolTip": "src\\WebApi\\WeatherForecast.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T11:11:59.74Z",
+              "WhenOpened": "2024-07-25T13:15:09.084Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "secrets.json",
+              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\AppData\\Roaming\\Microsoft\\UserSecrets\\b87503e4-d96d-4133-9d4d-c7efc508d5e9\\secrets.json",
+              "RelativeDocumentMoniker": "..\\..\\AppData\\Roaming\\Microsoft\\UserSecrets\\b87503e4-d96d-4133-9d4d-c7efc508d5e9\\secrets.json",
+              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\AppData\\Roaming\\Microsoft\\UserSecrets\\b87503e4-d96d-4133-9d4d-c7efc508d5e9\\secrets.json",
+              "RelativeToolTip": "..\\..\\AppData\\Roaming\\Microsoft\\UserSecrets\\b87503e4-d96d-4133-9d4d-c7efc508d5e9\\secrets.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-07-25T12:35:49.152Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "20240725122735_InitDb.cs",
+              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Infrastructure\\Data\\Migrations\\20240725122735_InitDb.cs",
+              "RelativeDocumentMoniker": "src\\Infrastructure\\Data\\Migrations\\20240725122735_InitDb.cs",
+              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Infrastructure\\Data\\Migrations\\20240725122735_InitDb.cs",
+              "RelativeToolTip": "src\\Infrastructure\\Data\\Migrations\\20240725122735_InitDb.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T12:27:40.743Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\Program.cs",
               "RelativeDocumentMoniker": "src\\WebApi\\Program.cs",
               "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\Program.cs",
               "RelativeToolTip": "src\\WebApi\\Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAAAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAEAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T11:11:59.969Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "DependencyInjection.cs",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\DependencyInjection.cs",
-              "RelativeDocumentMoniker": "src\\Application\\DependencyInjection.cs",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\DependencyInjection.cs",
-              "RelativeToolTip": "src\\Application\\DependencyInjection.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAA3AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T11:10:10.757Z",
+              "WhenOpened": "2024-07-25T11:41:40.274Z",
               "EditorCaption": ""
             },
             {
@@ -146,22 +179,74 @@
               "RelativeDocumentMoniker": "src\\Infrastructure\\DependencyInjection.cs",
               "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Infrastructure\\DependencyInjection.cs",
               "RelativeToolTip": "src\\Infrastructure\\DependencyInjection.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAA2AAAA",
+              "ViewState": "AQIAAAgAAAAAAAAAAAASwAsAAAB5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T11:09:36.906Z",
+              "WhenOpened": "2024-07-25T11:03:10.494Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
+              "Title": "StoreNikDbConText.cs",
+              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Infrastructure\\Data\\StoreNikDbConText.cs",
+              "RelativeDocumentMoniker": "src\\Infrastructure\\Data\\StoreNikDbConText.cs",
+              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Infrastructure\\Data\\StoreNikDbConText.cs",
+              "RelativeToolTip": "src\\Infrastructure\\Data\\StoreNikDbConText.cs",
+              "ViewState": "AQIAABoAAAAAAAAAAAA3wA4AAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T12:29:40.656Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ApplicationUser.cs",
+              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Infrastructure\\Identity\\ApplicationUser.cs",
+              "RelativeDocumentMoniker": "src\\Infrastructure\\Identity\\ApplicationUser.cs",
+              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Infrastructure\\Identity\\ApplicationUser.cs",
+              "RelativeToolTip": "src\\Infrastructure\\Identity\\ApplicationUser.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T11:09:48.346Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\appsettings.json",
+              "RelativeDocumentMoniker": "src\\WebApi\\appsettings.json",
+              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\appsettings.json",
+              "RelativeToolTip": "src\\WebApi\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-07-25T12:35:39.375Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "Infrastructure",
               "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Infrastructure\\Infrastructure.csproj",
               "RelativeDocumentMoniker": "src\\Infrastructure\\Infrastructure.csproj",
               "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Infrastructure\\Infrastructure.csproj",
               "RelativeToolTip": "src\\Infrastructure\\Infrastructure.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-07-23T11:09:00.121Z",
+              "WhenOpened": "2024-07-25T11:21:36.834Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ApplicationUserClaim.cs",
+              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Infrastructure\\Identity\\ApplicationUserClaim.cs",
+              "RelativeDocumentMoniker": "src\\Infrastructure\\Identity\\ApplicationUserClaim.cs",
+              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Infrastructure\\Identity\\ApplicationUserClaim.cs",
+              "RelativeToolTip": "src\\Infrastructure\\Identity\\ApplicationUserClaim.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T11:09:49.032Z",
               "EditorCaption": ""
             }
           ]

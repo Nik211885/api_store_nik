@@ -5,8 +5,8 @@ namespace ApplicationCore.Entities.Products
     public class ProductValueType : BaseEntity
     {
         [Required]
-        [MaxLength(50)]
-        public string ProductNameTypeId { get; set; } = null!;
+        [KeyGuidLength]
+        public string ProductNameTypeId { get; private set; } = null!;
         public ProductNameType? ProductNameType { get; set; }
         /// <summary>
         /// Value of options name type

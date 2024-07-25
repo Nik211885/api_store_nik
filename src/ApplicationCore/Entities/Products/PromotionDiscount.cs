@@ -5,6 +5,12 @@ namespace ApplicationCore.Entities.Products
     public class PromotionDiscount : BaseEntity
     {
         /// <summary>
+        /// User release coupons
+        /// </summary>
+        [Required]
+        [KeyGuidLength]
+        public string UserId { get; private set; } = null!;
+        /// <summary>
         /// Defined name discount program
         /// </summary>
         [Required]
@@ -30,10 +36,11 @@ namespace ApplicationCore.Entities.Products
         /// </summary>
         [Required]
         public DateTime EndDate { get; set; }
-        public ICollection<ProductPromotionDiscount>? PromotionProduct { get; set; }
-        public PromotionDiscount(string name, string? description,
+        public ICollection<ProductPromotionDiscount>? ProductPromotionDiscounts { get; set; }
+        public PromotionDiscount(string userId, string name, string? description,
             decimal promotion, DateTime startDay, DateTime endDate)
         {
+            UserId = userId;
             Name = name;
             Description = description;
             Promotion = promotion;

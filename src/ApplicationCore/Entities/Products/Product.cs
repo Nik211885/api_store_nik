@@ -1,9 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ApplicationCore.Entities.Order;
+using System.ComponentModel.DataAnnotations;
+using ApplicationCore.Entities.Ratings;
 
 namespace ApplicationCore.Entities.Products
 {
-    public class ProductItem : BaseEntity
+    public class Product : BaseEntity
     {
+        /// <summary>
+        /// Foreign key for table Application User
+        /// </summary>
+        [Required]
+        public string UserId { get; private set; } = null!;
         [Required]
         [MaxLength(50)]
         public string NameProduct { get; set; } = null!;
@@ -12,21 +19,24 @@ namespace ApplicationCore.Entities.Products
         public string Description { get; set; } = null!;
         [Required]
         [MaxLength(70)]
-        public string ImageDescription { get; set; } = null!;
+        public string ImageProduct { get; set; } = null!;
         [Required]
         public bool OutOfSock { get; set; }
         [Required]
         public decimal Price { get; set; }
         [MaxLength(50)]
         public string? KeySearch { get; set; }
-        public ICollection<ProductPromotionDiscount>? PromotionProducts { get; set; }
+        public ICollection<ProductPromotionDiscount>? ProductPromotionDiscounts { get; set; }
         public ICollection<ProductNameType>? ProductNameTypes { get; set; }
-        public ProductItem(string nameProduct, string description, string imageProduct,
+        public ICollection<OrderDetail>? OrderDetails { get; set; }
+        public ICollection<Rating>? Ratings { get; set; }
+        public Product(string userId, string nameProduct, string description, string imageProduct,
             decimal price, string? keySearch, bool outOfSock)
         {
+            UserId = userId;
             NameProduct = nameProduct;
             Description = description;
-            ImageDescription = imageProduct;
+            ImageProduct = imageProduct;
             Price = price;
             KeySearch = keySearch;
             OutOfSock = outOfSock;

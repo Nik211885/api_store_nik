@@ -11,9 +11,9 @@ namespace ApplicationCore.Entities.Products
         [MaxLength(25)]
         public string NameType { get; set; } = null!;
         [Required]
-        [MaxLength(50)]
-        public string ProductId { get; set; } = null!;
-        public ProductItem? ProductItem { get; set; }
+        [KeyGuidLength]
+        public string ProductId { get; private set; } = null!;
+        public Product? Product { get; set; }
         public ICollection<ProductValueType>? ProductValueTypes { get; set; }
         public ProductNameType(string nameType, string productId)
         {

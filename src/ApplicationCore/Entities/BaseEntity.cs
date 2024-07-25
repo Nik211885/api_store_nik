@@ -2,18 +2,15 @@
 
 namespace ApplicationCore.Entities
 {
-    public abstract class BaseEntity 
+    public abstract class BaseEntity
     {
-        /// <summary>
-        /// Defined primary key in entity for table
-        /// </summary>
         [Key]
         [Required]
-        [MaxLength(50)]
-        public string Id { get; set; } = null!;
+        [KeyGuidLength]
+        public string Id { get; set; }
         protected BaseEntity()
         {
-            Id = Guid.NewGuid().ToString(); 
+            Id = Guid.NewGuid().ToString();
         }
     }
 }

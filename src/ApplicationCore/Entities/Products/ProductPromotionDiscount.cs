@@ -8,12 +8,12 @@ namespace ApplicationCore.Entities.Products
     public class ProductPromotionDiscount
     {
         [Required]
-        [MaxLength(50)]
-        public string ProductId { get; set; } = null!;
-        public ProductItem? Product { get; set; }
+        [KeyGuidLength]
+        public string ProductId { get; private set; } = null!;
+        public Product? Product { get; set; }
         [Required]
-        [MaxLength(50)]
-        public string PromotionDiscountId { get; set; } = null!;
+        [KeyGuidLength]
+        public string PromotionDiscountId { get; private set; } = null!;
         public PromotionDiscount? PromotionDiscount { get; set; }
         public ProductPromotionDiscount(string productId, string promotionDiscountId)
         {
