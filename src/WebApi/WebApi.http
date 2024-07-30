@@ -4,3 +4,59 @@ GET {{WebApi_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+# {
+#   "nameProduct": "Jean",
+#   "description": "Jean for you",
+#   "imageProduct": "../image/product/jean.png",
+#   "quantity": 500,
+#   "price": 5.25,
+#   "keySearch": "Jean make you look nice",
+#   "nameTypes": [
+#     {
+#       "nameType": "Size",
+#       "valeTypes": [
+#         {
+#           "valueType": "M",
+#           "quantity": 50,
+#           "price": 0.75
+#         },
+#         {
+#           "valueType": "N",
+#           "quantity": 20,
+#           "price": 0.5
+#         },
+#         {
+#           "valueType": "S",
+#           "quantity": 30,
+#           "price": 0.25
+#         }
+#       ]
+#     },
+#     {
+#       "nameType": "Color",
+#       "valeTypes": [
+#         {
+#           "valueType": "Red",
+#           "quantity": 50,
+#           "price": 0.75
+#         },
+#         {
+#           "valueType": "Blue",
+#           "quantity": 20,
+#           "price": 0.5
+#         },
+#         {
+#           "valueType": "Green",
+#           "quantity": 30,
+#           "price": 0.25
+#         },
+#         {
+#           "valueType": "Black",
+#           "quantity": 30,
+#           "price": 0.25
+#         }
+#       ]
+#     }
+#   ],
+#   "userId": "string"
+# }

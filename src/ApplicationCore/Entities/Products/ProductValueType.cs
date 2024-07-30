@@ -16,16 +16,16 @@ namespace ApplicationCore.Entities.Products
         [MaxLength(50)]
         public string ValueType { get; set; } = null!;
         [Required]
-        public bool OutOfSock { get; set; }
+        public int Quantity { get; set; }
         [Required]
         /// <summary>
         /// Price in options
         /// </summary>
         public decimal Price { get; set; }
-        public ProductValueType(string valueType, bool outOfSock, decimal price, string productNameTypeId)
+        public ProductValueType(string valueType, int quantity, decimal price, string productNameTypeId)
         {
             ValueType = valueType;
-            OutOfSock = outOfSock;
+            Quantity = quantity;
             Price = price;
             ProductNameTypeId = productNameTypeId;
         }

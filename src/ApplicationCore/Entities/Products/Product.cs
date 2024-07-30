@@ -21,7 +21,7 @@ namespace ApplicationCore.Entities.Products
         [MaxLength(70)]
         public string ImageProduct { get; set; } = null!;
         [Required]
-        public bool OutOfSock { get; set; }
+        public int Quantity { get; set; }
         [Required]
         public decimal Price { get; set; }
         [MaxLength(50)]
@@ -31,7 +31,7 @@ namespace ApplicationCore.Entities.Products
         public ICollection<OrderDetail>? OrderDetails { get; set; }
         public ICollection<Rating>? Ratings { get; set; }
         public Product(string userId, string nameProduct, string description, string imageProduct,
-            decimal price, string? keySearch, bool outOfSock)
+            decimal price, string? keySearch, int quantity)
         {
             UserId = userId;
             NameProduct = nameProduct;
@@ -39,7 +39,7 @@ namespace ApplicationCore.Entities.Products
             ImageProduct = imageProduct;
             Price = price;
             KeySearch = keySearch;
-            OutOfSock = outOfSock;
+            Quantity = quantity;
         }
     }
 }

@@ -7,7 +7,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="MediatR" Version="12.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ApplicationCore\ApplicationCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="OrderDetails\Command\" />
+    <Folder Include="OrderDetails\Handler\" />
+    <Folder Include="OrderDetails\Queries\" />
+    <Folder Include="Ratings\Commands\" />
+    <Folder Include="Ratings\Handlers\" />
+    <Folder Include="Ratings\Queries\" />
+    <Folder Include="Reactions\Commands\" />
+    <Folder Include="Reactions\Handlers\" />
+    <Folder Include="Reactions\Queries\" />
   </ItemGroup>
 
 </Project>

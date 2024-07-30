@@ -1,11 +1,14 @@
-﻿using ApplicationCore.Entities;
+﻿using Application.Interface;
+using ApplicationCore.Entities;
 using ApplicationCore.Entities.Address;
 using ApplicationCore.Entities.Order;
 using ApplicationCore.Entities.Products;
 using ApplicationCore.Entities.Ratings;
 using Infrastructure.Identity;
+using MediatR;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 
 namespace Infrastructure.Data
@@ -18,10 +21,14 @@ namespace Infrastructure.Data
         ApplicationUserLogin,
         ApplicationRoleClaim, 
         ApplicationUserToken>
+        ,IStoreNikDbContext
     {
-        public StoreNikDbConText(DbContextOptions<StoreNikDbConText> dbContext) : base(dbContext)
+        private readonly IPublisher _publisher;
+        public StoreNikDbConText(DbContextOptions<StoreNikDbConText> dbContext,
+            IPublisher publisher
+            ) : base(dbContext)
         {
-
+            _publisher = publisher;
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductNameType> ProductNameTypes { get; set; }
@@ -42,6 +49,23 @@ namespace Infrastructure.Data
             base.OnModelCreating(builder);
             //Execute config in IEntityTypeConfiguration
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+        //
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var eventBases = from entity in ChangeTracker.Entries<BaseEntity>()
+                             where entity.Entity.Events is not null &&
+                                   entity.Entity.Events.Any()
+                             select entity;
+            var result = await base.SaveChangesAsync(cancellationToken);
+
+            foreach(var e in eventBases)
+            {
+                await _publisher.Publish(e, cancellationToken);
+            }
+
+            return result;
+
         }
     }
 }
