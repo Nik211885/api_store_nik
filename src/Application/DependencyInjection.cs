@@ -1,5 +1,4 @@
-﻿using Application.Mappings;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace Application

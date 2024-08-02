@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Application.Products.Queries
 {
-    public record GetProductByNameQuery(string name) : IRequest<Product>;
+    public record SearchProductsQuery(string Search) : IRequest<IEnumerable<Product>?>;
 }

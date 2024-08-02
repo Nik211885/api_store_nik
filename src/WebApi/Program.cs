@@ -1,17 +1,23 @@
-using Infrastructure;
+
 using Application;
+using Infrastructure;
+using Infrastructure.Data;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
-using Infrastructure.Data;
+using WebApi.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers().AddNewtonsoftJson();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAuthenticationSwaggerServices(builder.Configuration);
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
     .AddApiEndpoints()
     .AddEntityFrameworkStores<StoreNikDbConText>();

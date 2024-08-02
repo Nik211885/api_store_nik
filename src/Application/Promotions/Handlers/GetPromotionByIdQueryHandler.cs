@@ -6,14 +6,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Promotions.Handlers
 {
-    public class PromotionByIdQueryHandler : IRequestHandler<PromotionByIdQuery, PromotionDiscount?>
+    public class GetPromotionByIdQueryHandler : IRequestHandler<GetPromotionByIdQuery, PromotionDiscount?>
     {
         private readonly IStoreNikDbContext _dbContext;
-        public PromotionByIdQueryHandler(IStoreNikDbContext dbContext)
+        public GetPromotionByIdQueryHandler(IStoreNikDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-        public async Task<PromotionDiscount?> Handle(PromotionByIdQuery request, CancellationToken cancellationToken)
+        public async Task<PromotionDiscount?> Handle(GetPromotionByIdQuery request, CancellationToken cancellationToken)
         {
             var promotion = from p in _dbContext.PromotionDiscounts
                             where p.Id.Equals(request.Id)

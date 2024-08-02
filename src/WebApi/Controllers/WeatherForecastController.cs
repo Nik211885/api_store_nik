@@ -139,6 +139,7 @@ public class WeatherForecastController : ControllerBase
         var products = paginationProduct.Items;
         return Ok(products);
     }
+    // Error with add end array with path is /productNameType/-
     [HttpPatch("product")]
     public async Task<IActionResult> UpdatePatchProduct([Required] string id,[FromBody] JsonPatchDocument<Product> patchDoc, ISender sender)
     {

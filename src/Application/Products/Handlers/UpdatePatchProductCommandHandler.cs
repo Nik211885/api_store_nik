@@ -29,6 +29,12 @@ namespace Application.Products.Handlers
             {
                 return FResult.Failure(FErrors.NotFound(request.Id));
             }
+            // Constrains foreign key pass database if error throw exception
+            // If patch doc create new name product type
+            // If name product type is null create new array else add end
+            // If patch doc create new product value type
+            // If product value type is null create new array else add end
+
             request.PatchDoc.ApplyTo(product);
             await _dbContext.SaveChangesAsync(cancellationToken);
             return FResult.Success();

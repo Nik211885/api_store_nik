@@ -3,64 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\application\\products\\handlers\\updatepatchproductcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|solutionrelative:src\\application\\products\\handlers\\updatepatchproductcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\application\\common\\resulttypes\\fresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|solutionrelative:src\\application\\common\\resulttypes\\fresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\application\\products\\handlers\\deleteproductcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|solutionrelative:src\\application\\products\\handlers\\deleteproductcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{532694BF-FB1B-441A-9C52-C95268C0559B}|src\\ApplicationCore\\ApplicationCore.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\applicationcore\\entities\\products\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{532694BF-FB1B-441A-9C52-C95268C0559B}|src\\ApplicationCore\\ApplicationCore.csproj|solutionrelative:src\\applicationcore\\entities\\products\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\application\\products\\commands\\updatepatchproductcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|solutionrelative:src\\application\\products\\commands\\updatepatchproductcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{803EF05D-F4DE-484E-ABAE-D23FB4B7BE46}|src\\WebApi\\WebApi.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\webapi\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{803EF05D-F4DE-484E-ABAE-D23FB4B7BE46}|src\\WebApi\\WebApi.csproj|solutionrelative:src\\webapi\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\application\\common\\resulttypes\\ferrors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|solutionrelative:src\\application\\common\\resulttypes\\ferrors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\application\\products\\commands\\updateputproductcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|solutionrelative:src\\application\\products\\commands\\updateputproductcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{803EF05D-F4DE-484E-ABAE-D23FB4B7BE46}|src\\WebApi\\WebApi.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\webapi\\webapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{803EF05D-F4DE-484E-ABAE-D23FB4B7BE46}|src\\WebApi\\WebApi.csproj|solutionrelative:src\\webapi\\webapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{803EF05D-F4DE-484E-ABAE-D23FB4B7BE46}|src\\WebApi\\WebApi.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\webapi\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{803EF05D-F4DE-484E-ABAE-D23FB4B7BE46}|src\\WebApi\\WebApi.csproj|solutionrelative:src\\webapi\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{803EF05D-F4DE-484E-ABAE-D23FB4B7BE46}|src\\WebApi\\WebApi.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\webapi\\webapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
-      "RelativeMoniker": "D:0:0:{803EF05D-F4DE-484E-ABAE-D23FB4B7BE46}|src\\WebApi\\WebApi.csproj|solutionrelative:src\\webapi\\webapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{803EF05D-F4DE-484E-ABAE-D23FB4B7BE46}|src\\WebApi\\WebApi.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{803EF05D-F4DE-484E-ABAE-D23FB4B7BE46}|src\\WebApi\\WebApi.csproj|solutionrelative:src\\webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\application\\promotions\\handlers\\createpromotioncommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|solutionrelative:src\\application\\promotions\\handlers\\createpromotioncommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\application\\products\\handlers\\updateputproductcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|solutionrelative:src\\application\\products\\handlers\\updateputproductcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\application\\products\\handlers\\createproductcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|solutionrelative:src\\application\\products\\handlers\\createproductcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -70,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -90,198 +34,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Product.cs",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\ApplicationCore\\Entities\\Products\\Product.cs",
-              "RelativeDocumentMoniker": "src\\ApplicationCore\\Entities\\Products\\Product.cs",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\ApplicationCore\\Entities\\Products\\Product.cs",
-              "RelativeToolTip": "src\\ApplicationCore\\Entities\\Products\\Product.cs",
-              "ViewState": "AQIAABkAAAAAAAAAAADwvx0AAAAqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-30T15:26:35.041Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DeleteProductCommandHandler.cs",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Products\\Handlers\\DeleteProductCommandHandler.cs",
-              "RelativeDocumentMoniker": "src\\Application\\Products\\Handlers\\DeleteProductCommandHandler.cs",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Products\\Handlers\\DeleteProductCommandHandler.cs",
-              "RelativeToolTip": "src\\Application\\Products\\Handlers\\DeleteProductCommandHandler.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAIwBoAAAAuAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-30T14:56:45.864Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "FErrors.cs",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Common\\ResultTypes\\FErrors.cs",
-              "RelativeDocumentMoniker": "src\\Application\\Common\\ResultTypes\\FErrors.cs",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Common\\ResultTypes\\FErrors.cs",
-              "RelativeToolTip": "src\\Application\\Common\\ResultTypes\\FErrors.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAZAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-30T14:56:26.059Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FResult.cs",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Common\\ResultTypes\\FResult.cs",
-              "RelativeDocumentMoniker": "src\\Application\\Common\\ResultTypes\\FResult.cs",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Common\\ResultTypes\\FResult.cs",
-              "RelativeToolTip": "src\\Application\\Common\\ResultTypes\\FResult.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAZAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-30T14:55:55.912Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UpdatePatchProductCommandHandler.cs",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Products\\Handlers\\UpdatePatchProductCommandHandler.cs",
-              "RelativeDocumentMoniker": "src\\Application\\Products\\Handlers\\UpdatePatchProductCommandHandler.cs",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Products\\Handlers\\UpdatePatchProductCommandHandler.cs",
-              "RelativeToolTip": "src\\Application\\Products\\Handlers\\UpdatePatchProductCommandHandler.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAwwBUAAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-30T14:49:22.308Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "WeatherForecast.cs",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\WeatherForecast.cs",
-              "RelativeDocumentMoniker": "src\\WebApi\\WeatherForecast.cs",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\WeatherForecast.cs",
-              "RelativeToolTip": "src\\WebApi\\WeatherForecast.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-30T14:44:04.062Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "WeatherForecastController.cs",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\Controllers\\WeatherForecastController.cs",
-              "RelativeDocumentMoniker": "src\\WebApi\\Controllers\\WeatherForecastController.cs",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\Controllers\\WeatherForecastController.cs",
-              "RelativeToolTip": "src\\WebApi\\Controllers\\WeatherForecastController.cs",
-              "ViewState": "AQIAAIoAAAAAAAAAAAAAAJAAAABEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-30T14:44:00.206Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UpdatePatchProductCommand.cs",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Products\\Commands\\UpdatePatchProductCommand.cs",
-              "RelativeDocumentMoniker": "src\\Application\\Products\\Commands\\UpdatePatchProductCommand.cs",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Products\\Commands\\UpdatePatchProductCommand.cs",
-              "RelativeToolTip": "src\\Application\\Products\\Commands\\UpdatePatchProductCommand.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAcAAABWAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-30T14:40:39.571Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "WebApi.http",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\WebApi.http",
-              "RelativeDocumentMoniker": "src\\WebApi\\WebApi.http",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\WebApi.http",
-              "RelativeToolTip": "src\\WebApi\\WebApi.http",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2024-07-30T14:46:53.06Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "WebApi",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\WebApi.csproj",
-              "RelativeDocumentMoniker": "src\\WebApi\\WebApi.csproj",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\WebApi.csproj",
-              "RelativeToolTip": "src\\WebApi\\WebApi.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-07-30T14:48:08.566Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\Program.cs",
               "RelativeDocumentMoniker": "src\\WebApi\\Program.cs",
               "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\Program.cs",
               "RelativeToolTip": "src\\WebApi\\Program.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAAAoAAAA1AAAA",
+              "ViewState": "AQIAAAEAAAAAAAAAAAAAAAEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-30T14:42:47.366Z",
+              "WhenOpened": "2024-08-02T10:15:00.532Z",
               "EditorCaption": ""
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "UpdatePutProductCommand.cs",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Products\\Commands\\UpdatePutProductCommand.cs",
-              "RelativeDocumentMoniker": "src\\Application\\Products\\Commands\\UpdatePutProductCommand.cs",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Products\\Commands\\UpdatePutProductCommand.cs",
-              "RelativeToolTip": "src\\Application\\Products\\Commands\\UpdatePutProductCommand.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-30T14:36:37.156Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "CreatePromotionCommandHandler.cs",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Promotions\\Handlers\\CreatePromotionCommandHandler.cs",
-              "RelativeDocumentMoniker": "src\\Application\\Promotions\\Handlers\\CreatePromotionCommandHandler.cs",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Promotions\\Handlers\\CreatePromotionCommandHandler.cs",
-              "RelativeToolTip": "src\\Application\\Promotions\\Handlers\\CreatePromotionCommandHandler.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAswA0AAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-30T14:43:53.937Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "UpdatePutProductCommandHandler.cs",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Products\\Handlers\\UpdatePutProductCommandHandler.cs",
-              "RelativeDocumentMoniker": "src\\Application\\Products\\Handlers\\UpdatePutProductCommandHandler.cs",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Products\\Handlers\\UpdatePutProductCommandHandler.cs",
-              "RelativeToolTip": "src\\Application\\Products\\Handlers\\UpdatePutProductCommandHandler.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-30T14:36:42.788Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "CreateProductCommandHandler.cs",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Products\\Handlers\\CreateProductCommandHandler.cs",
-              "RelativeDocumentMoniker": "src\\Application\\Products\\Handlers\\CreateProductCommandHandler.cs",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Products\\Handlers\\CreateProductCommandHandler.cs",
-              "RelativeToolTip": "src\\Application\\Products\\Handlers\\CreateProductCommandHandler.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-30T14:36:32.06Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             }
           ]
         },

@@ -28,5 +28,25 @@ namespace ApplicationCore.Entities
         {
             _events?.Clear();
         }
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+        public override bool Equals(object? obj)
+        {
+            return obj is BaseEntity;
+        }
+        public bool Equals(BaseEntity other)
+        {
+            return Id == other.Id;
+        }
+        public static bool operator ==(BaseEntity left, BaseEntity right) 
+        {
+            return left.Equals(right);
+        }
+        public static bool operator !=(BaseEntity left, BaseEntity right)
+        {
+            return !left.Equals(right);
+        }
     }
 }

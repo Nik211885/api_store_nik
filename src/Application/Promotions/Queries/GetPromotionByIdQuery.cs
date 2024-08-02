@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Application.Promotions.Queries
 {
-    public record PromotionByIdQuery(string Id) : IRequest<PromotionDiscount>;
+    public record GetPromotionByIdQuery(string Id) : IRequest<PromotionDiscount>;
 }

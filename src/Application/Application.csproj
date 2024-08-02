@@ -25,9 +25,6 @@
     <Folder Include="Ratings\Commands\" />
     <Folder Include="Ratings\Handlers\" />
     <Folder Include="Ratings\Queries\" />
-    <Folder Include="Reactions\Commands\" />
-    <Folder Include="Reactions\Handlers\" />
-    <Folder Include="Reactions\Queries\" />
   </ItemGroup>
 
 </Project>
