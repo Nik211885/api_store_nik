@@ -1,7 +1,8 @@
 ﻿using Application.Interface;
+using ApplicationCore.Entities;
+using ApplicationCore.Interface;
+using Infrastructure.Authentication;
 using Infrastructure.Data;
-using Infrastructure.Identity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,7 @@ namespace Infrastructure
             {
                 options.UseSqlServer(connectionString);
             });
+            services.AddScoped<ITokenClaims, TokenClaimServices>();
             services.AddScoped<IStoreNikDbContext>(provider=>provider.GetRequiredService<StoreNikDbConText>());
             return services;
         }

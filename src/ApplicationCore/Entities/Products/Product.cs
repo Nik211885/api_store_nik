@@ -1,6 +1,8 @@
 ﻿using ApplicationCore.Entities.Order;
 using System.ComponentModel.DataAnnotations;
 using ApplicationCore.Entities.Ratings;
+using System.ComponentModel.DataAnnotations.Schema;
+using ApplicationCore.Entities.Attributes;
 
 namespace ApplicationCore.Entities.Products
 {
@@ -20,9 +22,11 @@ namespace ApplicationCore.Entities.Products
         [Required]
         [MaxLength(70)]
         public string ImageProduct { get; set; } = null!;
+        [MinValue(1)]
         [Required]
         public int Quantity { get; set; }
         [Required]
+        [MinValue(0)]
         public decimal Price { get; set; }
         [MaxLength(50)]
         public string? KeySearch { get; set; }
@@ -41,5 +45,6 @@ namespace ApplicationCore.Entities.Products
             KeySearch = keySearch;
             Quantity = quantity;
         }
+
     }
 }

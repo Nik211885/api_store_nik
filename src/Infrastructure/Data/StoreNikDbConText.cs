@@ -1,6 +1,5 @@
 ﻿using Application.Interface;
 using ApplicationCore.Entities;
-using ApplicationCore.Entities.Address;
 using ApplicationCore.Entities.Order;
 using ApplicationCore.Entities.Products;
 using ApplicationCore.Entities.Ratings;
@@ -8,7 +7,6 @@ using Infrastructure.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 
 namespace Infrastructure.Data
@@ -21,7 +19,7 @@ namespace Infrastructure.Data
         ApplicationUserLogin,
         ApplicationRoleClaim, 
         ApplicationUserToken>
-        ,IStoreNikDbContext
+        , IStoreNikDbContext
     {
         private readonly IPublisher _publisher;
         public StoreNikDbConText(DbContextOptions<StoreNikDbConText> dbContext,
@@ -35,15 +33,13 @@ namespace Infrastructure.Data
         public DbSet<ProductValueType> ProductValueTypes { get; set; }
         public DbSet<PromotionDiscount> PromotionDiscounts { get; set; }
         public DbSet<ProductPromotionDiscount> ProductPromotionDiscounts { get; set; }
-        public DbSet<City> Cities { get; set; }
-        public DbSet<District> Districts { get; set; }
-        public DbSet<Village> Villages { get; set; }
-        public DbSet<AddressState> AddressState { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Reaction> Reactions { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<OrderDetailProductValueType> OrderDetailProductValueType { get ; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

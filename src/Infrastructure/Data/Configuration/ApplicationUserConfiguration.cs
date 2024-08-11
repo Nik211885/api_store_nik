@@ -51,7 +51,6 @@ namespace Infrastructure.Data.Configuration
             builder.HasMany(u => u.Ratings)
             .WithOne()
             .HasForeignKey(r => r.UserId)
-            .OnDelete(DeleteBehavior.NoAction)
             .IsRequired();
 
             builder.HasMany(u => u.Messages)
@@ -63,10 +62,10 @@ namespace Infrastructure.Data.Configuration
             .WithOne()
             .HasForeignKey(m => m.MessageTo)
             .IsRequired();
-            builder.HasMany(u => u.AddressStates)
+            builder.HasMany(u => u.Reactions)
             .WithOne()
-            .HasForeignKey(a=>a.UserId)
-            .IsRequired();
+            .HasForeignKey(r => r.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

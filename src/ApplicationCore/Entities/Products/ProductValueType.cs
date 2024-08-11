@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ApplicationCore.Entities.Attributes;
+using ApplicationCore.Entities.Order;
+using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationCore.Entities.Products
 {
@@ -16,12 +18,16 @@ namespace ApplicationCore.Entities.Products
         [MaxLength(50)]
         public string ValueType { get; set; } = null!;
         [Required]
+        [MinValue(1)]
         public int Quantity { get; set; }
         [Required]
         /// <summary>
         /// Price in options
         /// </summary>
+        /// 
+        [MinValue(0)]
         public decimal Price { get; set; }
+        public ICollection<OrderDetailProductValueType>? OrderDetailProductValueTypes { get; set; }
         public ProductValueType(string valueType, int quantity, decimal price, string productNameTypeId)
         {
             ValueType = valueType;

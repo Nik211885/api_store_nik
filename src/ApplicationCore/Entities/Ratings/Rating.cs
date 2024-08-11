@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Entities.Products;
+﻿using ApplicationCore.Entities.Attributes;
+using ApplicationCore.Entities.Products;
 using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationCore.Entities.Ratings
@@ -13,11 +14,11 @@ namespace ApplicationCore.Entities.Ratings
         public string ProductId { get; private set; } = null!;
         public Product? Product { get; set; }
         [Required]
-        public float Start { get; set; }
+        public int Start { get; set; }
         public string? CommentRating { get; set; }
         public DateTime DateRating { get; private set; }
         public ICollection<Reaction>? Reactions { get; set; }
-        public Rating(string userId, string productId, float start, string commentRating)
+        public Rating(string userId, string productId, int start, string commentRating)
         {
             UserId = userId;
             ProductId = productId;

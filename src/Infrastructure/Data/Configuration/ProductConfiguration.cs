@@ -27,6 +27,7 @@ namespace Infrastructure.Data.Configuration
 
             builder.HasMany(p => p.Ratings)
                 .WithOne(ppd => ppd.Product)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasForeignKey(p => p.ProductId);
         }
     }

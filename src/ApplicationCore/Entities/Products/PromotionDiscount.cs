@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ApplicationCore.Entities.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationCore.Entities.Products
 {
@@ -25,6 +26,8 @@ namespace ApplicationCore.Entities.Products
         /// Promotion must from (0-100]%
         /// </summary>
         [Required]
+        [MinValue(0)]
+        [MaxValue(100)]
         public decimal Promotion { get; set; }
         /// <summary>
         /// Start day begin discount program

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using ApplicationCore.Entities.Attributes;
+using MediatR;
 using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationCore.Entities
@@ -8,7 +9,7 @@ namespace ApplicationCore.Entities
         [Key]
         [Required]
         [KeyGuidLength]
-        public string Id { get; set; } = null!;
+        public string Id { get; private set; } = null!;
         protected BaseEntity()
         {
             Id = Guid.NewGuid().ToString();

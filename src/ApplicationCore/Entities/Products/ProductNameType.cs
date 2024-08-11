@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ApplicationCore.Entities.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationCore.Entities.Products
 {

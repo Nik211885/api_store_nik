@@ -31,5 +31,7 @@ namespace Application.Interface
         ///     Return true if refresh token has duplicate in server
         /// </returns>
         Task<bool> IsRefreshTokenAsync(string refreshToken, string userId);
+        Task<bool> LogoutAsync(string userId);
+        string? GetUserIdByTokenClaim(string accessToken);
     }
 }

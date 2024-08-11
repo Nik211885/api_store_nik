@@ -1,7 +1,7 @@
 using Application.Common;
+using Application.CQRS.Products.Commands;
+using Application.CQRS.Products.Queries;
 using Application.DTOs;
-using Application.Products.Commands;
-using Application.Products.Queries;
 using ApplicationCore.Entities.Products;
 using Infrastructure.Data;
 using Infrastructure.Identity;
@@ -55,7 +55,7 @@ public class WeatherForecastController : ControllerBase
     public async Task<IActionResult> CreateProduct(ISender sender, CreateProductCommand command)
     {
         var result = await sender.Send(command);
-        if(result.IsSuccess)
+        if(result.Success)
         {
             return Created();
         }
@@ -90,7 +90,7 @@ public class WeatherForecastController : ControllerBase
     public async Task<IActionResult> DeleteProduct([Required] string id,ISender sender)
     {
         var result = await sender.Send(new DeleteProductCommand(id));
-        if (result.IsSuccess)
+        if (result.Success)
         {
             return Ok();
         }
@@ -100,7 +100,7 @@ public class WeatherForecastController : ControllerBase
     public async Task<IActionResult> UpdateProductAsync(ISender sender, [Required] string Id, ProductUpdateViewModel product)
     {
         var result = await sender.Send(new UpdatePutProductCommand(Id, product));
-        if (result.IsSuccess)
+        if (result.Success)
         {
             return NoContent();
         }
@@ -144,7 +144,7 @@ public class WeatherForecastController : ControllerBase
     public async Task<IActionResult> UpdatePatchProduct([Required] string id,[FromBody] JsonPatchDocument<Product> patchDoc, ISender sender)
     {
         var result = await sender.Send(new UpdatePatchProductCommand(id, patchDoc));
-        if (result.IsSuccess)
+        if (result.Success)
         {
             return NoContent();
         }

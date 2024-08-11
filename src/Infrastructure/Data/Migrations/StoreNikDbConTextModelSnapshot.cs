@@ -22,98 +22,6 @@ namespace Infrastructure.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ApplicationCore.Entities.Address.AddressState", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("AddressDetail")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("VillageId")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("VillageId");
-
-                    b.ToTable("AddressState");
-                });
-
-            modelBuilder.Entity("ApplicationCore.Entities.Address.City", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("CityName")
-                        .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cities");
-                });
-
-            modelBuilder.Entity("ApplicationCore.Entities.Address.District", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("CityId")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("DistrictName")
-                        .IsRequired()
-                        .HasMaxLength(35)
-                        .HasColumnType("nvarchar(35)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.ToTable("Districts");
-                });
-
-            modelBuilder.Entity("ApplicationCore.Entities.Address.Village", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("DistrictId")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("NameVillage")
-                        .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DistrictId");
-
-                    b.ToTable("Villages");
-                });
-
             modelBuilder.Entity("ApplicationCore.Entities.Message", b =>
                 {
                     b.Property<string>("Id")
@@ -149,6 +57,9 @@ namespace Infrastructure.Data.Migrations
                     b.Property<string>("Id")
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
+
+                    b.Property<bool>("IsCheckOut")
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -188,6 +99,23 @@ namespace Infrastructure.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrderDetails");
+                });
+
+            modelBuilder.Entity("ApplicationCore.Entities.Order.OrderDetailProductValueType", b =>
+                {
+                    b.Property<string>("ProductValueTypeId")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("OrderDetailId")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.HasKey("ProductValueTypeId", "OrderDetailId");
+
+                    b.HasIndex("OrderDetailId");
+
+                    b.ToTable("OrderDetailProductValueType");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Products.Product", b =>
@@ -354,8 +282,8 @@ namespace Infrastructure.Data.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
-                    b.Property<float>("Start")
-                        .HasColumnType("real");
+                    b.Property<int>("Start")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -388,9 +316,16 @@ namespace Infrastructure.Data.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RatingId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Reactions");
                 });
@@ -457,11 +392,23 @@ namespace Infrastructure.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Address1")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Address2")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("Bio")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("BirthDay")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("City")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -508,6 +455,9 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<string>("RefreshToken")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RefreshTokenExpires")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -613,45 +563,6 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ApplicationCore.Entities.Address.AddressState", b =>
-                {
-                    b.HasOne("Infrastructure.Identity.ApplicationUser", null)
-                        .WithMany("AddressStates")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ApplicationCore.Entities.Address.Village", "Village")
-                        .WithMany("Addresses")
-                        .HasForeignKey("VillageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Village");
-                });
-
-            modelBuilder.Entity("ApplicationCore.Entities.Address.District", b =>
-                {
-                    b.HasOne("ApplicationCore.Entities.Address.City", "City")
-                        .WithMany("Districts")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("City");
-                });
-
-            modelBuilder.Entity("ApplicationCore.Entities.Address.Village", b =>
-                {
-                    b.HasOne("ApplicationCore.Entities.Address.District", "District")
-                        .WithMany("Villages")
-                        .HasForeignKey("DistrictId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("District");
-                });
-
             modelBuilder.Entity("ApplicationCore.Entities.Message", b =>
                 {
                     b.HasOne("Infrastructure.Identity.ApplicationUser", null)
@@ -687,6 +598,25 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Cart");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ApplicationCore.Entities.Order.OrderDetailProductValueType", b =>
+                {
+                    b.HasOne("ApplicationCore.Entities.Order.OrderDetail", "OrderDetail")
+                        .WithMany("OrderDetailProductValueTypes")
+                        .HasForeignKey("OrderDetailId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ApplicationCore.Entities.Products.ProductValueType", "ProductValueType")
+                        .WithMany("OrderDetailProductValueTypes")
+                        .HasForeignKey("OrderDetailId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("OrderDetail");
+
+                    b.Navigation("ProductValueType");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Products.Product", b =>
@@ -753,13 +683,13 @@ namespace Infrastructure.Data.Migrations
                     b.HasOne("ApplicationCore.Entities.Products.Product", "Product")
                         .WithMany("Ratings")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Infrastructure.Identity.ApplicationUser", null)
                         .WithMany("Ratings")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Product");
@@ -771,6 +701,12 @@ namespace Infrastructure.Data.Migrations
                         .WithMany("Reactions")
                         .HasForeignKey("RatingId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Infrastructure.Identity.ApplicationUser", null)
+                        .WithMany("Reactions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Rating");
@@ -839,24 +775,14 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ApplicationCore.Entities.Address.City", b =>
-                {
-                    b.Navigation("Districts");
-                });
-
-            modelBuilder.Entity("ApplicationCore.Entities.Address.District", b =>
-                {
-                    b.Navigation("Villages");
-                });
-
-            modelBuilder.Entity("ApplicationCore.Entities.Address.Village", b =>
-                {
-                    b.Navigation("Addresses");
-                });
-
             modelBuilder.Entity("ApplicationCore.Entities.Order.Cart", b =>
                 {
                     b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("ApplicationCore.Entities.Order.OrderDetail", b =>
+                {
+                    b.Navigation("OrderDetailProductValueTypes");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Products.Product", b =>
@@ -873,6 +799,11 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("ApplicationCore.Entities.Products.ProductNameType", b =>
                 {
                     b.Navigation("ProductValueTypes");
+                });
+
+            modelBuilder.Entity("ApplicationCore.Entities.Products.ProductValueType", b =>
+                {
+                    b.Navigation("OrderDetailProductValueTypes");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Products.PromotionDiscount", b =>
@@ -894,8 +825,6 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Infrastructure.Identity.ApplicationUser", b =>
                 {
-                    b.Navigation("AddressStates");
-
                     b.Navigation("Carts");
 
                     b.Navigation("Messages");
@@ -905,6 +834,8 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("PromotionDiscounts");
 
                     b.Navigation("Ratings");
+
+                    b.Navigation("Reactions");
 
                     b.Navigation("UserClaims");
 

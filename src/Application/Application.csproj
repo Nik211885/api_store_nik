@@ -7,24 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ProductPromotion - Copy\**" />
+    <EmbeddedResource Remove="ProductPromotion - Copy\**" />
+    <None Remove="ProductPromotion - Copy\**" />
+  </ItemGroup>
+
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.9.2" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.2" />
     <PackageReference Include="MediatR" Version="12.4.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="8.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ApplicationCore\ApplicationCore.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="OrderDetails\Command\" />
-    <Folder Include="OrderDetails\Handler\" />
-    <Folder Include="OrderDetails\Queries\" />
-    <Folder Include="Ratings\Commands\" />
-    <Folder Include="Ratings\Handlers\" />
-    <Folder Include="Ratings\Queries\" />
   </ItemGroup>
 
 </Project>

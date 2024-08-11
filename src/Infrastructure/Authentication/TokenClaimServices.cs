@@ -27,30 +27,55 @@ namespace Infrastructure.Authentication
         public async Task<TokenClaimsDTO> GetTokenClaimsAsync(string userId)
         {
             var accessToken = await GetJwtAccessTokenAsync(userId);
-            var refreshTokenString = await GetRefreshToken(userId);
-            var refreshToken = new RefreshTokenDTO(refreshTokenString, DateTime.Now.AddDays(7));
+            var refreshToken = await GetRefreshToken(userId);
             return new TokenClaimsDTO(accessToken, refreshToken);
+        }
+
+        public string? GetUserIdByTokenClaim(string accessToken)
+        {
+            var jwtHandler = new JwtSecurityTokenHandler();
+            var jwtToken = jwtHandler.ReadToken(accessToken) as JwtSecurityToken;
+            if(jwtToken is null)
+            {
+                return null;
+            }
+            var userId = jwtToken.Claims.First(claim => claim.Type.Equals(ClaimTypes.NameIdentifier)).Value;
+            return userId;
         }
 
         public bool IsAccessTokenHasExpires(string accessToken)
         {
             var jwtHandler = new JwtSecurityTokenHandler();
             var jwtToken = jwtHandler.ReadJwtToken(accessToken);
-            if(jwtToken is null || jwtToken.ValidTo < DateTime.Now)
+            if(jwtToken is null || jwtToken.ValidTo < DateTime.UtcNow)
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
 
         }
 
         public async Task<bool> IsRefreshTokenAsync(string refreshToken, string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if(user is null || user.RefreshToken != refreshToken)
+            if(user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpires < DateTime.Now)
             {
                 return false;
             }
+            return true;
+        }
+
+        public async Task<bool> LogoutAsync(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if(user is null)
+            {
+                return false;
+            }
+            user.RefreshToken = null;
+            user.RefreshTokenExpires = DateTime.MinValue;
+            _dbContext.Users.Update(user);
+            await _dbContext.SaveChangesAsync();
             return true;
         }
 
@@ -101,14 +126,12 @@ namespace Infrastructure.Authentication
             {
                 random.GetBytes(rand);
             }
-            var user = await _userManager.FindByIdAsync(userId);
-            if(user is null)
-            {
-                throw new Exception("User is not null");
-            }
+            var user = await _userManager.FindByIdAsync(userId) ?? throw new Exception("User is not null");
             //Save refresh Token into database
             string refreshToken =  Convert.ToBase64String(rand);
+            DateTime exprise = DateTime.Now.AddDays(7);
             user.RefreshToken = refreshToken;
+            user.RefreshTokenExpires = exprise;
             await _userManager.UpdateAsync(user);
             return refreshToken;
         }
