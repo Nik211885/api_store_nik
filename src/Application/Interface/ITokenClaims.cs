@@ -13,7 +13,7 @@ namespace Application.Interface
         /// <returns>
         ///     Return access token and refresh token
         /// </returns>
-        Task<TokenClaimsDTO> GetTokenClaimsAsync(string userId);
+        Task<TokenClaimsDTO> GetTokenClaimsAsync(string userName);
         /// <summary>
         /// Check access token has expires
         /// </summary>
@@ -21,17 +21,22 @@ namespace Application.Interface
         /// <returns>
         ///     Return true if access token has expires otherwise false
         /// </returns>
-        bool IsAccessTokenHasExpires(string accessToken);
+        Task<IResult> IsRefreshTokenAsync(string refreshToken, string userId);
         /// <summary>
-        ///  Check refresh token in client has duplicate server 
+        ///     Check access token have the correct signature
         /// </summary>
-        /// <param name="refreshToken"></param>
-        /// <param name="userId"></param>
+        /// <param name="accessToken"></param>
         /// <returns>
-        ///     Return true if refresh token has duplicate in server
+        ///     Return userId if access token have the correct signature otherwise return nill
         /// </returns>
-        Task<bool> IsRefreshTokenAsync(string refreshToken, string userId);
-        Task<bool> LogoutAsync(string userId);
-        string? GetUserIdByTokenClaim(string accessToken);
+        Task<string?> ValidAccessTokenAsync(string accessToken);
+        /// <summary>
+        ///     Check access token have the correct signature no check lef time
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns>
+        ///     Return userId if access token have the correct signature otherwise return nill
+        /// </returns>
+        Task<string?> ValidAccessTokenHasExpriseAsync(string accessToken);
     }
 }

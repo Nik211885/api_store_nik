@@ -8,7 +8,7 @@ using MediatR;
 
 namespace Application.CQRS.OrderDetails.Handler
 {
-    public class CreateOrderDetailCommandHandler : IRequestHandler<CreateOrderDetailCommand, Result>
+    public class CreateOrderDetailCommandHandler : IRequestHandler<CreateOrderDetailCommand, IResult>
     {
         private readonly IStoreNikDbContext _dbContext;
         private readonly ISender _sender;
@@ -17,7 +17,7 @@ namespace Application.CQRS.OrderDetails.Handler
             _dbContext = dbContext;
             _sender = sender;
         }
-        public async Task<Result> Handle(CreateOrderDetailCommand request, CancellationToken cancellationToken)
+        public async Task<IResult> Handle(CreateOrderDetailCommand request, CancellationToken cancellationToken)
         {
             // check cart for user
             var cartId = await _sender.Send(new GetCartIdByUserQuery(request.UserId),cancellationToken);

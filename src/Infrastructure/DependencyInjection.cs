@@ -1,8 +1,8 @@
 ﻿using Application.Interface;
-using ApplicationCore.Entities;
-using ApplicationCore.Interface;
-using Infrastructure.Authentication;
+using Application.Mappings;
 using Infrastructure.Data;
+using Infrastructure.Services;
+using Infrastructure.Services.Email;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +19,9 @@ namespace Infrastructure
             {
                 options.UseSqlServer(connectionString);
             });
+            services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
+            services.AddScoped<IAccountManager, AccountManagerServices>();
+            services.AddTransient<IEmail,EmailServices>();  
             services.AddScoped<ITokenClaims, TokenClaimServices>();
             services.AddScoped<IStoreNikDbContext>(provider=>provider.GetRequiredService<StoreNikDbConText>());
             return services;

@@ -1,7 +1,7 @@
-﻿using Application.Common.ResultTypes;
+﻿using Application.Interface;
 using MediatR;
 
 namespace Application.CQRS.Carts.Commands
 {
-    public record class CreateCartCommand(string UserId) : IRequest<Result>;
+    public record class CreateCartCommand(string UserId) : IRequest<IResult>;
 }

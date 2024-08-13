@@ -1,11 +1,11 @@
-﻿using Application.Common.ResultTypes;
+﻿using Application.Interface;
 using FluentValidation;
 using MediatR;
 
 namespace Application.CQRS.OrderDetails.Command
 {
     public record UpdateOrderDetailCommand(string UserId, string OrderId, IEnumerable<string> ProductValueTypeId, int Quantity)
-        : IRequest<Result>;
+        : IRequest<IResult>;
     public class UpdateOrderDetailCommandValidator :
         AbstractValidator<UpdateOrderDetailCommand>
     {

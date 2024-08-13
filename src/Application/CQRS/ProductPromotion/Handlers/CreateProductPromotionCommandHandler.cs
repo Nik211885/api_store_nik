@@ -7,14 +7,14 @@ using MediatR;
 
 namespace Application.CQRS.ProductPromotion.Handlers
 {
-    public class CreateProductPromotionCommandHandler : IRequestHandler<CreateProductPromotionCommand, Result>
+    public class CreateProductPromotionCommandHandler : IRequestHandler<CreateProductPromotionCommand, IResult>
     {
         private readonly IStoreNikDbContext _dbContext;
         public CreateProductPromotionCommandHandler(IStoreNikDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-        public async Task<Result> Handle(CreateProductPromotionCommand request, CancellationToken cancellationToken)
+        public async Task<IResult> Handle(CreateProductPromotionCommand request, CancellationToken cancellationToken)
         {
             var productPromotion = Mapping<CreateProductPromotionCommand, ProductPromotionDiscount>
                 .CreateMap().Map<ProductPromotionDiscount>(request);

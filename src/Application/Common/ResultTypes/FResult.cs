@@ -1,16 +1,35 @@
-﻿namespace Application.Common.ResultTypes
+﻿using Application.Interface;
+using Microsoft.AspNetCore.Identity;
+
+namespace Application.Common.ResultTypes
 {
-    public class FResult
+    public static class FResult
     {
-        public static Result Success()
+        public static  IResult  Success(dynamic doc)
+        {
+            return new Result() { Success = true, AttachedIsSuccess = doc };
+        }
+        public static IResult Success()
         {
             return new Result { Success = true };
         }
-        public static Result Failure(params string[] message)
+        public static IResult Failure(params string[] message)
         {
             return new Result { Success = false, Errors = message };
         }
-        public static Result NotFound(string id, string nameEntityNotFound = "entity")
+        public static IResult Failure(IEnumerable<string>? message)
+        {
+            return new Result { Success = false, Errors = message };
+        }
+        public static IResult Failure(Exception ex)
+        {
+            return new Result { Success = false, Errors = (IEnumerable<string>)ex.Data.Values};
+        }
+        public static IResult Failure(IEnumerable<IdentityError> error)
+        {
+            return new Result { Success = false, Errors = error.Select(x=>x.Description).ToList() };
+        }
+        public static IResult NotFound(string id, string nameEntityNotFound = "entity")
         {
             var result = new List<string>
             {

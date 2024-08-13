@@ -8,14 +8,14 @@ using MediatR;
 namespace Application.CQRS.Promotions.Handlers
 {
     public class CreatePromotionCommandHandler :
-        IRequestHandler<CreatePromotionCommand, Result>
+        IRequestHandler<CreatePromotionCommand, IResult>
     {
         private readonly IStoreNikDbContext _dbContext;
         public CreatePromotionCommandHandler(IStoreNikDbContext dbContext, ISender sender)
         {
             _dbContext = dbContext;
         }
-        public async Task<Result> Handle(CreatePromotionCommand request, CancellationToken cancellationToken)
+        public async Task<IResult> Handle(CreatePromotionCommand request, CancellationToken cancellationToken)
         {
             var promotion = Mapping<CreatePromotionCommand, PromotionDiscount>.CreateMap().Map<PromotionDiscount>(request);
             _dbContext.PromotionDiscounts.Add(promotion);

@@ -7,14 +7,14 @@ using MediatR;
 
 namespace Application.CQRS.Reactions.Handlers
 {
-    public class CreateReactionCommandHandler : IRequestHandler<CreateReactionCommand, Result>
+    public class CreateReactionCommandHandler : IRequestHandler<CreateReactionCommand, IResult>
     {
         private readonly IStoreNikDbContext _dbContext;
         public CreateReactionCommandHandler(IStoreNikDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-        public async Task<Result> Handle(CreateReactionCommand request, CancellationToken cancellationToken)
+        public async Task<IResult> Handle(CreateReactionCommand request, CancellationToken cancellationToken)
         {
             var reaction = Mapping<CreateReactionCommand, Reaction>.CreateMap().Map<Reaction>(request);
             _dbContext.Reactions.Add(reaction);

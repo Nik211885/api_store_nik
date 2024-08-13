@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Application.CQRS.Reactions.Handlers
 {
-    public class DeleteReactionCommandHandler : IRequestHandler<DeleteReactionCommand, Result>
+    public class DeleteReactionCommandHandler : IRequestHandler<DeleteReactionCommand, IResult>
     {
         private readonly IStoreNikDbContext _dbContext;
         private readonly ISender _sender;
@@ -16,7 +16,7 @@ namespace Application.CQRS.Reactions.Handlers
             _dbContext = dbContext;
             _sender = sender;
         }
-        public async Task<Result> Handle(DeleteReactionCommand request, CancellationToken cancellationToken)
+        public async Task<IResult> Handle(DeleteReactionCommand request, CancellationToken cancellationToken)
         {
             var reaction = await _sender.Send(new GetReactionByIdQuery(request.ReactionId), cancellationToken);
             if(reaction is null)

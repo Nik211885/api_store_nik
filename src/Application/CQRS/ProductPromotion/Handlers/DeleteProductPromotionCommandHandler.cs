@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Application.CQRS.ProductPromotion.Handlers
 {
-    public class DeleteProductPromotionCommandHandler : IRequestHandler<DeleteProductPromotionCommand, Result>
+    public class DeleteProductPromotionCommandHandler : IRequestHandler<DeleteProductPromotionCommand, IResult>
     {
         private readonly IStoreNikDbContext _dbContext;
         private readonly ISender _sender;
@@ -15,7 +15,7 @@ namespace Application.CQRS.ProductPromotion.Handlers
             _dbContext = dbContext;
             _sender = sender;
         }
-        public async Task<Result> Handle(DeleteProductPromotionCommand request, CancellationToken cancellationToken)
+        public async Task<IResult> Handle(DeleteProductPromotionCommand request, CancellationToken cancellationToken)
         {
             var productPromotion = await _sender.Send(new GetProductPromotionQuery(request.ProductId, request.PromotionId));
             if (productPromotion is null)

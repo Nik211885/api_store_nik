@@ -1,11 +1,10 @@
 ﻿using Application.DTOs;
 using Application.Interface;
-using Infrastructure.Data;
 using Infrastructure.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace WebApi.Controllers.AccountManager
@@ -14,92 +13,80 @@ namespace WebApi.Controllers.AccountManager
     [ApiController]
     public class AccountManagerController : ControllerBase
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly StoreNikDbConText _dbContext;
-        private readonly ITokenClaims _tokenClaim;
+        private readonly IAccountManager _accountManager;
         public AccountManagerController(
-            StoreNikDbConText dbContext,
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            ITokenClaims tokenClaim
+            IAccountManager accountManager
             )
         {
-            _dbContext = dbContext;
-            _tokenClaim = tokenClaim;
-            _signInManager = signInManager;
-            _userManager = userManager;
+           _accountManager = accountManager;
         }
         //After create user success redirect dashboard because user has token after regrist 
         [HttpPost("regrist")]
         public async Task<ActionResult<TokenClaimsDTO>> RegristAsync([FromBody] RegristViewModel userRegrist)
         {
-            var user = new ApplicationUser
+            var result = await _accountManager.RegristAsync(userRegrist);
+            if (result.Failure())
             {
-                UserName = userRegrist.UserName,
-                Email = userRegrist.Email,
-            };
-            var result = await _userManager.CreateAsync(user,userRegrist.PassWord);
-            if (result.Succeeded)
-            {
-                //Generator token claim
-                var tokenClaim = await _tokenClaim.GetTokenClaimsAsync(user.Id);
-                return tokenClaim;
+                return BadRequest(result.Errors);
             }
-            return BadRequest(result.Errors);
+            return Ok(result.AttachedIsSuccess);
         }
         [HttpPost("login")]
         public async Task<ActionResult<TokenClaimsDTO>> LoginAsync([FromBody] LoginViewModel userLogin)
         {
-            var result = await _signInManager.PasswordSignInAsync(userLogin.UserName, userLogin.Password, true, true);
-            if (result.Succeeded)
+            var result = await _accountManager.LoginAsync(userLogin);
+            if (result.Failure())
             {
-                //Generate token claim
-                //User name is not null
-                var userIdQuery = from u in _dbContext.Users
-                             where u.UserName!.Equals(userLogin.UserName)
-                             select u.Id;
-                var userId = await userIdQuery.FirstOrDefaultAsync();
-                if(userId is not null)
-                {
-                    var tokenClaim = await _tokenClaim.GetTokenClaimsAsync(userId);
-                    return tokenClaim;
-                }
+                return BadRequest(result.Errors);
             }
-            return BadRequest("User name or password is not correct");
+            return Ok(result.AttachedIsSuccess);
         }
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("logout")]
-        [Authorize]
         public async Task<IActionResult> LogoutAsync()
         {
             var userId = User.Claims.First(claim => claim.Type.Equals(ClaimTypes.NameIdentifier)).Value;
-            if(userId is null)
+            var result = await _accountManager.LogoutAsync(userId);
+            if (result.Success)
             {
-                return BadRequest("User is not exits");
+                return Ok("Logout is success");
             }
-            var result = await  _tokenClaim.LogoutAsync(userId);
-            if (result)
-            {
-                return NoContent();
-            }
-            return BadRequest();
+            return BadRequest(result.Errors);
             //Refresh token is null
         }
         [HttpPost("token")]
         public async Task<ActionResult<TokenClaimsDTO>> GetTokenClaim([FromBody] TokenClaimsDTO tokenClaim)
         {
-            var accessTokenHasExprise = _tokenClaim.IsAccessTokenHasExpires(tokenClaim.AccessToken);
-            if (accessTokenHasExprise)
+            var result = await _accountManager.GetTokenAsync(tokenClaim);
+            if(result.Failure())
             {
-                return BadRequest("Access token still have expiry");
+                return BadRequest(result.Errors);
             }
-            var userId = _tokenClaim.GetUserIdByTokenClaim(tokenClaim.AccessToken);
-            if(userId is null)
-            {
-                return BadRequest("User is not exits");
-            }
-            var token = await _tokenClaim.GetTokenClaimsAsync(userId);
-            return token;
+            return Ok(result.AttachedIsSuccess);
         }
+        [HttpPost("sendEmailConfirmAccount")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> SendEmailConfirmAccountAsync()
+        {
+            var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
+            var user = await _accountManager.SendEmailConfirmAsync(userId);
+            if (user.Success) {
+                return NoContent();
+            }
+            return BadRequest(user.Errors);
+        }
+        [HttpPost("EmailConfirm")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> EmailConfirm(string token)
+        {
+            var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
+            var result = await _accountManager.ConfirmEmailTokenAsync(userId, token);
+            if (result.Success)
+            {
+                return Ok("Your account has confirm email");
+            }
+            return BadRequest(result.Errors);
+        }
+
     }
 }

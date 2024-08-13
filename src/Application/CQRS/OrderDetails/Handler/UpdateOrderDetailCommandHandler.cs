@@ -3,14 +3,12 @@ using Application.CQRS.OrderDetails.Command;
 using Application.CQRS.OrderDetails.Queries;
 using Application.CQRS.Products.Queries;
 using Application.Interface;
-using ApplicationCore.Entities.Products;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Xml.Linq;
 
 namespace Application.CQRS.OrderDetails.Handler
 {
-    public class UpdateOrderDetailCommandHandler : IRequestHandler<UpdateOrderDetailCommand, Result>
+    public class UpdateOrderDetailCommandHandler : IRequestHandler<UpdateOrderDetailCommand, IResult>
     {
         private readonly IStoreNikDbContext _dbContext;
         private readonly ISender _sender;
@@ -19,7 +17,7 @@ namespace Application.CQRS.OrderDetails.Handler
             _dbContext = dbContext;
             _sender = sender;
         }
-        public async Task<Result> Handle(UpdateOrderDetailCommand request, CancellationToken cancellationToken)
+        public async Task<IResult> Handle(UpdateOrderDetailCommand request, CancellationToken cancellationToken)
         {
             // Check user has exits 
 

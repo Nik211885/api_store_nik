@@ -1,11 +1,11 @@
-﻿using Application.Common.ResultTypes;
-using Application.DTOs;
+﻿using Application.DTOs;
+using Application.Interface;
 using FluentValidation;
 using MediatR;
 
 namespace Application.CQRS.Products.Commands
 {
-    public record UpdatePutProductCommand(string Id, ProductUpdateViewModel Product) : IRequest<Result>;
+    public record UpdatePutProductCommand(string Id, ProductUpdateViewModel Product) : IRequest<IResult>;
     public class UpdatePutProductCommandValidator : AbstractValidator<UpdatePutProductCommand>
     {
         public UpdatePutProductCommandValidator()

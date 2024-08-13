@@ -1,10 +1,10 @@
-﻿using Application.Common.ResultTypes;
+﻿using Application.Interface;
 using FluentValidation;
 using MediatR;
 
 namespace Application.CQRS.Promotions.Commands
 {
-    public record UpdatePromotionCommand(string Id, string Name, string? Description, decimal Promotion, DateTime EndDate) : IRequest<Result>;
+    public record UpdatePromotionCommand(string Id, string Name, string? Description, decimal Promotion, DateTime EndDate) : IRequest<IResult>;
     public class UpdatePromotionCommandValidator : AbstractValidator<UpdatePromotionCommand>
     {
         public UpdatePromotionCommandValidator()

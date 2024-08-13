@@ -1,4 +1,4 @@
-﻿using Application.Common.ResultTypes;
+﻿using Application.Interface;
 using FluentValidation;
 using MediatR;
 
@@ -10,7 +10,7 @@ namespace Application.CQRS.Promotions.Commands
         string? Description,
         decimal Promotion,
         DateTime EndDate
-        ) : IRequest<Result>;
+        ) : IRequest<IResult>;
     public class CreatePromotionCommandValidator : AbstractValidator<CreatePromotionCommand>
     {
         public CreatePromotionCommandValidator()

@@ -1,4 +1,4 @@
-﻿using Application.Common.ResultTypes;
+﻿using Application.Interface;
 using FluentValidation;
 using MediatR;
 
@@ -7,7 +7,7 @@ namespace Application.CQRS.Ratings.Commands
     public record CreateRatingCommand(string UserId,
         string ProductId,
         float Start,
-        string? CommentRating) : IRequest<Result>;
+        string? CommentRating) : IRequest<IResult>;
     public class CreateRatingCommandValidator : AbstractValidator<CreateRatingCommand>
     {
         public CreateRatingCommandValidator()

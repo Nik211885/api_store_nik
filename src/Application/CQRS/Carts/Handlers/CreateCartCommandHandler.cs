@@ -8,7 +8,7 @@ using MediatR;
 
 namespace Application.CQRS.Carts.Handlers
 {
-    public class CreateCartCommandHandler : IRequestHandler<CreateCartCommand, Result>
+    public class CreateCartCommandHandler : IRequestHandler<CreateCartCommand, IResult>
     {
         private readonly IStoreNikDbContext _dbContext;
         private readonly ISender _sender;
@@ -17,7 +17,7 @@ namespace Application.CQRS.Carts.Handlers
             _dbContext = dbContext;
             _sender = sender;
         }
-        public async Task<Result> Handle(CreateCartCommand request, CancellationToken cancellationToken)
+        public async Task<IResult> Handle(CreateCartCommand request, CancellationToken cancellationToken)
         {
             var cartNotYetCheckOut = _sender.Send(new GetCartByUserQuery(request.UserId), cancellationToken);
             if (cartNotYetCheckOut is not null)

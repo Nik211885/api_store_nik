@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Application.CQRS.Products.Handlers
 {
-    public class UpdatePatchProductCommandHandler : IRequestHandler<UpdatePatchProductCommand, Result>
+    public class UpdatePatchProductCommandHandler : IRequestHandler<UpdatePatchProductCommand, IResult>
     {
         private readonly IStoreNikDbContext _dbContext;
         private readonly ISender _sender;
@@ -16,7 +16,7 @@ namespace Application.CQRS.Products.Handlers
             _dbContext = dbContext;
             _sender = sender;
         }
-        public async Task<Result> Handle(UpdatePatchProductCommand request, CancellationToken cancellationToken)
+        public async Task<IResult> Handle(UpdatePatchProductCommand request, CancellationToken cancellationToken)
         {
             //Check product need update
             var product = await _sender.Send(new GetProductByIdQuery(request.Id));

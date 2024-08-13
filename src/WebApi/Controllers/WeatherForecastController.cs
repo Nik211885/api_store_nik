@@ -1,15 +1,20 @@
-using Application.Common;
+    using Application.Common;
 using Application.CQRS.Products.Commands;
 using Application.CQRS.Products.Queries;
 using Application.DTOs;
+using Application.Interface;
 using ApplicationCore.Entities.Products;
 using Infrastructure.Data;
 using Infrastructure.Identity;
+using Infrastructure.Services.Email;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 namespace WebApi.Controllers;
 
@@ -18,6 +23,8 @@ namespace WebApi.Controllers;
 public class WeatherForecastController : ControllerBase
 {
     private readonly StoreNikDbConText _dbConText;
+    private readonly IEmail _emailServices;
+    private readonly MailSettings _mailSettings;
     private readonly UserManager<ApplicationUser> _userManager;
     private static readonly string[] Summaries = new[]
     {
@@ -28,13 +35,17 @@ public class WeatherForecastController : ControllerBase
 
     public WeatherForecastController(ILogger<WeatherForecastController> logger, 
         StoreNikDbConText dbConText,
-        UserManager<ApplicationUser> userManager)
+        IEmail emailServices,
+        UserManager<ApplicationUser> userManager,
+        IOptions<MailSettings> mailSettings)
     {
+        _emailServices = emailServices;
         _userManager = userManager;
         _dbConText = dbConText;
         _logger = logger;
+        _mailSettings = mailSettings.Value;
     }
-
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get()
     {
@@ -45,6 +56,21 @@ public class WeatherForecastController : ControllerBase
             Summary = Summaries[Random.Shared.Next(Summaries.Length)]
         })
         .ToArray();
+    }
+    [HttpGet("test2")]
+    public ActionResult Test()
+    {
+        return Ok(_mailSettings);
+    }
+    [HttpPost("test")]
+    public async Task<ActionResult> Check(string to, string body, string subject)
+    {
+        var result = await _emailServices.SendEmailAsync(to, body, subject);
+        if (result.Success)
+        {
+            return Ok();
+        }
+        return BadRequest(result.Errors);
     }
     [HttpGet("GetProduct")]
     public async Task<ActionResult<IEnumerable<dynamic>>> GetProduct(ISender sender){

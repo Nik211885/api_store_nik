@@ -7,14 +7,14 @@ using MediatR;
 
 namespace Application.CQRS.Products.Handlers
 {
-    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Result>
+    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, IResult>
     {
         private readonly IStoreNikDbContext _dbContext;
         public CreateProductCommandHandler(IStoreNikDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-        public async Task<Result> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+        public async Task<IResult> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {   
             if (request is null)
             {

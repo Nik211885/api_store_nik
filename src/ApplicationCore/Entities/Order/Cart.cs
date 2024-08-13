@@ -1,5 +1,4 @@
 ﻿using ApplicationCore.Entities.Attributes;
-using ApplicationCore.Interface;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

@@ -7,6 +7,7 @@ using Infrastructure.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Reflection;
 
 namespace Infrastructure.Data
@@ -48,7 +49,7 @@ namespace Infrastructure.Data
         }
         //
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
+        {      
             var eventBases = from entity in ChangeTracker.Entries<BaseEntity>()
                              where entity.Entity.Events is not null &&
                                    entity.Entity.Events.Any()

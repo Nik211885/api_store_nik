@@ -1,5 +1,5 @@
-﻿using Application.Common.ResultTypes;
-using Application.DTOs;
+﻿using Application.DTOs;
+using Application.Interface;
 using FluentValidation;
 using MediatR;
 
@@ -15,7 +15,7 @@ namespace Application.CQRS.Products.Commands
         string? KeySearch,
         IEnumerable<ProductNameTypeViewModel> NameTypes
         ) : ProductUpdateViewModel(NameProduct, Description, ImageProduct,
-            Quantity, Price, KeySearch, NameTypes), IRequest<Result>;
+            Quantity, Price, KeySearch, NameTypes), IRequest<IResult>;
 
     public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
     {

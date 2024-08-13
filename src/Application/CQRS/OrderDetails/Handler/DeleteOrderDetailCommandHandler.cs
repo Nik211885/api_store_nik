@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Application.CQRS.OrderDetails.Handler
 {
-    public class DeleteOrderDetailCommandHandler : IRequestHandler<DeleteOrderDetailCommand, Result>
+    public class DeleteOrderDetailCommandHandler : IRequestHandler<DeleteOrderDetailCommand, IResult>
     {
         private readonly IStoreNikDbContext _dbContext;
         private ISender _sender;
@@ -16,7 +16,7 @@ namespace Application.CQRS.OrderDetails.Handler
             _dbContext = dbContext;
             _sender = sender;
         }
-        public async Task<Result> Handle(DeleteOrderDetailCommand request, CancellationToken cancellationToken)
+        public async Task<IResult> Handle(DeleteOrderDetailCommand request, CancellationToken cancellationToken)
         {
             var orderDetail = await _sender.Send(new GetOrderDetailByIdQuery(request.Id),cancellationToken);
             if(orderDetail is null)

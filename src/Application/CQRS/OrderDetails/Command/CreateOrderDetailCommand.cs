@@ -1,6 +1,7 @@
-﻿using Application.Common.ResultTypes;
+﻿using Application.Interface;
 using FluentValidation;
 using MediatR;
+
 
 namespace Application.CQRS.OrderDetails.Command
 {
@@ -10,7 +11,7 @@ namespace Application.CQRS.OrderDetails.Command
         string ProductId,
         int Quantity,
         IEnumerable<string> ProductValueTypeIds
-        ) : IRequest<Result>;
+        ) : IRequest<IResult>;
     
     public class CreateOrderDetailCommandValidator : AbstractValidator<CreateOrderDetailCommand>
     {
