@@ -2,10 +2,8 @@ using Application;
 using Infrastructure;
 using Infrastructure.Data;
 using Infrastructure.Identity;
-using Infrastructure.Services.Email;
 using Microsoft.AspNetCore.Identity;
 using WebApi.Services;
-using static Org.BouncyCastle.Math.EC.ECCurve;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,16 +18,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthenticationSwaggerServices(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(cfg =>
-    {
-        cfg.User.RequireUniqueEmail = true;
-        cfg.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
-    })
-    .AddDefaultTokenProviders()
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+})
     .AddApiEndpoints()
-    .AddEntityFrameworkStores<StoreNikDbConText>();
-
-Console.WriteLine(TokenOptions.DefaultEmailProvider);
+    .AddEntityFrameworkStores<StoreNikDbConText>()
+    .AddDefaultTokenProviders();
 builder.Services.AddApplication();
 var app = builder.Build();
 // Configure the HTTP request pipeline.

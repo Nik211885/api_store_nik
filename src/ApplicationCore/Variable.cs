@@ -2,7 +2,9 @@
 {
     public enum Variable
     {
-        Confirm,
-        Token,
+        ConfirmEmail,
+        ConfirmEmailToken,
+        ForgotPassword,
+        ForgotPasswordToken,
     }
 }

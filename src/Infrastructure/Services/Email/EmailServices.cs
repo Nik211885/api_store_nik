@@ -13,14 +13,17 @@ namespace Infrastructure.Services.Email
         {
             _mailSettings = mailSettingOptions.Value;   
         }
-        public async Task<IResult> SendEmailAsync(string to, string body, string subject, bool isLink = false)
+        public async Task<IResult> SendEmailAsync(string to, string body, string subject, string? nameTo = null, bool isLink = false)
         {
             try
             {
                 var emailMessage = new MimeMessage();
                 var emailForm = new MailboxAddress(_mailSettings.Name, _mailSettings.EmailId);
                 emailMessage.From.Add(emailForm);
-                var nameTo = to.Split("@")[0];
+                if(nameTo is null)
+                {
+                    nameTo = to.Split("@")[0];
+                }
                 var emailTo = new MailboxAddress(nameTo, to);
                 emailMessage.To.Add(emailTo);
                 emailMessage.Subject = subject;

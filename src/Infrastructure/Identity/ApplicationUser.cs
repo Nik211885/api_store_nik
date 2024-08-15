@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Entities;
+﻿using Application.Interface;
+using ApplicationCore.Entities;
 using ApplicationCore.Entities.Order;
 using ApplicationCore.Entities.Products;
 using ApplicationCore.Entities.Ratings;
@@ -7,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Identity
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser, IUser
     {
         public string? FullName { get; set; }
         public string? Image { get; set; }

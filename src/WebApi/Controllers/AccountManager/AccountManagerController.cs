@@ -1,9 +1,8 @@
 ﻿using Application.DTOs;
+using Application.DTOs.Request;
 using Application.Interface;
-using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -69,7 +68,7 @@ namespace WebApi.Controllers.AccountManager
         public async Task<IActionResult> SendEmailConfirmAccountAsync()
         {
             var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
-            var user = await _accountManager.SendEmailConfirmAsync(userId);
+            var user = await _accountManager.SendConfirmEmailTokenAsync(userId);
             if (user.Success) {
                 return NoContent();
             }
@@ -77,7 +76,7 @@ namespace WebApi.Controllers.AccountManager
         }
         [HttpPost("EmailConfirm")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> EmailConfirm(string token)
+        public async Task<IActionResult> EmailConfirmAsync(string token)
         {
             var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
             var result = await _accountManager.ConfirmEmailTokenAsync(userId, token);
@@ -87,6 +86,49 @@ namespace WebApi.Controllers.AccountManager
             }
             return BadRequest(result.Errors);
         }
-
+        [HttpPost("ChangePassword")]
+        [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> ChangePasswordAsync([FromBody] UserChangePasswordViewModel changePasswordModel)
+        {
+            var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
+            var result = await _accountManager.ChangePasswordAsync(userId,changePasswordModel);
+            if (result.Success)
+            {
+                return NoContent();
+            }
+            return BadRequest(result.Errors);
+        }
+        [HttpPost("ForgotPassword")]
+        public async Task<IActionResult> ForgotPasswordAsync(string email)
+        {
+            var result = await _accountManager.SendEmailForgotPasswordAsync(email);
+            if (result.Success)
+            {
+                return NoContent();
+            }
+            return BadRequest(result.Errors);
+        }
+        [HttpPost("ResetPassword")]
+        public async Task<IActionResult> ResetPasswordAsync(string email, string token)
+        {
+            var result = await _accountManager.ResetPasswordAsync(email,token);
+            if(result.Success)
+            {
+                return NoContent();
+            }
+            return BadRequest(result.Errors);
+        }
+        [HttpPut("UpdateProfileUser")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> UpdateProfileAsync([FromBody] UpdateProfileUserViewModel profile)
+        {
+            var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
+            var result = await _accountManager.UpdateProfileForUserAsync(userId, profile);
+            if (result.Success)
+            {
+                return NoContent();
+            }
+            return BadRequest(result.Errors);
+        }
     }
 }

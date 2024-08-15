@@ -1,4 +1,5 @@
 ﻿using Application.DTOs;
+using Application.DTOs.Request;
 
 namespace Application.Interface
 {
@@ -54,7 +55,7 @@ namespace Application.Interface
         ///     Return result success if email send success for user
         ///     otherwise is result is fail
         /// </returns>
-        Task<IResult> SendEmailConfirmAsync(string userId);
+        Task<IResult> SendConfirmEmailTokenAsync(string userId);
         /// <summary>
         ///     Check email token could correct
         /// </summary>
@@ -65,5 +66,33 @@ namespace Application.Interface
         ///     otherwise Result Fail
         /// </returns>
         Task<IResult> ConfirmEmailTokenAsync(string userId, string token);
+        /// <summary>
+        ///     Change password for user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="userChangePassword"></param>
+        /// <returns>
+        ///     Return success if change password is success
+        ///     otherwise Fail
+        /// </returns>
+        Task<IResult> ChangePasswordAsync(string userId, UserChangePasswordViewModel userChangePassword);
+        /// <summary>
+        ///     Forgot password
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<IResult> SendEmailForgotPasswordAsync(string email);
+        /// <summary>
+        ///  Reset your password
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<IResult> ResetPasswordAsync(string email, string token);
+        /// <summary>
+        ///     Update user profile
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<IResult> UpdateProfileForUserAsync(string userId, UpdateProfileUserViewModel profile);
     }
 }

@@ -1,67 +1,75 @@
 ﻿using Application.Common.ResultTypes;
 using Application.DTOs;
+using Application.DTOs.Request;
 using Application.Interface;
-using ApplicationCore;
+using Application.Mappings;
 using Infrastructure.Data;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using PasswordGenerator;
+using v = ApplicationCore.Variable;
 
 namespace Infrastructure.Services
 {
     public class AccountManagerServices : IAccountManager
     {
+        #region DI
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly StoreNikDbConText _dbContext;
         private readonly IEmail _iEmailServices;
         private readonly ITokenClaims _tokenClaim;
+        private readonly UserTokenProvideServices _userTokenProvideServices;
         public AccountManagerServices(
             IEmail iEmailServices,
+            UserTokenProvideServices userTokenProvider,
             StoreNikDbConText dbContext,
+            UserTokenProvideServices userTokenProvideServices,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ITokenClaims tokenClaim
             )
         {
+            _userTokenProvideServices = userTokenProvider;
             _iEmailServices = iEmailServices;
             _dbContext = dbContext;
             _tokenClaim = tokenClaim;
             _signInManager = signInManager;
             _userManager = userManager;
         }
-
-        public async Task<IResult> SendEmailConfirmAsync(string userId)
+        #endregion
+        #region Send Email To Confirm Email
+        public async Task<IResult> SendConfirmEmailTokenAsync(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if (user is null)
+            if(user is null)
             {
-                return FResult.Failure("User is not exits");
+                return FResult.Failure("User is not null");
             }
+            //Check account has email address
             if(user.Email is null)
             {
-                return FResult.Failure("Please add your email after confirm account");
+                return FResult.Failure("Your account don't add email address");
             }
-            //Check user has confirm email
+            //Check email address is confirm
             if (user.EmailConfirmed)
             {
-                return FResult.Failure("User has confirm email");
+                return FResult.Failure("Your email address has confirm");
             }
-            //Generate token for email user confirm
-            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            if (token is null)
-            {
-                return FResult.Failure("Don't create token for confirm email");
-            }
+            //Generator token
+            var token = await _userTokenProvideServices.GeneratorTokenAsync(user,nameof(v.ConfirmEmail),nameof(v.ConfirmEmailToken));
             string body = $"Thank you for use our services and this code for confirm email is {token} you have two minute for confirm";
-            var result = await _iEmailServices.SendEmailAsync(user.Email, body, "Verify Email For Your Account", true);
+            var result = await _iEmailServices.SendEmailAsync(user.Email, body, "Verify Email For Your Account", user.UserName);
             if (result.Success)
             {
                 return FResult.Success();
             }
             return FResult.Failure(result.Errors);
         }
-
+        #endregion
+        #region Get Token Claim If Access token has exprise
         public async Task<IResult> GetTokenAsync(TokenClaimsDTO tokenClaim)
         {
             var userId = await _tokenClaim.ValidAccessTokenHasExpriseAsync(tokenClaim.AccessToken);
@@ -86,7 +94,8 @@ namespace Infrastructure.Services
             //Attached new token
             return FResult.Success(token);
         }
-
+        #endregion
+        #region Login And Return Token
         public async Task<IResult> LoginAsync(LoginViewModel userLogin)
         {
             var user = await _userManager.FindByNameAsync(userLogin.UserName);
@@ -113,7 +122,8 @@ namespace Infrastructure.Services
             await _userManager.AccessFailedAsync(user);
             return FResult.Failure("Password is not correct");
         }
-
+        #endregion
+        #region Logout Recall Refresh Token
         public async Task<IResult> LogoutAsync(string userId)
         {
             if (userId is null) { return FResult.Failure("User id is not null"); }
@@ -128,7 +138,8 @@ namespace Infrastructure.Services
             await _dbContext.SaveChangesAsync();
             return FResult.Success();
         }
-
+        #endregion
+        #region Regrist new account if success return new token
         public async Task<IResult> RegristAsync(RegristViewModel userRegrist)
         {
             var user = new ApplicationUser
@@ -146,7 +157,8 @@ namespace Infrastructure.Services
             }
             return FResult.Failure(result.Errors);
         }
-
+        #endregion
+        #region Verify Token for Confirm Email 
         public async Task<IResult> ConfirmEmailTokenAsync(string userId, string token)
         {
             var user = await _userManager.FindByIdAsync(userId);
@@ -154,40 +166,155 @@ namespace Infrastructure.Services
             {
                 return FResult.Failure("User is not null");
             }
-            //Check token has exprise
-            var loginProvider = TokenOptions.DefaultEmailProvider + nameof(Variable.Confirm);
-            var isEmailTokenExprise = await IsTokenHasExpriseAsync(userId, loginProvider, loginProvider + nameof(Variable.Token));
-            if (!isEmailTokenExprise)
+            if (user.EmailConfirmed)
             {
-                return FResult.Failure("Token has exprise");
+                return FResult.Failure("Your email has confirm");
             }
-            //Confirm token
-            var confirm = await _userManager.ConfirmEmailAsync(user,token);
-            if (confirm.Succeeded)
+            var result = await _userTokenProvideServices.VerifyTokenAsync(user, nameof(v.ConfirmEmail),nameof(v.ConfirmEmailToken), token);
+            if (result.Success)
+            {
+                //Update email confirm
+                user.EmailConfirmed = true;
+                _dbContext.Update(user);
+                await _dbContext.SaveChangesAsync();
+                return FResult.Success();
+            }
+            return FResult.Failure(result.Errors);
+        }
+        #endregion
+        #region Change your password
+        public async Task<IResult> ChangePasswordAsync(string userId, UserChangePasswordViewModel userChangePassword)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if(user is null)
+            {
+                return FResult.Failure("User is not null");
+            }
+            //Check new password with confirm password
+            if(userChangePassword.currentPassword == userChangePassword.confirmPassword)
+            {
+                return FResult.Failure("New password don't like confirm password");
+            }
+            var result = await _userManager.ChangePasswordAsync(user, userChangePassword.currentPassword, userChangePassword.newPassword);
+            //Some feature send email confirm
+            if (result.Succeeded)
             {
                 return FResult.Success();
             }
-            return FResult.Failure(confirm.Errors);
-            
+            return FResult.Failure(result.Errors);
+
         }
-        /// <summary>
-        ///     Check token has exprise
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="loginProvider"></param>
-        /// <returns>
-        ///     Return true if token has not exprise
-        ///     otherwise false
-        /// </returns>
-        private async Task<bool> IsTokenHasExpriseAsync(string userId, string loginProvider, string name)
+        #endregion
+        #region Send Email Requerid user forgot password
+        public async Task<IResult> SendEmailForgotPasswordAsync(string email)
         {
-            var isTokenHasExprise = from t in _dbContext.UserTokens
-                                    where t.UserId.Equals(userId)
-                                           && t.Name.Equals(name)
-                                           && t.LoginProvider.Equals(loginProvider)
-                                           && t.ExpriseToken > DateTime.UtcNow
-                                    select t.Value;
-            return await isTokenHasExprise.AnyAsync();
+            var user = await _userManager.FindByEmailAsync(email);
+            if(user is null)
+            {
+                return FResult.Failure("Don't have account use this email");
+            }
+            //Generator token
+            if (!user.EmailConfirmed)
+            {
+                return FResult.Failure("Your email address not yet confirm");
+            }
+            var token = await _userTokenProvideServices.GeneratorTokenAsync(user, nameof(v.ForgotPassword), nameof(v.ForgotPasswordToken));
+            //Send token for user
+            var body = $"Hello {user.UserName} we received required you forgot password if this is you input token {token} make update new password ";
+            var subject = "Forgot Your Password";
+            var result = await _iEmailServices.SendEmailAsync(email, body, subject, user.UserName);
+            if (result.Success)
+            {
+                return FResult.Success();
+            }
+            return FResult.Failure(result.Errors);
         }
+        #endregion
+        #region Reset password and send new password for user
+        public async Task<IResult> ResetPasswordAsync(string email, string token)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user is null)
+            {
+                return FResult.Failure("Don't have account use this email");
+            }
+            if (!user.EmailConfirmed)
+            {
+                return FResult.Failure("Don't support reset password when account not yet confirm password");
+            }
+            var isToken = await _userTokenProvideServices.VerifyTokenAsync(user, nameof(v.ForgotPassword), nameof(v.ForgotPasswordToken), token);
+            if (isToken.Failure())
+            {
+                return FResult.Failure(isToken.Errors);
+            }
+            //Random new password
+            var randomPassword = new Password(true,true,true,true,8);
+            var passwordRandom = randomPassword.Next();
+            //Save new password in db
+            var hasPassword = new PasswordHasher<ApplicationUser>();
+            user.PasswordHash = hasPassword.HashPassword(user,passwordRandom);
+            _dbContext.Update(user);
+            await _dbContext.SaveChangesAsync();
+            //Send email
+            var subject = "Reset your password";
+            var body = $"Hello {user.UserName} your password after reset is {passwordRandom} make is secrets if you want to change password. Please login again and change your password. Thank you very much";
+            var resultSendEmail = await _iEmailServices.SendEmailAsync(email, body, subject, user.UserName);
+            if(resultSendEmail.Success)
+            {
+                return FResult.Success();
+            }
+            return FResult.Failure(resultSendEmail.Errors);
+        }
+        #endregion
+        #region Update profile for user
+        public async Task<IResult> UpdateProfileForUserAsync(string userId, UpdateProfileUserViewModel profile)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if(user is null)
+            {
+                return FResult.Failure("Don't have user");
+            }
+            //Map for user
+            {
+                if(!profile.FullName.IsNullOrEmpty())
+                {
+                    user.FullName = profile.FullName;
+                }
+                if (!profile.Image.IsNullOrEmpty())
+                {
+                    user.Image = profile.Image;
+                }
+                if (!profile.Bio.IsNullOrEmpty())
+                {
+                    user.Bio = profile.Bio;
+                }
+                if (profile.BirthDay is not null)
+                {
+                    user.BirthDay = profile.BirthDay;
+                }
+                if (profile.Gender is not null)
+                {
+                    user.Gender = (bool)profile.Gender;
+                }
+                if (!profile.Address1.IsNullOrEmpty())
+                {
+                    user.Address1 = profile.Address1;
+                }
+                if (!profile.Address2.IsNullOrEmpty())
+                {
+                    user.Address2 = profile.Address2;
+                }
+                if (!profile.City.IsNullOrEmpty())
+                {
+                    user.City = profile.City;
+                }
+
+            }
+            //Save in db
+            _dbContext.Update(user);
+            await _dbContext.SaveChangesAsync();
+            return FResult.Success();
+        }
+        #endregion  
     }
 }

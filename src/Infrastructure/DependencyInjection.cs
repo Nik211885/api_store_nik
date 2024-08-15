@@ -1,5 +1,4 @@
 ﻿using Application.Interface;
-using Application.Mappings;
 using Infrastructure.Data;
 using Infrastructure.Services;
 using Infrastructure.Services.Email;
@@ -22,6 +21,7 @@ namespace Infrastructure
             services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
             services.AddScoped<IAccountManager, AccountManagerServices>();
             services.AddTransient<IEmail,EmailServices>();  
+            services.AddScoped<UserTokenProvideServices>();
             services.AddScoped<ITokenClaims, TokenClaimServices>();
             services.AddScoped<IStoreNikDbContext>(provider=>provider.GetRequiredService<StoreNikDbConText>());
             return services;

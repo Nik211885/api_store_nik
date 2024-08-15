@@ -16,6 +16,7 @@ namespace Infrastructure.Services
 {
     public class TokenClaimServices : ITokenClaims
     {
+        #region DI
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly StoreNikDbConText _dbContext;
         private readonly TokenValidationParameters _validationParameters;
@@ -32,24 +33,16 @@ namespace Infrastructure.Services
             _dbContext = dbContext;
             _configuration = configuration;
         }
+        #endregion
+        #region Get token claim
         public async Task<TokenClaimsDTO> GetTokenClaimsAsync(string userName)
         {
             var accessToken = await GetJwtAccessTokenAsync(userName);
             var refreshToken = await GetRefreshToken(userName);
             return new TokenClaimsDTO(accessToken, refreshToken);
         }
-
-        public string? GetUserIdByTokenClaim(string accessToken)
-        {
-            var jwtHandler = new JwtSecurityTokenHandler();
-            var jwtToken = jwtHandler.ReadToken(accessToken) as JwtSecurityToken;
-            if (jwtToken is null)
-            {
-                return null;
-            }
-            var userId = jwtToken.Claims.First(claim => claim.Type.Equals(ClaimTypes.NameIdentifier)).Value;
-            return userId;
-        }
+        #endregion
+        #region Check Refresh token has correct
 
         public async Task<IResult> IsRefreshTokenAsync(string refreshToken, string userId)
         {
@@ -60,7 +53,8 @@ namespace Infrastructure.Services
             }
             return FResult.Success();
         }
-
+        #endregion
+        #region Check Access Token has correct signature
         public async Task<string?> ValidAccessTokenAsync(string accessToken)
         {
             var result = await new JwtSecurityTokenHandler().ValidateTokenAsync(accessToken, _validationParameters);
@@ -70,7 +64,8 @@ namespace Infrastructure.Services
             }
             return null;
         }
-
+        #endregion
+        #region Check Token has correct signature dont check left time support allocation new token when acccess token has exprise
         public async Task<string?> ValidAccessTokenHasExpriseAsync(string accessToken)
         {
             var tokenValidationParamenter = new TokenValidationParameters()
@@ -89,7 +84,8 @@ namespace Infrastructure.Services
             }
             return null;
         }
-
+        #endregion
+        #region Get Acccess token
         private async Task<string> GetJwtAccessTokenAsync(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);
@@ -130,6 +126,8 @@ namespace Infrastructure.Services
             string jwtToken = new JwtSecurityTokenHandler().WriteToken(securityToken);
             return jwtToken;
         }
+        #endregion
+        #region Get Refresh Token
         private async Task<string> GetRefreshToken(string userName)
         {
             byte[] rand = new byte[64];
@@ -146,5 +144,6 @@ namespace Infrastructure.Services
             await _userManager.UpdateAsync(user);
             return refreshToken;
         }
+        #endregion
     }
 }
