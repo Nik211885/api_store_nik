@@ -19,7 +19,7 @@ namespace Application.CQRS.Products.Handlers
         public async Task<IResult> Handle(UpdatePatchProductCommand request, CancellationToken cancellationToken)
         {
             //Check product need update
-            var product = await _sender.Send(new GetProductByIdQuery(request.Id));
+            var product = await _sender.Send(new GetProductByIdQuery(request.Id),cancellationToken);
             if (product is null)
             {
                 return FResult.NotFound(request.Id, nameof(Product));
@@ -29,7 +29,7 @@ namespace Application.CQRS.Products.Handlers
             // If name product type is null create new array else add end
             // If patch doc create new product value type
             // If product value type is null create new array else add end
-
+            await _sender.Send(new IsProductForUserQuery(request.UserId, request.Id),cancellationToken);
             request.PatchDoc.ApplyTo(product);
             await _dbContext.SaveChangesAsync(cancellationToken);
             return FResult.Success();

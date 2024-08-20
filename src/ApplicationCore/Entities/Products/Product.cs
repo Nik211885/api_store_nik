@@ -34,6 +34,11 @@ namespace ApplicationCore.Entities.Products
         public ICollection<ProductNameType>? ProductNameTypes { get; set; }
         public ICollection<OrderDetail>? OrderDetails { get; set; }
         public ICollection<Rating>? Ratings { get; set; }
+        public ICollection<ProductDescription>? ProductDescriptions { get; set; }
+        public Product(string userId) : base()
+        {
+            UserId = userId;
+        }
         public Product(string userId, string nameProduct, string description, string imageProduct,
             decimal price, string? keySearch, int quantity)
         {

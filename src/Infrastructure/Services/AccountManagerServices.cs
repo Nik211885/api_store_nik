@@ -2,14 +2,17 @@
 using Application.DTOs;
 using Application.DTOs.Request;
 using Application.Interface;
-using Application.Mappings;
+using ApplicationCore.ValueObject;
+using Ardalis.GuardClauses;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Infrastructure.Data;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PasswordGenerator;
-using v = ApplicationCore.Variable;
+using v = ApplicationCore.ValueObject.Variable;
 
 namespace Infrastructure.Services
 {
@@ -20,10 +23,12 @@ namespace Infrastructure.Services
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly StoreNikDbConText _dbContext;
         private readonly IEmail _iEmailServices;
+        private readonly IMapper _mapper;
         private readonly ITokenClaims _tokenClaim;
         private readonly UserTokenProvideServices _userTokenProvideServices;
         public AccountManagerServices(
             IEmail iEmailServices,
+            IMapper mapper,
             UserTokenProvideServices userTokenProvider,
             StoreNikDbConText dbContext,
             UserTokenProvideServices userTokenProvideServices,
@@ -32,6 +37,7 @@ namespace Infrastructure.Services
             ITokenClaims tokenClaim
             )
         {
+            _mapper = mapper;
             _userTokenProvideServices = userTokenProvider;
             _iEmailServices = iEmailServices;
             _dbContext = dbContext;
@@ -44,20 +50,10 @@ namespace Infrastructure.Services
         public async Task<IResult> SendConfirmEmailTokenAsync(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if(user is null)
-            {
-                return FResult.Failure("User is not null");
-            }
             //Check account has email address
-            if(user.Email is null)
-            {
-                return FResult.Failure("Your account don't add email address");
-            }
-            //Check email address is confirm
-            if (user.EmailConfirmed)
-            {
-                return FResult.Failure("Your email address has confirm");
-            }
+            Guard.Against.Null<ApplicationUser>(user, nameof(user), VariableException.UserNotFound);
+            Guard.Against.Null(user.Email, nameof(Email), VariableException.EmailNull);
+            Guard.Against.Expression(emailConfirm => emailConfirm, user.EmailConfirmed, VariableException.EmailNotConfirm);
             //Generator token
             var token = await _userTokenProvideServices.GeneratorTokenAsync(user,nameof(v.ConfirmEmail),nameof(v.ConfirmEmailToken));
             string body = $"Thank you for use our services and this code for confirm email is {token} you have two minute for confirm";
@@ -73,10 +69,7 @@ namespace Infrastructure.Services
         public async Task<IResult> GetTokenAsync(TokenClaimsDTO tokenClaim)
         {
             var userId = await _tokenClaim.ValidAccessTokenHasExpriseAsync(tokenClaim.AccessToken);
-            if (userId is null)
-            {
-                return FResult.Failure("Access token not correct");
-            }
+            Guard.Against.NullOrEmpty(userId, nameof(userId),VariableException.UserNotFound);
             //Check refresh token
             var isRefreshToken = await _tokenClaim.IsRefreshTokenAsync(tokenClaim.RefreshToken, userId);
             if (isRefreshToken.Failure())
@@ -86,10 +79,7 @@ namespace Infrastructure.Services
             var userName = await _userManager.Users.
                 Where(x=>x.Id.Equals(userId)).
                 Select(x => x.UserName).FirstOrDefaultAsync();
-            if(userName is null)
-            {
-                return FResult.Failure("User is not exits");
-            }
+            Guard.Against.NullOrEmpty(userName, nameof(userName),VariableException.UserNotFound);
             var token = await _tokenClaim.GetTokenClaimsAsync(userName);
             //Attached new token
             return FResult.Success(token);
@@ -99,10 +89,7 @@ namespace Infrastructure.Services
         public async Task<IResult> LoginAsync(LoginViewModel userLogin)
         {
             var user = await _userManager.FindByNameAsync(userLogin.UserName);
-            if (user is null)
-            {
-                return FResult.Failure("User name is not correct");
-            }
+            Guard.Against.Null<ApplicationUser>(user, nameof(user), VariableException.UserNotFound);
             var result = await _signInManager.CheckPasswordSignInAsync(user, userLogin.Password, true);
             if (result.IsLockedOut)
             {
@@ -110,7 +97,7 @@ namespace Infrastructure.Services
             }
             if (result.Succeeded)
             {
-                //Generate jwt token
+                //Generate jwt token make sure user name is unique and don't change
                 if (user.UserName is null)
                 {
                     return FResult.Failure("User is not exits");
@@ -126,12 +113,8 @@ namespace Infrastructure.Services
         #region Logout Recall Refresh Token
         public async Task<IResult> LogoutAsync(string userId)
         {
-            if (userId is null) { return FResult.Failure("User id is not null"); }
             var user = await _userManager.FindByIdAsync(userId);
-            if (user is null)
-            {
-                return FResult.Failure("User don't exits");
-            }
+            Guard.Against.Null<ApplicationUser>(user, nameof(user), VariableException.UserNotFound);
             user.RefreshToken = null;
             user.RefreshTokenExpires = DateTime.MinValue;
             _dbContext.Users.Update(user);
@@ -150,6 +133,7 @@ namespace Infrastructure.Services
             var result = await _userManager.CreateAsync(user, userRegrist.PassWord);
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user, Role.User);
                 //Generator token claim
                 var tokenClaim = await _tokenClaim.GetTokenClaimsAsync(user.UserName);
                 //Attached token claim
@@ -162,14 +146,8 @@ namespace Infrastructure.Services
         public async Task<IResult> ConfirmEmailTokenAsync(string userId, string token)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if(user is null)
-            {
-                return FResult.Failure("User is not null");
-            }
-            if (user.EmailConfirmed)
-            {
-                return FResult.Failure("Your email has confirm");
-            }
+            Guard.Against.Null<ApplicationUser>(user, nameof(user), VariableException.UserNotFound);
+            Guard.Against.Expression(emailConfirm => !emailConfirm, user.EmailConfirmed, VariableException.EmailNotConfirm);
             var result = await _userTokenProvideServices.VerifyTokenAsync(user, nameof(v.ConfirmEmail),nameof(v.ConfirmEmailToken), token);
             if (result.Success)
             {
@@ -186,14 +164,10 @@ namespace Infrastructure.Services
         public async Task<IResult> ChangePasswordAsync(string userId, UserChangePasswordViewModel userChangePassword)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if(user is null)
+            Guard.Against.Null<ApplicationUser>(user, nameof(user), VariableException.UserNotFound);
+            if(userChangePassword.newPassword != userChangePassword.confirmPassword)
             {
-                return FResult.Failure("User is not null");
-            }
-            //Check new password with confirm password
-            if(userChangePassword.currentPassword == userChangePassword.confirmPassword)
-            {
-                return FResult.Failure("New password don't like confirm password");
+                throw new ArgumentException(VariableException.ChangePassword);
             }
             var result = await _userManager.ChangePasswordAsync(user, userChangePassword.currentPassword, userChangePassword.newPassword);
             //Some feature send email confirm
@@ -209,15 +183,8 @@ namespace Infrastructure.Services
         public async Task<IResult> SendEmailForgotPasswordAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
-            if(user is null)
-            {
-                return FResult.Failure("Don't have account use this email");
-            }
-            //Generator token
-            if (!user.EmailConfirmed)
-            {
-                return FResult.Failure("Your email address not yet confirm");
-            }
+            Guard.Against.Null<ApplicationUser>(user, nameof(user), VariableException.UserNotFound);
+            Guard.Against.Expression(emailConfirm => !emailConfirm, user.EmailConfirmed, VariableException.EmailNotConfirm);
             var token = await _userTokenProvideServices.GeneratorTokenAsync(user, nameof(v.ForgotPassword), nameof(v.ForgotPasswordToken));
             //Send token for user
             var body = $"Hello {user.UserName} we received required you forgot password if this is you input token {token} make update new password ";
@@ -234,14 +201,8 @@ namespace Infrastructure.Services
         public async Task<IResult> ResetPasswordAsync(string email, string token)
         {
             var user = await _userManager.FindByEmailAsync(email);
-            if (user is null)
-            {
-                return FResult.Failure("Don't have account use this email");
-            }
-            if (!user.EmailConfirmed)
-            {
-                return FResult.Failure("Don't support reset password when account not yet confirm password");
-            }
+            Guard.Against.Null<ApplicationUser>(user, nameof(user), VariableException.UserNotFound);
+            Guard.Against.Expression(emailConfirm => !emailConfirm, user.EmailConfirmed, VariableException.EmailNotConfirm);
             var isToken = await _userTokenProvideServices.VerifyTokenAsync(user, nameof(v.ForgotPassword), nameof(v.ForgotPasswordToken), token);
             if (isToken.Failure())
             {
@@ -267,13 +228,10 @@ namespace Infrastructure.Services
         }
         #endregion
         #region Update profile for user
-        public async Task<IResult> UpdateProfileForUserAsync(string userId, UpdateProfileUserViewModel profile)
+        public async Task<IResult> UpdateProfileForUserAsync(string userId, UpdateUserDetailViewModel profile)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if(user is null)
-            {
-                return FResult.Failure("Don't have user");
-            }
+            Guard.Against.Null<ApplicationUser>(user,nameof(user),VariableException.UserNotFound);
             //Map for user
             {
                 if(!profile.FullName.IsNullOrEmpty())
@@ -294,7 +252,18 @@ namespace Infrastructure.Services
                 }
                 if (profile.Gender is not null)
                 {
-                    user.Gender = (bool)profile.Gender;
+                    switch (profile.Gender.ToUpper())
+                    {
+                        case "MALE":
+                            user.Gender = true;
+                            break;
+                        case "FEMALE":
+                            user.Gender = false;
+                            break;
+                        default:
+                            throw new ArgumentException("Gender must male of female");
+                        
+                    }
                 }
                 if (!profile.Address1.IsNullOrEmpty())
                 {
@@ -315,6 +284,16 @@ namespace Infrastructure.Services
             await _dbContext.SaveChangesAsync();
             return FResult.Success();
         }
-        #endregion  
+        #endregion
+        #region Get Infromation For User
+        public async Task<UserDetailReponse?> GetInformationForUserAsync(string userId)
+        {
+            var userQuery = from u in _dbContext.Users
+                            where u.Id.Equals(userId)
+                            select u;
+            var user = userQuery.AsNoTracking().ProjectTo<UserDetailReponse>(_mapper.ConfigurationProvider);
+            return await user.AsNoTracking().FirstOrDefaultAsync();
+        }
+        #endregion
     }
 }

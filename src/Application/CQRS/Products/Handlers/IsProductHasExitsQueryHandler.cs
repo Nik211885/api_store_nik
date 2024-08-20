@@ -1,4 +1,4 @@
-﻿using Application.CQRS.Products.Queries;
+﻿    using Application.CQRS.Products.Queries;
 using Application.Interface;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

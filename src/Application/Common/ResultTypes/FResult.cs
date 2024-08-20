@@ -13,6 +13,10 @@ namespace Application.Common.ResultTypes
         {
             return new Result { Success = true };
         }
+        public static IResult Failure(ArgumentException ex)
+        {
+            return Failure(ex.Message);
+        }
         public static IResult Failure(params string[] message)
         {
             return new Result { Success = false, Errors = message };
@@ -23,7 +27,7 @@ namespace Application.Common.ResultTypes
         }
         public static IResult Failure(Exception ex)
         {
-            return new Result { Success = false, Errors = (IEnumerable<string>)ex.Data.Values};
+            return Failure(ex.Message);
         }
         public static IResult Failure(IEnumerable<IdentityError> error)
         {

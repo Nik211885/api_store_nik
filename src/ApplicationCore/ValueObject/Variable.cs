@@ -1,4 +1,4 @@
-﻿namespace ApplicationCore
+﻿namespace ApplicationCore.ValueObject
 {
     public enum Variable
     {

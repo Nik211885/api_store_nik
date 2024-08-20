@@ -160,6 +160,33 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("ApplicationCore.Entities.Products.ProductDescription", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("NameDescription")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("ValueDescription")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductDescriptions");
+                });
+
             modelBuilder.Entity("ApplicationCore.Entities.Products.ProductNameType", b =>
                 {
                     b.Property<string>("Id")
@@ -424,7 +451,7 @@ namespace Infrastructure.Data.Migrations
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Gender")
+                    b.Property<bool?>("Gender")
                         .HasColumnType("bit");
 
                     b.Property<string>("Image")
@@ -631,6 +658,17 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ApplicationCore.Entities.Products.ProductDescription", b =>
+                {
+                    b.HasOne("ApplicationCore.Entities.Products.Product", "Product")
+                        .WithMany("ProductDescriptions")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("ApplicationCore.Entities.Products.ProductNameType", b =>
                 {
                     b.HasOne("ApplicationCore.Entities.Products.Product", "Product")
@@ -791,6 +829,8 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("ApplicationCore.Entities.Products.Product", b =>
                 {
                     b.Navigation("OrderDetails");
+
+                    b.Navigation("ProductDescriptions");
 
                     b.Navigation("ProductNameTypes");
 

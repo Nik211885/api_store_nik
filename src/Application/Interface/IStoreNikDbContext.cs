@@ -18,6 +18,7 @@ namespace Application.Interface
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Reaction> Reactions { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<ProductDescription> ProductDescriptions { get; set; }
         public DbSet<OrderDetailProductValueType> OrderDetailProductValueType { get; set; }
         public Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

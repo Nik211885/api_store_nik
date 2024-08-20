@@ -1,8 +1,8 @@
 ﻿using Application.Common.ResultTypes;
 using Application.CQRS.Products.Commands;
 using Application.Interface;
-using Application.Mappings;
 using ApplicationCore.Entities.Products;
+using AutoMapper;
 using MediatR;
 
 namespace Application.CQRS.Products.Handlers
@@ -10,8 +10,10 @@ namespace Application.CQRS.Products.Handlers
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, IResult>
     {
         private readonly IStoreNikDbContext _dbContext;
-        public CreateProductCommandHandler(IStoreNikDbContext dbContext)
+        private readonly IMapper _mapper;
+        public CreateProductCommandHandler(IStoreNikDbContext dbContext, IMapper mapper)
         {
+            _mapper = mapper;
             _dbContext = dbContext;
         }
         public async Task<IResult> Handle(CreateProductCommand request, CancellationToken cancellationToken)
@@ -20,10 +22,10 @@ namespace Application.CQRS.Products.Handlers
             {
                 return FResult.Failure("Request is not null");
             }
-            var product = Mapping<CreateProductCommand, Product>
-                .CreateMap().Map<Product>(request);
+            var product = new Product(request.UserId);
+            product = _mapper.Map(request.Product,product);
             _dbContext.Products.Add(product);
-            var productTypes = request.NameTypes.ToList();
+            var productTypes = request.Product.NameTypes is null? [] : request.Product.NameTypes.ToList();
             foreach (var productType in productTypes)
             {
                 var (nameType, valueTypes) = productType;
@@ -35,6 +37,12 @@ namespace Application.CQRS.Products.Handlers
                         valueType.ValueType, valueType.Quantity,
                         valueType.Price, nameProductType.Id));
                 }
+            }
+            var productDescription = request.Product.ProductDescription is null? [] : request.Product.ProductDescription ;
+            foreach(var pd in productDescription)
+            {
+                var (nameDescription, valueDescription) = pd;
+                _dbContext.ProductDescriptions.Add(new ProductDescription(product.Id, nameDescription, valueDescription));
             }
             await _dbContext.SaveChangesAsync(cancellationToken);
             return FResult.Success();

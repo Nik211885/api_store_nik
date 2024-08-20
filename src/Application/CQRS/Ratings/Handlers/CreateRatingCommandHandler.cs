@@ -1,8 +1,8 @@
 ﻿using Application.Common.ResultTypes;
 using Application.CQRS.Ratings.Commands;
 using Application.Interface;
-using Application.Mappings;
 using ApplicationCore.Entities.Ratings;
+using AutoMapper;
 using MediatR;
 
 namespace Application.CQRS.Ratings.Handlers
@@ -11,13 +11,15 @@ namespace Application.CQRS.Ratings.Handlers
     public class CreateRatingCommandHandler : IRequestHandler<CreateRatingCommand, IResult>
     {
         private readonly IStoreNikDbContext _dbContext;
-        public CreateRatingCommandHandler(IStoreNikDbContext dbContext)
+        private readonly IMapper _mapper;
+        public CreateRatingCommandHandler(IStoreNikDbContext dbContext, IMapper mapper)
         {
+            _mapper = mapper;
             _dbContext = dbContext;
         }
         public async Task<IResult> Handle(CreateRatingCommand request, CancellationToken cancellationToken)
         {
-            var rating = Mapping<CreateRatingCommand, Rating>.CreateMap().Map<Rating>(request);
+            var rating = _mapper.Map<Rating>(request);
             _dbContext.Ratings.Add(rating);
             await _dbContext.SaveChangesAsync(cancellationToken);
             return FResult.Success();

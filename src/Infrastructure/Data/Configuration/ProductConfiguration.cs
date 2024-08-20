@@ -29,6 +29,10 @@ namespace Infrastructure.Data.Configuration
                 .WithOne(ppd => ppd.Product)
                 .OnDelete(DeleteBehavior.NoAction)
                 .HasForeignKey(p => p.ProductId);
+            builder.HasMany(p => p.ProductDescriptions)
+                .WithOne(p => p.Product)
+                .HasForeignKey(p => p.ProductId)
+                .IsRequired();
         }
     }
 }

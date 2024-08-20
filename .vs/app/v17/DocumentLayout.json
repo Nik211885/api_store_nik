@@ -1,20 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\infrastructure\\services\\accountmanagerservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5F817BE6-5DED-4099-82CF-EC56A12333A0}|src\\Infrastructure\\Infrastructure.csproj|solutionrelative:src\\infrastructure\\services\\accountmanagerservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{803EF05D-F4DE-484E-ABAE-D23FB4B7BE46}|src\\WebApi\\WebApi.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\webapi\\controllers\\accountmanager\\accountmanagercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{803EF05D-F4DE-484E-ABAE-D23FB4B7BE46}|src\\WebApi\\WebApi.csproj|solutionrelative:src\\webapi\\controllers\\accountmanager\\accountmanagercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|c:\\users\\le khac ninh 2\\desktop\\api_store_klt\\src\\application\\interface\\iaccountmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64151C72-EE4F-464D-9C36-F3615F3607AA}|src\\Application\\Application.csproj|solutionrelative:src\\application\\interface\\iaccountmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -22,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -43,45 +30,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IAccountManager.cs",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Interface\\IAccountManager.cs",
-              "RelativeDocumentMoniker": "src\\Application\\Interface\\IAccountManager.cs",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Application\\Interface\\IAccountManager.cs",
-              "RelativeToolTip": "src\\Application\\Interface\\IAccountManager.cs",
-              "ViewState": "AQIAACUAAAAAAAAAAAA+wF8AAAAvAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-15T11:26:03.431Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AccountManagerController.cs",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\Controllers\\AccountManager\\AccountManagerController.cs",
-              "RelativeDocumentMoniker": "src\\WebApi\\Controllers\\AccountManager\\AccountManagerController.cs",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\WebApi\\Controllers\\AccountManager\\AccountManagerController.cs",
-              "RelativeToolTip": "src\\WebApi\\Controllers\\AccountManager\\AccountManagerController.cs",
-              "ViewState": "AQIAAB4AAAAAAAAAAAAiwB4AAAAVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-15T11:23:35.927Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AccountManagerServices.cs",
-              "DocumentMoniker": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Infrastructure\\Services\\AccountManagerServices.cs",
-              "RelativeDocumentMoniker": "src\\Infrastructure\\Services\\AccountManagerServices.cs",
-              "ToolTip": "C:\\Users\\Le Khac Ninh 2\\Desktop\\api_store_klt\\src\\Infrastructure\\Services\\AccountManagerServices.cs",
-              "RelativeToolTip": "src\\Infrastructure\\Services\\AccountManagerServices.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAIwGAAAAASAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-15T11:22:07.333Z",
-              "EditorCaption": ""
             }
           ]
         },

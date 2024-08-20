@@ -27,6 +27,8 @@ namespace ApplicationCore.Entities.Products
         /// 
         [MinValue(0)]
         public decimal Price { get; set; }
+        //public string? ImageDescription { get; set; }
+        //public string? Description { get; set; }
         public ICollection<OrderDetailProductValueType>? OrderDetailProductValueTypes { get; set; }
         public ProductValueType(string valueType, int quantity, decimal price, string productNameTypeId)
         {

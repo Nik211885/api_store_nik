@@ -1,7 +1,9 @@
 using Application;
+using Application.Common.Middleware;
 using Infrastructure;
 using Infrastructure.Data;
 using Infrastructure.Identity;
+using Infrastructure.Services.Middleware;
 using Microsoft.AspNetCore.Identity;
 using WebApi.Services;
 
@@ -17,7 +19,6 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthenticationSwaggerServices(builder.Configuration);
-builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
 {
     options.User.RequireUniqueEmail = true;
@@ -26,6 +27,7 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
     .AddEntityFrameworkStores<StoreNikDbConText>()
     .AddDefaultTokenProviders();
 builder.Services.AddApplication();
+await builder.Services.AddInfrastructure(builder.Configuration);
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -40,5 +42,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseMiddleware<UserExitsHandlingMiddleware>();
 
 app.Run();

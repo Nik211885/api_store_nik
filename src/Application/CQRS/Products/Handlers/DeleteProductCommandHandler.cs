@@ -21,7 +21,8 @@ namespace Application.CQRS.Products.Handlers
             var product = await _sender.Send(new GetProductByIdQuery(request.Id), cancellationToken);
             if (product is not null)
             {
-                _dbContext.Products.Add(product);
+                await _sender.Send(new IsProductForUserQuery(request.UserId, request.Id),cancellationToken);
+                _dbContext.Products.Remove(product);
                 await _dbContext.SaveChangesAsync(cancellationToken);
                 return FResult.Success();
             }

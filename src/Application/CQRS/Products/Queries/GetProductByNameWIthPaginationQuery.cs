@@ -1,8 +1,8 @@
 ﻿using Application.Common;
-using ApplicationCore.Entities.Products;
+using Application.DTOs.Reponse;
 using MediatR;
 
 namespace Application.CQRS.Products.Queries
 {
-    public record GetProductByNameWIthPaginationQuery(string NameProduct, int PageNumber = 1, int PageSize = 1) : IRequest<PaginationEntity<Product>>;
+    public record GetProductByNameWIthPaginationQuery(string? NameProduct, int PageNumber = 1, int PageSize = 20) : IRequest<PaginationEntity<ProductDashboardReponse>>;
 }

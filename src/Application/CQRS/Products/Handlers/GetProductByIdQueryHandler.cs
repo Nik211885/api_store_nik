@@ -16,13 +16,8 @@ namespace Application.CQRS.Products.Handlers
 
         public async Task<Product?> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
-            var query = _dbContext.Products.Where(p => p.Id.Equals(request.Id))
-                            .Include(p => p.ProductNameTypes);
-            if (await query.Select(p => p.ProductNameTypes).AnyAsync(cancellationToken))
-            {
-                query!.ThenInclude(pnd => pnd.ProductValueTypes);
-            }
-            return await query.Select(p => p).FirstOrDefaultAsync(cancellationToken);
+            var query = _dbContext.Products.Where(p => p.Id.Equals(request.Id));
+            return await query.FirstOrDefaultAsync(cancellationToken);
         }
     }
 }

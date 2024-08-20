@@ -1,11 +1,11 @@
-﻿using Application.Interface;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
 namespace Application.Common.Behavior
 {
-    public class ValidatorBehavior<TRequest, TReponse> : IPipelineBehavior<TRequest, TReponse> where TRequest : IRequest<TReponse> where TReponse : IResult, new()
+    public class ValidatorBehavior<TRequest, TReponse> 
+        : IPipelineBehavior<TRequest, TReponse> where TRequest : notnull
     {
         private IEnumerable<IValidator<TRequest>> _validators;
         private readonly IHttpContextAccessor _context;
@@ -30,12 +30,7 @@ namespace Application.Common.Behavior
                     .ToList();
                 if (fail.Count != 0)
                 {
-                    var result = new TReponse
-                    {
-                        Success = false,
-                        Errors = fail.Select(x=>x.ErrorMessage),
-                    };
-                    return result;
+                    throw new ValidationException(fail);
                 };
             }
             return await next();

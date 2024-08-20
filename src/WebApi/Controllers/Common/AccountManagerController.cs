@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace WebApi.Controllers.AccountManager
+namespace WebApi.Controllers.Common
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -17,7 +17,7 @@ namespace WebApi.Controllers.AccountManager
             IAccountManager accountManager
             )
         {
-           _accountManager = accountManager;
+            _accountManager = accountManager;
         }
         //After create user success redirect dashboard because user has token after regrist 
         [HttpPost("regrist")]
@@ -57,7 +57,7 @@ namespace WebApi.Controllers.AccountManager
         public async Task<ActionResult<TokenClaimsDTO>> GetTokenClaim([FromBody] TokenClaimsDTO tokenClaim)
         {
             var result = await _accountManager.GetTokenAsync(tokenClaim);
-            if(result.Failure())
+            if (result.Failure())
             {
                 return BadRequest(result.Errors);
             }
@@ -69,7 +69,8 @@ namespace WebApi.Controllers.AccountManager
         {
             var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
             var user = await _accountManager.SendConfirmEmailTokenAsync(userId);
-            if (user.Success) {
+            if (user.Success)
+            {
                 return NoContent();
             }
             return BadRequest(user.Errors);
@@ -87,11 +88,11 @@ namespace WebApi.Controllers.AccountManager
             return BadRequest(result.Errors);
         }
         [HttpPost("ChangePassword")]
-        [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> ChangePasswordAsync([FromBody] UserChangePasswordViewModel changePasswordModel)
         {
             var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
-            var result = await _accountManager.ChangePasswordAsync(userId,changePasswordModel);
+            var result = await _accountManager.ChangePasswordAsync(userId, changePasswordModel);
             if (result.Success)
             {
                 return NoContent();
@@ -111,16 +112,24 @@ namespace WebApi.Controllers.AccountManager
         [HttpPost("ResetPassword")]
         public async Task<IActionResult> ResetPasswordAsync(string email, string token)
         {
-            var result = await _accountManager.ResetPasswordAsync(email,token);
-            if(result.Success)
+            var result = await _accountManager.ResetPasswordAsync(email, token);
+            if (result.Success)
             {
                 return NoContent();
             }
             return BadRequest(result.Errors);
         }
+        [HttpGet("userProfile")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<UserDetailReponse> GetDetailUserAsync()
+        {
+            var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
+            var userDetail = await _accountManager.GetInformationForUserAsync(userId);
+            return userDetail;  
+        }
         [HttpPut("UpdateProfileUser")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> UpdateProfileAsync([FromBody] UpdateProfileUserViewModel profile)
+        public async Task<IActionResult> UpdateProfileAsync([FromBody] UpdateUserDetailViewModel profile)
         {
             var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
             var result = await _accountManager.UpdateProfileForUserAsync(userId, profile);

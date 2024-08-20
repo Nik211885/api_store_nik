@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.JsonPatch;
 
 namespace Application.CQRS.Products.Commands
 {
-    public record UpdatePatchProductCommand(string Id, JsonPatchDocument<Product> PatchDoc) : IRequest<IResult>;
+    public record UpdatePatchProductCommand(string UserId, string Id, JsonPatchDocument<Product> PatchDoc) : IRequest<IResult>;
     public class UpdatePatchProductCommandValidator : AbstractValidator<UpdatePatchProductCommand>
     {
         public UpdatePatchProductCommandValidator()

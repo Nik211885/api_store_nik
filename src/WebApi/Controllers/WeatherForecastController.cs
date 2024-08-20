@@ -1,4 +1,4 @@
-    using Application.Common;
+using Application.Common;
 using Application.CQRS.Products.Commands;
 using Application.CQRS.Products.Queries;
 using Application.DTOs;
@@ -11,7 +11,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -90,7 +89,7 @@ public class WeatherForecastController : ControllerBase
     [HttpPost("user")]
     public async Task<IActionResult> CreateUser(UserLoginViewModel userRegrist)
     {
-        var user = new ApplicationUser
+        var user = new ApplicationUser()
         {
             UserName = userRegrist.UserName,
             Email = userRegrist.Email,
@@ -115,7 +114,7 @@ public class WeatherForecastController : ControllerBase
     [HttpDelete("product")]
     public async Task<IActionResult> DeleteProduct([Required] string id,ISender sender)
     {
-        var result = await sender.Send(new DeleteProductCommand(id));
+        var result = await sender.Send(new DeleteProductCommand("",id));
         if (result.Success)
         {
             return Ok();
@@ -123,53 +122,20 @@ public class WeatherForecastController : ControllerBase
         return BadRequest(result.Errors);
     }
     [HttpPut("product")]
-    public async Task<IActionResult> UpdateProductAsync(ISender sender, [Required] string Id, ProductUpdateViewModel product)
+    public async Task<IActionResult> UpdateProductAsync(ISender sender, [Required] UpdatePutProductCommand updateProduct)
     {
-        var result = await sender.Send(new UpdatePutProductCommand(Id, product));
+        var result = await sender.Send(updateProduct);
         if (result.Success)
         {
             return NoContent();
         }
         return BadRequest(result.Errors);
     }
-    [HttpGet("products")]
-    public async Task<ActionResult<IEnumerable<Product>>> GetProducts(int pageNumber, int pageSize, ISender sender)
-    {
-        if (pageNumber < 0 || pageSize < 0)
-        {
-            return BadRequest();
-        }
-        PaginationEntity<Product> paginationProduct;
-        if (pageNumber == 0)
-        {
-            if (pageSize == 0)
-            {
-                paginationProduct = await sender.Send(new GetProductWithPaginationQuery());
-            }
-            else
-            {
-                paginationProduct = await sender.Send(new GetProductWithPaginationQuery(PageSize: pageSize));
-            }
-        }
-        else
-        {
-            if (pageSize == 0)
-            {
-                paginationProduct = await sender.Send(new GetProductWithPaginationQuery(PageNumber: pageNumber));
-            }
-            else
-            {
-                paginationProduct = await sender.Send(new GetProductWithPaginationQuery(pageNumber, pageSize));
-            }
-        }
-        var products = paginationProduct.Items;
-        return Ok(products);
-    }
     // Error with add end array with path is /productNameType/-
     [HttpPatch("product")]
-    public async Task<IActionResult> UpdatePatchProduct([Required] string id,[FromBody] JsonPatchDocument<Product> patchDoc, ISender sender)
+    public async Task<IActionResult> UpdatePatchProduct([FromBody] UpdatePatchProductCommand productUpdate, ISender sender)
     {
-        var result = await sender.Send(new UpdatePatchProductCommand(id, patchDoc));
+        var result = await sender.Send(productUpdate);
         if (result.Success)
         {
             return NoContent();

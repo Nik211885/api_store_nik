@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Common
 {
-    public class PaginationEntity<T> where T : BaseEntity
+    public class PaginationEntity<T> where T : notnull
     {
         public IEnumerable<T> Items { get; }
         /// <summary>
@@ -12,7 +12,7 @@ namespace Application.Common
         public int PageNumber { get; }
         public int PageSize { get; }
         public int TotalItems { get; }
-        public PaginationEntity(IEnumerable<T> items, int pageNumber,
+        private PaginationEntity(IEnumerable<T> items, int pageNumber,
             int pageSize, int totalItems
             )
         {
@@ -23,6 +23,7 @@ namespace Application.Common
         }
         public static async Task<PaginationEntity<T>> CreatePaginationEntityAsync(IQueryable<T> query, int pageNumber, int pageSize)
         {
+            pageNumber = pageNumber == 0 ? 1 : pageNumber;
             var totalCount = await query.CountAsync();
             var items = await query.Skip((pageNumber -1) * pageSize).Take(pageSize).ToListAsync();
             return new PaginationEntity<T>(items,pageNumber,pageSize,totalCount);

@@ -2,8 +2,8 @@
 using Application.CQRS.Promotions.Commands;
 using Application.CQRS.Promotions.Queries;
 using Application.Interface;
-using Application.Mappings;
 using ApplicationCore.Entities.Products;
+using AutoMapper;
 using MediatR;
 
 namespace Application.CQRS.Promotions.Handlers
@@ -11,10 +11,11 @@ namespace Application.CQRS.Promotions.Handlers
     public class UpdatePromotionCommandHandler : IRequestHandler<UpdatePromotionCommand, IResult>
     {
         private readonly IStoreNikDbContext _dbContext;
+        private readonly IMapper _mapper;
         private readonly ISender _sender;
-        public UpdatePromotionCommandHandler(IStoreNikDbContext dbContext, ISender sender)
+        public UpdatePromotionCommandHandler(IStoreNikDbContext dbContext, ISender sender, IMapper mapper)
         {
-
+            _mapper = mapper;
             _dbContext = dbContext;
             _sender = sender;
         }
@@ -25,7 +26,7 @@ namespace Application.CQRS.Promotions.Handlers
             {
                 return FResult.NotFound(request.Id, nameof(PromotionDiscount));
             }
-            Mapping<UpdatePromotionCommand, PromotionDiscount>.CreateMap().Map(request, promotion);
+            promotion = _mapper.Map<PromotionDiscount>(request);
             _dbContext.PromotionDiscounts.Update(promotion);
             await _dbContext.SaveChangesAsync(cancellationToken);
             return FResult.Success();

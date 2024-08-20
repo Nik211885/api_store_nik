@@ -1,4 +1,5 @@
-﻿using Application.Interface;
+﻿using Application.Common;
+using Application.Interface;
 using ApplicationCore.Entities;
 using ApplicationCore.Entities.Order;
 using ApplicationCore.Entities.Products;
@@ -19,7 +20,7 @@ namespace Infrastructure.Identity
         public DateTime RefreshTokenExpires { get; set; }
         public string? Bio { get; set; }
         public DateTime? BirthDay { get; set; }
-        public bool Gender { get; set; }
+        public bool? Gender { get; set; }
         //Check city has correct after save db
         [MaxLength(50)]
         public string? City { get; set; }

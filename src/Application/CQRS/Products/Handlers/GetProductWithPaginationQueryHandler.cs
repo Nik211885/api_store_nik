@@ -1,28 +1,38 @@
 ﻿using Application.Common;
+using Application.Common.Mappings;
 using Application.CQRS.Products.Queries;
+using Application.DTOs.Reponse;
 using Application.Interface;
-using ApplicationCore.Entities.Products;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.CQRS.Products.Handlers
 {
     public class GetProductWithPaginationQueryHandler :
         IRequestHandler<GetProductWithPaginationQuery,
-            PaginationEntity<Product>>
+            PaginationEntity<ProductDashboardReponse>>
     {
         private readonly IStoreNikDbContext _dbContext;
-        public GetProductWithPaginationQueryHandler(IStoreNikDbContext dbContext)
+        private readonly IMapper _mapper;
+        private readonly ISender _sender;
+        public GetProductWithPaginationQueryHandler(IStoreNikDbContext dbContext, IMapper mapper,ISender sender)
         {
+            _sender = sender;
+            _mapper = mapper;
             _dbContext = dbContext;
         }
-        public async Task<PaginationEntity<Product>> Handle(GetProductWithPaginationQuery request, CancellationToken cancellationToken)
+        public async Task<PaginationEntity<ProductDashboardReponse>> Handle(GetProductWithPaginationQuery request, CancellationToken cancellationToken)
         {
-            var query = from product in _dbContext.Products
-                        select product;
-            var pagination = await PaginationEntity<Product>.
-                CreatePaginationEntityAsync(query.AsNoTracking(), request.PageNumber, request.PageSize);
-            return pagination;
+            var query = from p in _dbContext.Products
+                          select p;
+            var products = await query.ProjectTo<ProductDashboardReponse>(_mapper.ConfigurationProvider)
+                .PaginatedListAsync(request.PageNumber, request.PageSize);
+            foreach (var item in products.Items)
+            {
+                await item.Join(_sender);
+            }
+            return products;
         }
     }
 }

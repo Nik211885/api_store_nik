@@ -39,6 +39,7 @@ namespace Infrastructure.Data
         public DbSet<Reaction> Reactions { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<OrderDetailProductValueType> OrderDetailProductValueType { get ; set; }
+        public DbSet<ProductDescription> ProductDescriptions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

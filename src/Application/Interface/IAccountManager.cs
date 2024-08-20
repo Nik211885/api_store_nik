@@ -1,4 +1,5 @@
 ﻿using Application.DTOs;
+using Application.DTOs.Reponse;
 using Application.DTOs.Request;
 
 namespace Application.Interface
@@ -93,6 +94,14 @@ namespace Application.Interface
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<IResult> UpdateProfileForUserAsync(string userId, UpdateProfileUserViewModel profile);
+        Task<IResult> UpdateProfileForUserAsync(string userId, UpdateUserDetailViewModel profile);
+        /// <summary>
+        /// User for get detail
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>
+        ///     Return user 
+        /// </returns>
+        Task<UserDetailReponse?> GetInformationForUserAsync(string userId);
     }
 }
