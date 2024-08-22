@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Entities.Attributes;
 using ApplicationCore.Entities.Products;
+using ApplicationCore.Entities.Ratings;
 using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationCore.Entities.Order
@@ -16,6 +17,7 @@ namespace ApplicationCore.Entities.Order
         [KeyGuidLength]
         public string ProductId { get; private set; } = null!;
         public Product? Product { get; set; }
+        public Rating? Rating { get; set; }
         public ICollection<OrderDetailProductValueType>? OrderDetailProductValueTypes { get; set; }
         public OrderDetail(string cartId, string productId, int quantity = 1)
         {

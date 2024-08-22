@@ -19,7 +19,7 @@ namespace Application.CQRS.OrderDetails.Handler
         }
         public async Task<IResult> Handle(CreateOrderDetailCommand request, CancellationToken cancellationToken)
         {
-            // check cart for user
+            // check cart for user has exits
             var cartId = await _sender.Send(new GetCartIdByUserQuery(request.UserId),cancellationToken);
             //Check product
             var isProduct = await _sender.Send(new IsProductHasExitsQuery(request.ProductId, request.Quantity),cancellationToken);  
@@ -34,7 +34,7 @@ namespace Application.CQRS.OrderDetails.Handler
                 return FResult.Failure("Product don't have product value type");
             }
             //Create OrderDetail
-            var orderDetail = new OrderDetail(cartId,request.ProductId,request.Quantity);
+            var orderDetail = new OrderDetail(cartId.First(),request.ProductId,request.Quantity);
             _dbContext.OrderDetails.Add(orderDetail);
             foreach(var valueTypeId in request.ProductValueTypeIds)
             {

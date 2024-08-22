@@ -21,13 +21,13 @@ namespace Application.CQRS.Carts.Handlers
         }
         public async Task<IResult> Handle(CreateCartCommand request, CancellationToken cancellationToken)
         {
-            var cartNotYetCheckOut = _sender.Send(new GetCartByUserQuery(request.UserId), cancellationToken);
+            var cartNotYetCheckOut = await _sender.Send(new GetCartHasNotCheckOutByUserQuery(request.UserId), cancellationToken);
             if (cartNotYetCheckOut is not null)
             {
                 return FResult.Failure("Can't create cart because you can have one cart");
             }
             //
-            var cart = _mapper.Map<Cart>(request);
+            var cart = new Cart(request.UserId);
             _dbContext.Carts.Add(cart);
             await _dbContext.SaveChangesAsync(cancellationToken);
             return FResult.Success();

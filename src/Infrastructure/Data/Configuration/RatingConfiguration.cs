@@ -8,9 +8,9 @@ namespace Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Rating> builder)
         {
-            builder.HasMany(r => r.Reactions)
-                .WithOne(r => r.Rating)
-                .HasForeignKey(r => r.RatingId)
+            builder.HasOne(x=>x.OrderDetail)
+                .WithOne(x=>x.Rating)
+                .HasForeignKey<Rating>(x=>x.OrderDetailId)
                 .IsRequired();
         }
     }

@@ -23,8 +23,9 @@ namespace Application.CQRS.Ratings.Handlers
             //Check product has exits
             var isProduct = await _sender.Send(new IsProductHasExitsQuery(request.ProductId),cancellationToken);
             if (!isProduct) throw new NotFoundException("Error",$"Don't find product has id is {request.ProductId}");
-            var query = from r in _dbContext.Ratings
-                        where r.ProductId.Equals(request.ProductId)
+            var query = from od in _dbContext.OrderDetails
+                        where od.ProductId.Equals(request.ProductId)
+                        join r in _dbContext.Ratings on od.Id equals r.OrderDetailId
                         orderby r.Start descending
                         group r.Start by r.Start into rn
                         select new StatisticalRatingDTO(rn.FirstOrDefault(), rn.Count());

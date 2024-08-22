@@ -3,8 +3,11 @@ using Application.CQRS.Products.Queries;
 using Application.CQRS.Ratings.Queries;
 using Application.DTOs.Reponse;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 
 namespace WebApi.Controllers.Common
 {
@@ -33,7 +36,12 @@ namespace WebApi.Controllers.Common
         [HttpGet("product")]
         public async Task<ActionResult<ProductDetailReponse>> GetProductByIdAsync(ISender sender, [Required] string id)
         {
-            var product = await sender.Send(new GetProductDetailByIdQuery(id));
+            string? accessToken = null;
+            if(HttpContext.Request.Headers.TryGetValue("Authorization", out var headerAuth))
+            {
+                accessToken = headerAuth.First()?.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1];
+            }
+            var product = await sender.Send(new GetProductDetailByIdQuery(id,accessToken));
             return Ok(product);
         }
     }

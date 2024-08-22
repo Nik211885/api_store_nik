@@ -7,7 +7,6 @@ namespace Application.CQRS.Carts.Queries
     /// Default Get Cart for user has not yet checkout
     /// </summary>
     /// <param name="UserId"></param>
-    /// <param name="IsCheckOut"></param>
     /// <param name="IsIncludeProductInCart">IsIncludeProductInCart is true If you want to use join and gender all about product in cart</param>
-    public record GetCartByUserQuery(string UserId, bool IsCheckOut = false, bool IsIncludeProductInCart = false) : IRequest<Cart?>;
+    public record GetCartHasNotCheckOutByUserQuery(string UserId, bool IsIncludeProductInCart = false) : IRequest<Cart?>;
 }

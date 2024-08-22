@@ -6,18 +6,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.CQRS.Carts.Handlers
 {
-    public class GetCartByUserQueryHandler : IRequestHandler<GetCartByUserQuery, Cart?>
+    public class GetCartHasNotCheckOutByUserQueryHandler : IRequestHandler<GetCartHasNotCheckOutByUserQuery, Cart?>
     {
         private readonly IStoreNikDbContext _dbContext;
-        public GetCartByUserQueryHandler(IStoreNikDbContext dbContext)
+        public GetCartHasNotCheckOutByUserQueryHandler(IStoreNikDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-        public async Task<Cart?> Handle(GetCartByUserQuery request, CancellationToken cancellationToken)
+        public async Task<Cart?> Handle(GetCartHasNotCheckOutByUserQuery request, CancellationToken cancellationToken)
         {
             var cartQuery = from c in _dbContext.Carts
                             where c.UserId.Equals(request.UserId)
-                                    && c.IsCheckOut == request.IsCheckOut
+                                    && !c.IsCheckOut
                             select c;
             //Include is full join
             if (!request.IsIncludeProductInCart || !await cartQuery.Include(c => c.OrderDetails).AnyAsync(cancellationToken))

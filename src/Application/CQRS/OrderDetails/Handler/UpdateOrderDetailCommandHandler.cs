@@ -3,6 +3,9 @@ using Application.CQRS.OrderDetails.Command;
 using Application.CQRS.OrderDetails.Queries;
 using Application.CQRS.Products.Queries;
 using Application.Interface;
+using ApplicationCore.Entities.Order;
+using ApplicationCore.ValueObject;
+using Ardalis.GuardClauses;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,13 +25,11 @@ namespace Application.CQRS.OrderDetails.Handler
             // Check user has exits 
 
             // Get order detail is for user not check out
-            var OrderDetailNotCheckOut = await _sender.Send(
-                new GetOrderDetailNotCheckOutOffUserQuery
+            var result = await _sender.Send(
+                new GetOrderDetailCheckOutOffUserQuery
                 (request.UserId, request.OrderId), cancellationToken);
-            if (OrderDetailNotCheckOut is null)
-            {
-                return FResult.Failure("Don't update order detail");
-            }
+            if (result.AttachedIsSuccess is null) throw new ArgumentException("Bad Request don't find your order detail");
+            var OrderDetailNotCheckOut = (OrderDetail)result.AttachedIsSuccess();
             // Check product Name Type has product and check value type has in name type
             var productId = OrderDetailNotCheckOut.ProductId;
 

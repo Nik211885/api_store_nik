@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Application.CQRS.Reactions.Commands
 {
-    public record DeleteReactionCommand(string ReactionId) : IRequest<IResult>;
+    public record DeleteReactionCommand(string UserId, string RatingId) : IRequest<IResult>;
 }

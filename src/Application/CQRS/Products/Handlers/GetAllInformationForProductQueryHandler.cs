@@ -23,8 +23,6 @@ namespace Application.CQRS.Products.Handlers
             {
                 return null;
             }
-            var rating = await _sender.Send(new GetRatingForProductWithPaginationQuery(request.ProductId),cancellationToken);
-            product.Ratings = (ICollection<Rating>?)rating.Items;
             var statisticRating = await _sender.Send(new GetStatisticsRatingForProductQuery(request.ProductId),cancellationToken);
             var reponse = new ProductDTO(product, statisticRating);
             return reponse;

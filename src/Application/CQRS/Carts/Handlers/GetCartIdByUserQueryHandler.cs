@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Application.CQRS.Carts.Handlers
 {
     internal class GetCartIdByUserQueryHandler
-        : IRequestHandler<GetCartIdByUserQuery, string>
+        : IRequestHandler<GetCartIdByUserQuery, IEnumerable<string>>
     {
         private readonly IStoreNikDbContext _dbContext;
         private readonly ISender _sender;
@@ -16,17 +16,13 @@ namespace Application.CQRS.Carts.Handlers
             _sender = sender;
             _dbContext = dbContext;
         }
-        public async Task<string> Handle(GetCartIdByUserQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<string>> Handle(GetCartIdByUserQuery request, CancellationToken cancellationToken)
         {
             var query = from c in _dbContext.Carts
-                        where c.UserId.Equals(request.UserId) && !c.IsCheckOut
+                        where c.UserId.Equals(request.UserId) 
+                            && c.IsCheckOut == request.IsCheckOut
                         select c.Id;
-            var cartId = await query.FirstOrDefaultAsync(cancellationToken);
-            if(cartId is null)
-            {
-                await _sender.Send(new CreateCartCommand(request.UserId),cancellationToken);
-                return await this.Handle(request,cancellationToken);
-            }
+            var cartId = await query.ToListAsync(cancellationToken);
             return cartId;
         }
     }

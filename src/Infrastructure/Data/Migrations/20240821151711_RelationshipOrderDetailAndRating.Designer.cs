@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(StoreNikDbConText))]
-    partial class StoreNikDbConTextModelSnapshot : ModelSnapshot
+    [Migration("20240821151711_RelationshipOrderDetailAndRating")]
+    partial class RelationshipOrderDetailAndRating
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -309,6 +312,11 @@ namespace Infrastructure.Data.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
                     b.Property<int>("Start")
                         .HasColumnType("int");
 
@@ -317,16 +325,14 @@ namespace Infrastructure.Data.Migrations
                     b.HasIndex("OrderDetailId")
                         .IsUnique();
 
+                    b.HasIndex("ProductId");
+
                     b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Ratings.Reaction", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("RatingId")
+                    b.Property<string>("Id")
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
@@ -336,9 +342,21 @@ namespace Infrastructure.Data.Migrations
                     b.Property<bool>("Like")
                         .HasColumnType("bit");
 
-                    b.HasKey("UserId", "RatingId");
+                    b.Property<string>("RatingId")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("RatingId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Reactions");
                 });
@@ -713,7 +731,15 @@ namespace Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ApplicationCore.Entities.Products.Product", "Product")
+                        .WithMany("Ratings")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("OrderDetail");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Ratings.Reaction", b =>
@@ -817,6 +843,8 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("ProductNameTypes");
 
                     b.Navigation("ProductPromotionDiscounts");
+
+                    b.Navigation("Ratings");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Products.ProductNameType", b =>

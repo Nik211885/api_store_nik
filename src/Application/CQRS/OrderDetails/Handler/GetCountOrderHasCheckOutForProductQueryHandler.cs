@@ -15,13 +15,17 @@ namespace Application.CQRS.OrderDetails.Handler
         }
         public async Task<int> Handle(GetCountOrderHasCheckOutForProductQuery request, CancellationToken cancellationToken)
         {
+            int buyer = 0;
             var query = from o in _dbContext.OrderDetails
                         where o.ProductId.Equals(request.ProductId)
                         join cart in _dbContext.Carts on o.CartId equals cart.Id
                         where cart.IsCheckOut
-                        select o.Id;
-            var count = await query.CountAsync(cancellationToken);
-            return count;
+                        select o.Quantity;
+            foreach(var c in query)
+            {
+                buyer += c;
+            }
+            return await Task.FromResult(buyer);
         }
     }
 }

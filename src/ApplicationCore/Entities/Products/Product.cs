@@ -1,8 +1,7 @@
-﻿using ApplicationCore.Entities.Order;
-using System.ComponentModel.DataAnnotations;
+﻿using ApplicationCore.Entities.Attributes;
+using ApplicationCore.Entities.Order;
 using ApplicationCore.Entities.Ratings;
-using System.ComponentModel.DataAnnotations.Schema;
-using ApplicationCore.Entities.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationCore.Entities.Products
 {
@@ -33,7 +32,6 @@ namespace ApplicationCore.Entities.Products
         public ICollection<ProductPromotionDiscount>? ProductPromotionDiscounts { get; set; }
         public ICollection<ProductNameType>? ProductNameTypes { get; set; }
         public ICollection<OrderDetail>? OrderDetails { get; set; }
-        public ICollection<Rating>? Ratings { get; set; }
         public ICollection<ProductDescription>? ProductDescriptions { get; set; }
         public Product(string userId) : base()
         {

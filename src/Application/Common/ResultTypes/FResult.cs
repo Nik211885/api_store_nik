@@ -5,7 +5,7 @@ namespace Application.Common.ResultTypes
 {
     public static class FResult
     {
-        public static  IResult  Success(dynamic doc)
+        public static  IResult  Success(dynamic? doc)
         {
             return new Result() { Success = true, AttachedIsSuccess = doc };
         }

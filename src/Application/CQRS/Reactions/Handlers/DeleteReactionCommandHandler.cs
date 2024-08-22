@@ -2,12 +2,12 @@
 using Application.CQRS.Reactions.Commands;
 using Application.CQRS.Reactions.Queries;
 using Application.Interface;
-using ApplicationCore.Entities.Ratings;
 using MediatR;
 
 namespace Application.CQRS.Reactions.Handlers
 {
-    public class DeleteReactionCommandHandler : IRequestHandler<DeleteReactionCommand, IResult>
+    public class DeleteReactionCommandHandler
+        : IRequestHandler<DeleteReactionCommand, IResult>
     {
         private readonly IStoreNikDbContext _dbContext;
         private readonly ISender _sender;
@@ -18,10 +18,10 @@ namespace Application.CQRS.Reactions.Handlers
         }
         public async Task<IResult> Handle(DeleteReactionCommand request, CancellationToken cancellationToken)
         {
-            var reaction = await _sender.Send(new GetReactionByIdQuery(request.ReactionId), cancellationToken);
+            var reaction = await _sender.Send(new GetReactionByUserForRatingQuery(request.UserId, request.RatingId), cancellationToken);
             if(reaction is null)
             {
-                return FResult.NotFound(request.ReactionId, nameof(Reaction));
+                return FResult.Failure($"You don't have reaction to rating has id {request.RatingId}");
             }
             _dbContext.Reactions.Remove(reaction);
             await _dbContext.SaveChangesAsync(cancellationToken);

@@ -2,26 +2,26 @@
 using Application.CQRS.Reactions.Commands;
 using Application.CQRS.Reactions.Queries;
 using Application.Interface;
-using ApplicationCore.Entities.Ratings;
 using MediatR;
 
 namespace Application.CQRS.Reactions.Handlers
 {
-    public class UpdateReactionCommandHandler : IRequestHandler<UpdateReactionCommand, IResult>
+    public class UpdateReactionCommandHandler
+        : IRequestHandler<UpdateReactionCommand, IResult>
     {
-        private readonly IStoreNikDbContext _dbContext;
         private readonly ISender _sender;
-        public UpdateReactionCommandHandler(IStoreNikDbContext dbContext, ISender sender)
+        private readonly IStoreNikDbContext _dbContext;
+        public UpdateReactionCommandHandler(ISender sender, IStoreNikDbContext dbContext)
         {
-            _dbContext = dbContext;
             _sender = sender;
+            _dbContext = dbContext;
         }
         public async Task<IResult> Handle(UpdateReactionCommand request, CancellationToken cancellationToken)
         {
-            var reaction = await _sender.Send(new GetReactionByIdQuery(request.Id), cancellationToken);
-            if (reaction is null)
+            var reaction = await _sender.Send(new GetReactionByUserForRatingQuery(request.UserId, request.RatingId),cancellationToken);
+           if(reaction is null)
             {
-                return FResult.NotFound(request.Id,nameof(Reaction));
+                return FResult.Failure($"You don't have reaction to rating has id {request.RatingId}");
             }
             reaction.Like = !reaction.Like;
             _dbContext.Reactions.Update(reaction);

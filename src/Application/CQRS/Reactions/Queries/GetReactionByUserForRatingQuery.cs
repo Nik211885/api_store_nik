@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Application.CQRS.Reactions.Queries
 {
-    public record class GetReactionByIdQuery(string Id) : IRequest<Reaction?>;
+    public record GetReactionByUserForRatingQuery(string UserId, string RatingId) : IRequest<Reaction?>;
 }

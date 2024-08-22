@@ -40,7 +40,6 @@ namespace Infrastructure.Identity
         public ICollection<Cart>? Carts { get; set; }
         public ICollection<Product>? Products { get; set; }
         public ICollection<PromotionDiscount>? PromotionDiscounts { get; set; }
-        public ICollection<Rating>? Ratings { get; set; }
         public ICollection<Message>? Messages { get; set; }
         public ICollection<Reaction>? Reactions { get; set; }
     }

@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(StoreNikDbConText))]
-    partial class StoreNikDbConTextModelSnapshot : ModelSnapshot
+    [Migration("20240822025622_RemoveProductInRating")]
+    partial class RemoveProductInRating
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -322,11 +325,7 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("ApplicationCore.Entities.Ratings.Reaction", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("RatingId")
+                    b.Property<string>("Id")
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
@@ -336,9 +335,21 @@ namespace Infrastructure.Data.Migrations
                     b.Property<bool>("Like")
                         .HasColumnType("bit");
 
-                    b.HasKey("UserId", "RatingId");
+                    b.Property<string>("RatingId")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("RatingId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Reactions");
                 });

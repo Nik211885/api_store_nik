@@ -1,6 +1,5 @@
 ﻿using Application.CQRS.Carts.Commands;
 using Application.CQRS.ProductPromotion.Commands;
-using Application.CQRS.Products.Queries;
 using Application.CQRS.Promotions.Commands;
 using Application.CQRS.Ratings.Commands;
 using Application.CQRS.Reactions.Commands;
@@ -24,8 +23,8 @@ namespace Application.Common.Mappings
             CreateMap<ProductDetailViewModel, Product>();
             CreateMap<CreatePromotionCommand, PromotionDiscount>();
             CreateMap<UpdatePromotionCommand,PromotionDiscount>();
-            CreateMap<CreateReactionCommand,Reaction>();
-            CreateMap<CreateRatingCommand,Rating>();
+            //CreateMap<CreateReactionCommand,Reaction>();
+            //CreateMap<CreateRatingCommand,Rating>();
             CreateMap<IUser, UserDetailReponse>();
             CreateMap<Product, ProductDashboardReponse>();
             CreateMap<Product, ProductDetailReponse>();

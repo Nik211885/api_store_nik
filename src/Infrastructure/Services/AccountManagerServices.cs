@@ -1,4 +1,5 @@
 ﻿using Application.Common.ResultTypes;
+using Application.CQRS.Carts.Commands;
 using Application.DTOs;
 using Application.DTOs.Request;
 using Application.Interface;
@@ -8,6 +9,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Infrastructure.Data;
 using Infrastructure.Identity;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -21,12 +23,14 @@ namespace Infrastructure.Services
         #region DI
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ISender _sender;
         private readonly StoreNikDbConText _dbContext;
         private readonly IEmail _iEmailServices;
         private readonly IMapper _mapper;
         private readonly ITokenClaims _tokenClaim;
         private readonly UserTokenProvideServices _userTokenProvideServices;
         public AccountManagerServices(
+            ISender sender,
             IEmail iEmailServices,
             IMapper mapper,
             UserTokenProvideServices userTokenProvider,
@@ -37,6 +41,7 @@ namespace Infrastructure.Services
             ITokenClaims tokenClaim
             )
         {
+            _sender = sender;
             _mapper = mapper;
             _userTokenProvideServices = userTokenProvider;
             _iEmailServices = iEmailServices;
@@ -134,6 +139,7 @@ namespace Infrastructure.Services
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, Role.User);
+                await _sender.Send(new CreateCartCommand(user.Id));
                 //Generator token claim
                 var tokenClaim = await _tokenClaim.GetTokenClaimsAsync(user.UserName);
                 //Attached token claim

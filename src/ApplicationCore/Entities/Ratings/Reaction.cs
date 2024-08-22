@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationCore.Entities.Ratings
 {
-    public class Reaction : BaseEntity
+    public class Reaction
     {
         /// <summary>
         ///  If true is like and false is unlike otherwise deleted record

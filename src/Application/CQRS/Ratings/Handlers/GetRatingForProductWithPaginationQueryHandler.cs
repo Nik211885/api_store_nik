@@ -3,11 +3,9 @@ using Application.Common.Mappings;
 using Application.CQRS.Ratings.Queries;
 using Application.DTOs.Reponse;
 using Application.Interface;
-using ApplicationCore.Entities.Ratings;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.CQRS.Ratings.Handlers
 {
@@ -24,8 +22,9 @@ namespace Application.CQRS.Ratings.Handlers
         }
         public async Task<PaginationEntity<RatingReponse>> Handle(GetRatingForProductWithPaginationQuery request, CancellationToken cancellationToken)
         {
-            var queryRatings = from rating in _dbContext.Ratings
-                               where rating.ProductId.Equals(request.ProductId)
+            var queryRatings = from od in _dbContext.OrderDetails
+                               where od.ProductId.Equals(request.ProductId)
+                               join rating in _dbContext.Ratings on od.Id equals rating.OrderDetailId
                                select rating;
             var ratings = await queryRatings.ProjectTo<RatingReponse>(_mapper.ConfigurationProvider).PaginatedListAsync(request.PageNumber, request.PageSize);
             foreach (var r in ratings.Items)

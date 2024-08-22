@@ -1,5 +1,5 @@
 ﻿using ApplicationCore.Entities.Attributes;
-using ApplicationCore.Entities.Products;
+using ApplicationCore.Entities.Order;
 using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationCore.Entities.Ratings
@@ -8,20 +8,15 @@ namespace ApplicationCore.Entities.Ratings
     {
         [KeyGuidLength]
         [Required]
-        public string UserId { get; private set; } = null!;
-        [KeyGuidLength]
-        [Required]
-        public string ProductId { get; private set; } = null!;
-        public Product? Product { get; set; }
-        [Required]
+        public string OrderDetailId { get; private set; } = null!;
+        public OrderDetail? OrderDetail { get; set; }
         public int Start { get; set; }
         public string? CommentRating { get; set; }
         public DateTime DateRating { get; private set; }
         public ICollection<Reaction>? Reactions { get; set; }
-        public Rating(string userId, string productId, int start, string commentRating)
+        public Rating(string orderDetailId, int start, string? commentRating)
         {
-            UserId = userId;
-            ProductId = productId;
+            OrderDetailId = orderDetailId;
             Start = start;
             CommentRating = commentRating;
             DateRating = DateTime.Now;

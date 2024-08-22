@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Application.CQRS.Reactions.Commands
 {
-    public record UpdateReactionCommand(string Id) : IRequest<IResult>;
+    public record UpdateReactionCommand(string UserId, string RatingId) : IRequest<IResult>;
 }

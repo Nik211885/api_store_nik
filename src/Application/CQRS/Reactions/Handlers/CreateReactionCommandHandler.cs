@@ -18,9 +18,16 @@ namespace Application.CQRS.Reactions.Handlers
         }
         public async Task<IResult> Handle(CreateReactionCommand request, CancellationToken cancellationToken)
         {
-            var reaction = _mapper.Map<Reaction>(request);
+            var reaction = new Reaction(request.Reaction.Like, request.Reaction.RatingId, request.UserId);
             _dbContext.Reactions.Add(reaction);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            try
+            {
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch(Exception ex)
+            {
+                return FResult.Failure("You can have one reaction in one rating");
+            }
             return FResult.Success();
         }
     }

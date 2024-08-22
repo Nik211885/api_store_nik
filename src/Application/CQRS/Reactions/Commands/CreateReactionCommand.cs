@@ -1,7 +1,8 @@
-﻿using Application.Interface;
+﻿using Application.DTOs.Request;
+using Application.Interface;
 using MediatR;
 
 namespace Application.CQRS.Reactions.Commands
 {
-    public record CreateReactionCommand(bool Like, string RatingId) : IRequest<IResult>;
+    public record CreateReactionCommand(string UserId, ReactionViewModel Reaction) : IRequest<IResult>;
 }

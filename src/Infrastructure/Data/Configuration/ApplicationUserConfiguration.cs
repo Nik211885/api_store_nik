@@ -48,11 +48,6 @@ namespace Infrastructure.Data.Configuration
             .HasForeignKey(prd => prd.UserId)
             .IsRequired();
 
-            builder.HasMany(u => u.Ratings)
-            .WithOne()
-            .HasForeignKey(r => r.UserId)
-            .IsRequired();
-
             builder.HasMany(u => u.Messages)
             .WithOne()
             .HasForeignKey(m => m.MessageFrom)
