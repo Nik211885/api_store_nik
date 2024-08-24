@@ -10,6 +10,6 @@ namespace Application.CQRS.OrderDetails.Queries
     /// <param name="OrderId"></param>
     /// <param name="IsCheckOut"></param>
     /// <param name="IsOption">Option true will attack object and false is count object</param>
-    internal record GetOrderDetailCheckOutOffUserQuery(string UserId, string OrderId, bool IsCheckOut = false, bool IsOption = true)
+    internal record GetOrderDetailByIdCheckOutOffUserQuery(string UserId, string OrderId, bool IsCheckOut = false, bool IsOption = true)
         : IRequest<IResult>;
 }

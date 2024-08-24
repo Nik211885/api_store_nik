@@ -5,12 +5,16 @@ namespace Application.DTOs.Reponse
 {
     public class ProductNameTypeReponse
     {
-        public string Id { get; private set; } = null!;
-        public string NameType { get; private set; } = null!;   
-        public IEnumerable<ProductValueTypeReponse> ValueTypes { get; private set; } = null!;
-        public async Task Join(ISender sender)
+        public string Id { get; init; } = null!;
+        public string NameType { get; init; } = null!;
+        public IEnumerable<ProductValueTypeReponse> ValueTypes { get; private set; } = [];
+        public async Task Join(ISender sender, Option? option = null)
         {
-            ValueTypes = await sender.Send(new GetProductValueTypeByNameTypeQuery(Id));
+            ValueTypes = await sender.Send(new GetProductValueTypeByNameTypeQuery(Id, option));
+            foreach(var item in ValueTypes)
+            {
+                await item.Join(sender, option);
+            }
         }
     }
 }

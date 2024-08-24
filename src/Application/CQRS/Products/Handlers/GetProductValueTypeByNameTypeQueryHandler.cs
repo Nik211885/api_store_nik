@@ -1,4 +1,5 @@
-﻿using Application.CQRS.Products.Queries;
+﻿using Application.Common.Mappings;
+using Application.CQRS.Products.Queries;
 using Application.DTOs.Reponse;
 using Application.Interface;
 using AutoMapper;
@@ -23,8 +24,11 @@ namespace Application.CQRS.Products.Handlers
             var query = from v in _dbContext.ProductValueTypes
                         where v.ProductNameTypeId.Equals(request.NameTypeId)
                         select v;
-            var productValueType = await query.ProjectTo<ProductValueTypeReponse>(_mapper.ConfigurationProvider)
-                .ToListAsync(cancellationToken);
+            IEnumerable<ProductValueTypeReponse> productValueType = request.option switch
+            {
+                OptionOrderWithCheckValueType => await query.ProjectTo<ProductValueType>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken),
+                _ => await query.ProjectTo<ProductValueTypeReponse>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
+            };
             return productValueType;
         }
     }

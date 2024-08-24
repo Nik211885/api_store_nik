@@ -121,7 +121,7 @@ namespace WebApi.Controllers.Common
         }
         [HttpGet("userProfile")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<UserDetailReponse> GetDetailUserAsync()
+        public async Task<UserDetailReponse?> GetDetailUserAsync()
         {
             var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
             var userDetail = await _accountManager.GetInformationForUserAsync(userId);

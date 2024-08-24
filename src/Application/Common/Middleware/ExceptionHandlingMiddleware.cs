@@ -1,4 +1,5 @@
-﻿using Ardalis.GuardClauses;
+﻿using ApplicationCore.Exceptions;
+using Ardalis.GuardClauses;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
@@ -45,6 +46,8 @@ namespace Application.Common.Middleware
                     return StatusCodes.Status404NotFound;
                 case nameof(UnauthorizedAccessException):
                     return StatusCodes.Status401Unauthorized;
+                case nameof(ForbiddenException):
+                    return StatusCodes.Status403Forbidden;
                 default:
                     return StatusCodes.Status500InternalServerError;
             };

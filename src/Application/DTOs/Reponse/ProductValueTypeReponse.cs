@@ -1,4 +1,16 @@
-﻿namespace Application.DTOs.Reponse
+﻿using Application.CQRS.Products.Queries;
+using MediatR;
+
+namespace Application.DTOs.Reponse
 {
-    public record ProductValueTypeReponse(string Id, string ValueType, int Quantity, decimal Price);
+    public class ProductValueTypeReponse
+    {
+        public string Id { get; set; } = null!;
+        public string ValueType { get; set; } = null!;
+        public decimal Price { get; set; }
+        public virtual async Task Join(ISender sender, Option? option)
+        {
+            await Task.CompletedTask;
+        }
+    }
 }

@@ -8,17 +8,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.CQRS.Promotions.Handlers
 {
-    public class GetPromotionForProductQueryHandler :
-        IRequestHandler<GetPromotionForProductQuery, IEnumerable<PromotionDiscountReponse>?>
+    public class GetPromotionDiscountForProductQueryHandler :
+        IRequestHandler<GetPromotionDiscountForProductQuery, IEnumerable<PromotionDiscountReponse>?>
     {
         private readonly IStoreNikDbContext _dbContext;
         private readonly IMapper _mapper;
-        public GetPromotionForProductQueryHandler(IStoreNikDbContext dbContext, IMapper mapper)
+        public GetPromotionDiscountForProductQueryHandler(IStoreNikDbContext dbContext, IMapper mapper)
         {
             _mapper = mapper;
             _dbContext = dbContext;
         }
-        public async Task<IEnumerable<PromotionDiscountReponse>?> Handle(GetPromotionForProductQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<PromotionDiscountReponse>?> Handle(GetPromotionDiscountForProductQuery request, CancellationToken cancellationToken)
         {
             var promotionQuery = from p in _dbContext.ProductPromotionDiscounts
                                  where p.ProductId.Equals(request.ProductId)

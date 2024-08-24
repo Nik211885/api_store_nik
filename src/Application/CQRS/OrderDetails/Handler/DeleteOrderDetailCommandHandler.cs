@@ -1,16 +1,17 @@
 ﻿using Application.Common.ResultTypes;
+using Application.CQRS.Carts.Queries;
 using Application.CQRS.OrderDetails.Command;
-using Application.CQRS.OrderDetails.Queries;
 using Application.Interface;
-using ApplicationCore.Entities.Order;
+using ApplicationCore.ValueObject;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.CQRS.OrderDetails.Handler
 {
     public class DeleteOrderDetailCommandHandler : IRequestHandler<DeleteOrderDetailCommand, IResult>
     {
         private readonly IStoreNikDbContext _dbContext;
-        private ISender _sender;
+        private readonly ISender _sender;
         public DeleteOrderDetailCommandHandler(IStoreNikDbContext dbContext, ISender sender)
         {
             _dbContext = dbContext;
@@ -18,12 +19,17 @@ namespace Application.CQRS.OrderDetails.Handler
         }
         public async Task<IResult> Handle(DeleteOrderDetailCommand request, CancellationToken cancellationToken)
         {
-            var orderDetail = await _sender.Send(new GetOrderDetailByIdQuery(request.Id),cancellationToken);
-            if(orderDetail is null)
+            var carId = await _sender.Send(new GetCartIdByUserQuery(request.UserId),cancellationToken);
+            var query = from o in _dbContext.OrderDetails
+                        where o.Id.Equals(request.OrderId)
+                            && o.CartId.Equals(carId.First())
+                        select o;
+            var od = await query.FirstOrDefaultAsync(cancellationToken);
+            if(od is null)
             {
-                return FResult.NotFound(request.Id,nameof(OrderDetail));
+                return FResult.Failure(VariableException.NotFound);
             }
-            _dbContext.OrderDetails.Remove(orderDetail);
+            _dbContext.OrderDetails.Remove(od);
             await _dbContext.SaveChangesAsync(cancellationToken);
             return FResult.Success();
 

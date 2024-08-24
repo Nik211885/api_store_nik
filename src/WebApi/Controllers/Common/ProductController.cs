@@ -3,11 +3,8 @@ using Application.CQRS.Products.Queries;
 using Application.CQRS.Ratings.Queries;
 using Application.DTOs.Reponse;
 using MediatR;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
-using System.Security.Claims;
 
 namespace WebApi.Controllers.Common
 {

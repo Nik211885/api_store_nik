@@ -1,6 +1,7 @@
 ﻿using Application.CQRS.Carts.Commands;
 using Application.CQRS.Carts.Queries;
 using Application.Interface;
+using ApplicationCore.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +24,10 @@ namespace Application.CQRS.Carts.Handlers
                             && c.IsCheckOut == request.IsCheckOut
                         select c.Id;
             var cartId = await query.ToListAsync(cancellationToken);
+            if (!request.IsCheckOut && cartId is null)
+            {
+                throw new ForbiddenException("You can access this source");
+            }
             return cartId;
         }
     }

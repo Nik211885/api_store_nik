@@ -8,6 +8,11 @@ namespace Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<ProductValueType> builder)
         {
+            builder.HasMany(x => x.OrderDetailProductValueTypes)
+                .WithOne(x => x.ProductValueType)
+                .HasForeignKey(x => x.ProductValueTypeId)
+                .OnDelete(DeleteBehavior.NoAction)
+                .IsRequired();
             builder.Property(p => p.Price)
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();

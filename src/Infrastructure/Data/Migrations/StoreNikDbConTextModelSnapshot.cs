@@ -49,7 +49,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("MessageTo");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Messages", (string)null);
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Order.Cart", b =>
@@ -70,7 +70,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Carts");
+                    b.ToTable("Carts", (string)null);
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Order.OrderDetail", b =>
@@ -98,7 +98,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderDetails");
+                    b.ToTable("OrderDetails", (string)null);
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Order.OrderDetailProductValueType", b =>
@@ -115,7 +115,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("OrderDetailId");
 
-                    b.ToTable("OrderDetailProductValueType");
+                    b.ToTable("OrderDetailProductValueType", (string)null);
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Products.Product", b =>
@@ -157,7 +157,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Products.ProductDescription", b =>
@@ -184,7 +184,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductDescriptions");
+                    b.ToTable("ProductDescriptions", (string)null);
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Products.ProductNameType", b =>
@@ -207,7 +207,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductNameTypes");
+                    b.ToTable("ProductNameTypes", (string)null);
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Products.ProductPromotionDiscount", b =>
@@ -224,7 +224,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("PromotionDiscountId");
 
-                    b.ToTable("ProductPromotionDiscounts");
+                    b.ToTable("ProductPromotionDiscounts", (string)null);
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Products.ProductValueType", b =>
@@ -241,9 +241,6 @@ namespace Infrastructure.Data.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
                     b.Property<string>("ValueType")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -253,7 +250,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("ProductNameTypeId");
 
-                    b.ToTable("ProductValueTypes");
+                    b.ToTable("ProductValueTypes", (string)null);
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Products.PromotionDiscount", b =>
@@ -289,7 +286,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PromotionDiscounts");
+                    b.ToTable("PromotionDiscounts", (string)null);
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Ratings.Rating", b =>
@@ -317,7 +314,7 @@ namespace Infrastructure.Data.Migrations
                     b.HasIndex("OrderDetailId")
                         .IsUnique();
 
-                    b.ToTable("Ratings");
+                    b.ToTable("Ratings", (string)null);
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Ratings.Reaction", b =>
@@ -340,7 +337,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("RatingId");
 
-                    b.ToTable("Reactions");
+                    b.ToTable("Reactions", (string)null);
                 });
 
             modelBuilder.Entity("Infrastructure.Identity.ApplicationRole", b =>
@@ -621,12 +618,12 @@ namespace Infrastructure.Data.Migrations
                     b.HasOne("ApplicationCore.Entities.Order.OrderDetail", "OrderDetail")
                         .WithMany("OrderDetailProductValueTypes")
                         .HasForeignKey("OrderDetailId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ApplicationCore.Entities.Products.ProductValueType", "ProductValueType")
                         .WithMany("OrderDetailProductValueTypes")
-                        .HasForeignKey("OrderDetailId")
+                        .HasForeignKey("ProductValueTypeId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 

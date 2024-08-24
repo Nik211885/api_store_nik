@@ -28,10 +28,17 @@ namespace WebApi.Controllers.User
             return BadRequest(result.Errors);
         }
         [HttpGet("ratings")]
-        public async Task<ActionResult<PaginationEntity<RatingReponse>>> GetRatingsAsync(ISender sender, int PageNumber)
+        public async Task<ActionResult<PaginationEntity<RatingWithProductIdReponse>>> GetRatingsAsync(ISender sender, int PageNumber)
         {
             var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
             var result = await sender.Send(new GetRatingWithPaginationByUseQuery(userId,PageNumber));
+            return Ok(result);
+        }
+        [HttpGet("rating")]
+        public async Task<ActionResult<RatingWithProductIdReponse?>> GetRatingAsync(ISender sender, string orderDetail)
+        {
+            var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
+            var result = await sender.Send(new GetRatingByOrderDetailIdForUserQuery(userId, orderDetail));
             return Ok(result);
         }
     }

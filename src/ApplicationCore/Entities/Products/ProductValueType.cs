@@ -18,9 +18,6 @@ namespace ApplicationCore.Entities.Products
         [MaxLength(50)]
         public string ValueType { get; set; } = null!;
         [Required]
-        [MinValue(1)]
-        public int Quantity { get; set; }
-        [Required]
         /// <summary>
         /// Price in options
         /// </summary>
@@ -30,10 +27,9 @@ namespace ApplicationCore.Entities.Products
         //public string? ImageDescription { get; set; }
         //public string? Description { get; set; }
         public ICollection<OrderDetailProductValueType>? OrderDetailProductValueTypes { get; set; }
-        public ProductValueType(string valueType, int quantity, decimal price, string productNameTypeId)
+        public ProductValueType(string valueType, decimal price, string productNameTypeId)
         {
             ValueType = valueType;
-            Quantity = quantity;
             Price = price;
             ProductNameTypeId = productNameTypeId;
         }

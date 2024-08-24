@@ -19,6 +19,8 @@ namespace Infrastructure.Services.Middleware
             {
                 var userId = context.User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
                 var isUserExit = await _userManager.Users.Where(x => x.Id.Equals(userId)).AnyAsync();
+                
+                
                 if (isUserExit)
                 {
                     await next(context);

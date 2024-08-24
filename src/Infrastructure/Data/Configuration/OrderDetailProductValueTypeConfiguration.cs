@@ -12,12 +12,6 @@ namespace Infrastructure.Data.Configuration
             builder.HasOne(x => x.OrderDetail)
                 .WithMany(o => o.OrderDetailProductValueTypes)
                 .HasForeignKey(x => x.OrderDetailId)
-                .OnDelete(DeleteBehavior.NoAction)
-                .IsRequired();
-            builder.HasOne(x => x.ProductValueType)
-                .WithMany(o => o.OrderDetailProductValueTypes)
-                .HasForeignKey(x => x.OrderDetailId)
-                .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired();
             builder.HasKey(x => new { x.ProductValueTypeId,x.OrderDetailId });
         }

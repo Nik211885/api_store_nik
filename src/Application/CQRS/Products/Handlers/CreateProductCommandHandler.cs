@@ -34,7 +34,7 @@ namespace Application.CQRS.Products.Handlers
                 foreach (var valueType in valueTypes)
                 {
                     _dbContext.ProductValueTypes.Add(new ProductValueType(
-                        valueType.ValueType, valueType.Quantity,
+                        valueType.ValueType,
                         valueType.Price, nameProductType.Id));
                 }
             }

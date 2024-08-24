@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Application.CQRS.Ratings.Handlers
 {
     public class GetRatingWithPaginationByUseQueryHandler
-        : IRequestHandler<GetRatingWithPaginationByUseQuery, PaginationEntity<RatingReponse>>
+        : IRequestHandler<GetRatingWithPaginationByUseQuery, PaginationEntity<RatingWithProductIdReponse>>
     {
         private readonly IStoreNikDbContext _dbContext;
         private readonly ISender _sender;
@@ -23,18 +23,25 @@ namespace Application.CQRS.Ratings.Handlers
             _mapper = mapper;
             _sender = sender;
         }
-        public async Task<PaginationEntity<RatingReponse>> Handle(GetRatingWithPaginationByUseQuery request, CancellationToken cancellationToken)
+        public async Task<PaginationEntity<RatingWithProductIdReponse>> Handle(GetRatingWithPaginationByUseQuery request, CancellationToken cancellationToken)
         {
             var cartId = await _sender.Send(new GetCartIdByUserQuery(request.UserId,IsCheckOut: true),cancellationToken);
             var query = from od in _dbContext.OrderDetails
                         where cartId.Contains(od.CartId)
                         join r in _dbContext.Ratings on od.Id equals r.OrderDetailId
-                        select r;
-            var k = await query.ToListAsync();
-            var ratings = await query.ProjectTo<RatingReponse>(_mapper.ConfigurationProvider).PaginatedListAsync(request.PageNumber, request.PageSize);
+                        select new RatingWithProductIdReponse
+                        {
+                            ProductId = od.ProductId,
+                            Id = r.Id,
+                            Start = r.Start,
+                            CommentRating = r.CommentRating,
+                            DateRating = r.DateRating,
+                        };
+
+            var ratings = await PaginationEntity<RatingWithProductIdReponse>.CreatePaginationEntityAsync(query, request.PageNumber, request.PageSize);
             foreach(var item in ratings.Items)
             {
-                await item.Join(_sender);
+                await item.Join(_sender, request.UserId);
             }
             return ratings;
         }

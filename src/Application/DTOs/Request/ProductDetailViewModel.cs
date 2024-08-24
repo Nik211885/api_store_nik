@@ -4,9 +4,9 @@
         string NameProduct,
         string Description,
         string ImageProduct,
-        int Quantity,
         decimal Price,
         string? KeySearch,
+        int Quantity,
         IEnumerable<ProductNameTypeViewModel>? NameTypes,
         IEnumerable<ProductDescriptionViewModel>? ProductDescription
         );

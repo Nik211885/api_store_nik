@@ -1,6 +1,5 @@
 ﻿using ApplicationCore.Entities.Attributes;
 using ApplicationCore.Entities.Order;
-using ApplicationCore.Entities.Ratings;
 using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationCore.Entities.Products

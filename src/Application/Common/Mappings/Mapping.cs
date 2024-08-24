@@ -1,8 +1,6 @@
 ﻿using Application.CQRS.Carts.Commands;
 using Application.CQRS.ProductPromotion.Commands;
 using Application.CQRS.Promotions.Commands;
-using Application.CQRS.Ratings.Commands;
-using Application.CQRS.Reactions.Commands;
 using Application.DTOs;
 using Application.DTOs.Reponse;
 using Application.DTOs.Request;
@@ -11,6 +9,7 @@ using ApplicationCore.Entities.Order;
 using ApplicationCore.Entities.Products;
 using ApplicationCore.Entities.Ratings;
 using AutoMapper;
+using ProductValueType = Application.DTOs.Reponse.ProductValueType;
 
 namespace Application.Common.Mappings
 {
@@ -31,8 +30,8 @@ namespace Application.Common.Mappings
             CreateMap<PromotionDiscount, PromotionDiscountReponse>();
             CreateMap<Rating, RatingReponse>();
             CreateMap<ProductDescription, ProductDescriptionReponse>();
-            CreateMap<ProductNameType, ProductNameTypeReponse>();
-            CreateMap<ProductValueType, ProductValueTypeReponse>();
+            CreateMap<ApplicationCore.Entities.Products.ProductValueType, ProductValueTypeReponse>();
+            CreateMap<ApplicationCore.Entities.Products.ProductValueType, ProductValueType>();
         }
     }
 }

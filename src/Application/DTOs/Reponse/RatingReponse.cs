@@ -6,10 +6,10 @@ namespace Application.DTOs.Reponse
     public class RatingReponse
     {
 
-        public string Id { get; private set; } = null!;
-        public int Start { get; private set; }
-        public string? CommentRating { get; private set; }
-        public DateTime DateRating { get; private set; }
+        public string Id { get; init; } = null!;
+        public int Start { get; init; }
+        public string? CommentRating { get; init; }
+        public DateTime DateRating { get; init; }
         public string? Reaction { get; private set; }
         public long LikeCount { get; private set; }
         public long UnLikeCount {  get; private set; }

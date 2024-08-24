@@ -25,8 +25,7 @@ namespace Application.CQRS.Ratings.Handlers
         public async Task<IResult> Handle(CreateRatingCommand request, CancellationToken cancellationToken)
         {
             //Check order detail has in user and has check out
-            var countOrderDetail = await _sender.Send(new GetOrderDetailCheckOutOffUserQuery(request.UserId, request.Rating.OrderDetailId, IsCheckOut: true, IsOption: false), cancellationToken);
-            Guard.Against.Expression(x=>x!=1, (int)(countOrderDetail.AttachedIsSuccess), nameof(OrderDetail), VariableException.BadRequest);
+            var countOrderDetail = await _sender.Send(new GetOrderDetailByIdCheckOutOffUserQuery(request.UserId, request.Rating.OrderDetailId, IsCheckOut: true, IsOption: false), cancellationToken);
             //Check order detail has rating relationship stay here is one to one one order detail has one rating
             var countRating = await _sender.Send(new GetRatingByOrderDetailIdQuery(request.Rating.OrderDetailId, IsOption: false),cancellationToken);
             Guard.Against.Expression(x => x != 0, (int)(countRating.AttachedIsSuccess), "You can have one rating for one order has check out");

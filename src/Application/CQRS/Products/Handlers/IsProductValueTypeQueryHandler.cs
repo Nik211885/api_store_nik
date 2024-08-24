@@ -19,12 +19,12 @@ namespace Application.CQRS.Products.Handlers
             // and with one name type just one value type
             
             //Get name type for product
-            var nameTypeQuery = from n in _dbContext.ProductNameTypes
+            var nameTypeIdQuery = from n in _dbContext.ProductNameTypes
                            where n.ProductId.Equals(request.ProductId)
-                           select n.NameType;
-            var nameType = await nameTypeQuery.ToListAsync(cancellationToken);
+                           select n.Id;
+            var nameTypeId = await nameTypeIdQuery.ToListAsync(cancellationToken);
 
-            if(nameType.Count != request.ProductValueTypeIds.Count())
+            if(nameTypeId.Count != request.ProductValueTypeIds?.Count())
             {
                 return false;
             }
@@ -32,24 +32,24 @@ namespace Application.CQRS.Products.Handlers
             //check value type for name type
             foreach(var value in request.ProductValueTypeIds)
             {
-                var nameTypeQueryByValueType = from v in _dbContext.ProductValueTypes
+                var nameTypeIdQueryByValueType = from v in _dbContext.ProductValueTypes
                                                where v.Id.Equals(value)
                                                join n in _dbContext.ProductNameTypes on v.ProductNameTypeId equals n.Id
-                                               select n.NameType;
-                var nameTypeByValue = await nameTypeQueryByValueType.FirstOrDefaultAsync(cancellationToken);
-                if(nameTypeByValue is null)
+                                               select n.Id;
+                var nameTypeIdByValue = await nameTypeIdQueryByValueType.FirstOrDefaultAsync(cancellationToken);
+                if(nameTypeIdByValue is null)
                 {
                     return false;
                 }
                 int index = 0;
-                while(index < nameType.Count)
+                while(index < nameTypeId.Count)
                 {
-                    if (nameType[index].Equals(nameTypeByValue))
+                    if (nameTypeId[index].Equals(nameTypeIdByValue))
                     {
-                        nameType.RemoveAt(index);
+                        nameTypeId.RemoveAt(index);
                         break;
                     }
-                    if(index == nameType.Count - 1)
+                    if(index == nameTypeId.Count - 1)
                     {
                         return false;
                     }

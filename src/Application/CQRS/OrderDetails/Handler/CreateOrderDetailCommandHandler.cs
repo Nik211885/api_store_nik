@@ -21,22 +21,29 @@ namespace Application.CQRS.OrderDetails.Handler
         {
             // check cart for user has exits
             var cartId = await _sender.Send(new GetCartIdByUserQuery(request.UserId),cancellationToken);
+            //Check this cart had this product
+            var quantity = await _sender.Send(new GetQuantityCartNotCheckOutHasProductQuery(cartId.First(), request.Order.ProductId),cancellationToken);
+            //If has update quantity return error don't can't add just update in your cart
+            if(quantity > 0) throw new ArgumentException("This product had in cart");
+            //Create new order
             //Check product
-            var isProduct = await _sender.Send(new IsProductHasExitsQuery(request.ProductId, request.Quantity),cancellationToken);  
+            var isProduct = await _sender.Send(new IsProductHasExitsQuery(request.Order.ProductId, request.Order.Quantity),cancellationToken);  
             if(!isProduct)
             {
                 return FResult.Failure("Product has not exits or your quantity bigger quantity product provide");
             }
-            //Check product Name Type has product and check value type has in name type
-            var isProductValueType = await _sender.Send(new IsProductValueTypeQuery(request.ProductId,request.ProductValueTypeIds),cancellationToken);
+            //Check product Name Type has product and check value type has in name type and check quantity in value type has enough in value type
+            var isProductValueType = await _sender.Send(new IsProductValueTypeQuery(request.Order.ProductId,request.Order.ProductValueTypeIds),cancellationToken);
             if (!isProductValueType)
             {
-                return FResult.Failure("Product don't have product value type");
+                return FResult.Failure("Choose product value type after create order detail");
             }
+
             //Create OrderDetail
-            var orderDetail = new OrderDetail(cartId.First(),request.ProductId,request.Quantity);
+            var orderDetail = new OrderDetail(cartId.First(),request.Order.ProductId,request.Order.Quantity);
+            //Transaction
             _dbContext.OrderDetails.Add(orderDetail);
-            foreach(var valueTypeId in request.ProductValueTypeIds)
+            foreach(var valueTypeId in request.Order.ProductValueTypeIds is null ?[]: request.Order.ProductValueTypeIds)
             {
                 var orderDetailProductValueType = new OrderDetailProductValueType(orderDetail.Id, valueTypeId);
                 _dbContext.OrderDetailProductValueType.Add(orderDetailProductValueType);

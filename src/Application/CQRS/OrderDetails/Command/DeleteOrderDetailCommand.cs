@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Application.CQRS.OrderDetails.Command
 {
-    public record DeleteOrderDetailCommand(string Id) : IRequest<IResult>;
+    public record DeleteOrderDetailCommand(string UserId, string OrderId) : IRequest<IResult>;
 }
