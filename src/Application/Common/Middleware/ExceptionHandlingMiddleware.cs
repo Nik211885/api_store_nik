@@ -41,6 +41,7 @@ namespace Application.Common.Middleware
                 case nameof(ValidationException):
                     return StatusCodes.Status422UnprocessableEntity;
                 case nameof(ArgumentException):
+                case nameof(ArgumentNullException):
                     return StatusCodes.Status400BadRequest;
                 case nameof(NotFoundException):
                     return StatusCodes.Status404NotFound;

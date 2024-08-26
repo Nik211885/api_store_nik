@@ -15,11 +15,13 @@ namespace Application.CQRS.Promotions.Handlers
         }
         public async Task<IEnumerable<decimal>> Handle(GetJustPromotionForProductQuery request, CancellationToken cancellationToken)
         {
-            var promotionQuery = from p in _dbContext.ProductPromotionDiscounts
-                                 where p.ProductId.Equals(request.ProductId)
-                                 join po in _dbContext.PromotionDiscounts on p.PromotionDiscountId equals po.Id
-                                 where po.EndDate >= DateTime.UtcNow && po.StartDay <= DateTime.UtcNow
-                                 select po.Promotion;
+            var promotionQuery = from promotion in _dbContext.PromotionDiscounts
+                                 where promotion.EndDate >= DateTime.UtcNow && promotion.StartDay <= DateTime.UtcNow
+                                 join promotionForProduct in _dbContext.ProductPromotionDiscounts on promotion.Id equals promotionForProduct.PromotionDiscountId into p
+                                 from po in p.DefaultIfEmpty()
+                                 where promotion.ApplyAll
+                                        || po.ProductId.Equals(request.ProductId)
+                                 select promotion.Promotion;
             return await promotionQuery.ToListAsync(cancellationToken);
         }
     }

@@ -1,4 +1,7 @@
-﻿namespace Application.DTOs.Request
+﻿using ApplicationCore.Entities.Products;
+using AutoMapper;
+
+namespace Application.DTOs.Request
 {
     public record ProductDetailViewModel(
         string NameProduct,
@@ -10,4 +13,11 @@
         IEnumerable<ProductNameTypeViewModel>? NameTypes,
         IEnumerable<ProductDescriptionViewModel>? ProductDescription
         );
+    public class MappingProduct : Profile
+    {
+        public MappingProduct()
+        {
+            CreateMap<ProductDetailViewModel, Product>();
+        }
+    }
 }

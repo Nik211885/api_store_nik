@@ -40,15 +40,10 @@ namespace ApplicationCore.Entities.Products
         [Required]
         public DateTime EndDate { get; set; }
         public ICollection<ProductPromotionDiscount>? ProductPromotionDiscounts { get; set; }
-        public PromotionDiscount(string userId, string name, string? description,
-            decimal promotion, DateTime startDay, DateTime endDate)
+        public bool ApplyAll { get; set; }
+        public PromotionDiscount(string userId)
         {
             UserId = userId;
-            Name = name;
-            Description = description;
-            Promotion = promotion;
-            StartDay = startDay;
-            EndDate = endDate;
         }
     }
 }

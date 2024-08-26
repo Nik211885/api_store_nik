@@ -1,6 +1,7 @@
 ﻿using Application.CQRS.OrderValueType.Queries;
 using Application.CQRS.Products.Queries;
 using Application.CQRS.Promotions.Queries;
+using AutoMapper;
 using MediatR;
 
 namespace Application.DTOs.Reponse
@@ -39,6 +40,7 @@ namespace Application.DTOs.Reponse
                     PriceDefault += p;
                 }
             }
+            PriceDefault = Quantity * PriceDefault;
             //Get Promotion
             PriceAfterApplyPromotion = PriceDefault;
             var promotion = await sender.Send(new GetJustPromotionForProductQuery(ProductId));
@@ -56,6 +58,13 @@ namespace Application.DTOs.Reponse
         {
             var orderId = option!.Id;
             IsChecked = await sender.Send(new GetOrderCheckValueTypeQuery(orderId, Id));
+        }
+    }
+    public class MappingProductValueType : Profile
+    {
+        public MappingProductValueType()
+        {
+            CreateMap<ApplicationCore.Entities.Products.ProductValueType, ProductValueType>();
         }
     }
     public class OptionOrderWithCheckValueType : Option

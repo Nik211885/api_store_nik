@@ -49,7 +49,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("MessageTo");
 
-                    b.ToTable("Messages", (string)null);
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Order.Cart", b =>
@@ -70,7 +70,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Order.OrderDetail", b =>
@@ -83,6 +83,12 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
+
+                    b.Property<decimal>("PriceProduct")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PricePromotion")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductId")
                         .IsRequired()
@@ -98,7 +104,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderDetails", (string)null);
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Order.OrderDetailProductValueType", b =>
@@ -115,7 +121,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("OrderDetailId");
 
-                    b.ToTable("OrderDetailProductValueType", (string)null);
+                    b.ToTable("OrderDetailProductValueType");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Products.Product", b =>
@@ -157,7 +163,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Products.ProductDescription", b =>
@@ -184,7 +190,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductDescriptions", (string)null);
+                    b.ToTable("ProductDescriptions");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Products.ProductNameType", b =>
@@ -207,7 +213,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductNameTypes", (string)null);
+                    b.ToTable("ProductNameTypes");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Products.ProductPromotionDiscount", b =>
@@ -224,7 +230,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("PromotionDiscountId");
 
-                    b.ToTable("ProductPromotionDiscounts", (string)null);
+                    b.ToTable("ProductPromotionDiscounts");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Products.ProductValueType", b =>
@@ -250,7 +256,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("ProductNameTypeId");
 
-                    b.ToTable("ProductValueTypes", (string)null);
+                    b.ToTable("ProductValueTypes");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Products.PromotionDiscount", b =>
@@ -258,6 +264,9 @@ namespace Infrastructure.Data.Migrations
                     b.Property<string>("Id")
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
+
+                    b.Property<bool>("ApplyAll")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .HasMaxLength(120)
@@ -286,7 +295,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PromotionDiscounts", (string)null);
+                    b.ToTable("PromotionDiscounts");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Ratings.Rating", b =>
@@ -314,7 +323,7 @@ namespace Infrastructure.Data.Migrations
                     b.HasIndex("OrderDetailId")
                         .IsUnique();
 
-                    b.ToTable("Ratings", (string)null);
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Ratings.Reaction", b =>
@@ -337,7 +346,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("RatingId");
 
-                    b.ToTable("Reactions", (string)null);
+                    b.ToTable("Reactions");
                 });
 
             modelBuilder.Entity("Infrastructure.Identity.ApplicationRole", b =>

@@ -3,6 +3,8 @@ using Application.CQRS.Promotions.Commands;
 using Application.CQRS.Promotions.Queries;
 using Application.Interface;
 using ApplicationCore.Entities.Products;
+using ApplicationCore.Exceptions;
+using ApplicationCore.ValueObject;
 using MediatR;
 
 namespace Application.CQRS.Promotions.Handlers
@@ -18,11 +20,7 @@ namespace Application.CQRS.Promotions.Handlers
         }
         public async Task<IResult> Handle(DeletePromotionCommand request, CancellationToken cancellationToken)
         {
-            var promotion = await _sender.Send(new GetPromotionByIdQuery(request.Id),cancellationToken);
-            if(promotion is null)
-            {
-                return FResult.NotFound(request.Id, nameof(PromotionDiscount));
-            }
+            var promotion = await _sender.Send(new GetPromotionByIdManagerByUserQuery(request.PromotionId,request.UserId),cancellationToken);
             _dbContext.PromotionDiscounts.Remove(promotion);
             await _dbContext.SaveChangesAsync(cancellationToken);
             return FResult.Success();

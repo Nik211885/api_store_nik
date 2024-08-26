@@ -1,6 +1,8 @@
 ﻿using Application.CQRS.Products.Queries;
 using Application.CQRS.Promotions.Queries;
 using Application.CQRS.Ratings.Queries;
+using ApplicationCore.Entities.Products;
+using AutoMapper;
 using MediatR;
 
 namespace Application.DTOs.Reponse
@@ -39,4 +41,11 @@ namespace Application.DTOs.Reponse
             }
         }
     };
+    public class MappingProductDetail : Profile
+    {
+        public MappingProductDetail()
+        {
+            CreateMap<Product, ProductDetailReponse>();
+        }
+    }
 }

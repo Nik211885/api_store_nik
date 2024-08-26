@@ -4,22 +4,19 @@ using Application.CQRS.Ratings.Queries;
 using Application.DTOs.Reponse;
 using Application.DTOs.Request;
 using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+using WebApi.Controllers.Common;
 
 namespace WebApi.Controllers.User
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class RatingController : ControllerBase
+    public class RatingController(ISender sender, IHttpContextAccessor context) 
+        : BaseAuthenticationController(sender,context)
     {
         [HttpPost("newRating")]
-        public async Task<IActionResult> CreateRatingAsync(ISender sender, [FromBody] CreateRatingViewModel rating)
+        public async Task<IActionResult> CreateRatingAsync([FromBody] CreateRatingViewModel rating)
         {
-            var userId = User.Claims.First(x=>x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
             var result = await sender.Send(new CreateRatingCommand(userId,rating));
             if (result.Success)
             {
@@ -28,16 +25,14 @@ namespace WebApi.Controllers.User
             return BadRequest(result.Errors);
         }
         [HttpGet("ratings")]
-        public async Task<ActionResult<PaginationEntity<RatingWithProductIdReponse>>> GetRatingsAsync(ISender sender, int PageNumber)
+        public async Task<ActionResult<PaginationEntity<RatingWithProductIdReponse>>> GetRatingsAsync(int PageNumber)
         {
-            var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
             var result = await sender.Send(new GetRatingWithPaginationByUseQuery(userId,PageNumber));
             return Ok(result);
         }
         [HttpGet("rating")]
-        public async Task<ActionResult<RatingWithProductIdReponse?>> GetRatingAsync(ISender sender, string orderDetail)
+        public async Task<ActionResult<RatingWithProductIdReponse?>> GetRatingAsync(string orderDetail)
         {
-            var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
             var result = await sender.Send(new GetRatingByOrderDetailIdForUserQuery(userId, orderDetail));
             return Ok(result);
         }

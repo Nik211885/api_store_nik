@@ -153,7 +153,7 @@ namespace Infrastructure.Services
         {
             var user = await _userManager.FindByIdAsync(userId);
             Guard.Against.Null<ApplicationUser>(user, nameof(user), VariableException.UserNotFound);
-            Guard.Against.Expression(emailConfirm => !emailConfirm, user.EmailConfirmed, VariableException.EmailNotConfirm);
+            Guard.Against.Expression(emailConfirm => emailConfirm, user.EmailConfirmed, VariableException.EmailConfirm);
             var result = await _userTokenProvideServices.VerifyTokenAsync(user, nameof(v.ConfirmEmail),nameof(v.ConfirmEmailToken), token);
             if (result.Success)
             {

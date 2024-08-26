@@ -3,7 +3,6 @@ using Application.Common.Middleware;
 using Infrastructure;
 using Infrastructure.Data;
 using Infrastructure.Identity;
-using Infrastructure.Services.Middleware;
 using Microsoft.AspNetCore.Identity;
 using WebApi.Services;
 
@@ -26,6 +25,7 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
     .AddApiEndpoints()
     .AddEntityFrameworkStores<StoreNikDbConText>()
     .AddDefaultTokenProviders();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddApplication();
 await builder.Services.AddInfrastructure(builder.Configuration);
 var app = builder.Build();
@@ -43,6 +43,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
-app.UseMiddleware<UserExitsHandlingMiddleware>();
 
 app.Run();

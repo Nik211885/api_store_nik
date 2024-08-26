@@ -2,6 +2,8 @@
 using Application.CQRS.ProductPromotion.Commands;
 using Application.CQRS.ProductPromotion.Queries;
 using Application.Interface;
+using ApplicationCore.Entities.Products;
+using Ardalis.GuardClauses;
 using MediatR;
 
 namespace Application.CQRS.ProductPromotion.Handlers
@@ -17,11 +19,8 @@ namespace Application.CQRS.ProductPromotion.Handlers
         }
         public async Task<IResult> Handle(DeleteProductPromotionCommand request, CancellationToken cancellationToken)
         {
-            var productPromotion = await _sender.Send(new GetProductPromotionQuery(request.ProductId, request.PromotionId));
-            if (productPromotion is null)
-            {
-                return FResult.Failure("Don't have program promotion");
-            }
+            var productPromotion = await _sender.Send(new GetProductPromotionQuery(request.UserId, request.ProductId, request.PromotionId),cancellationToken);
+            Guard.Against.Null(productPromotion,nameof(Product), "Product hasn't promotion");
             _dbContext.ProductPromotionDiscounts.Remove(productPromotion);
             await _dbContext.SaveChangesAsync(cancellationToken);
             return FResult.Success();

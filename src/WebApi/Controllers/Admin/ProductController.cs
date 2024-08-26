@@ -3,25 +3,23 @@ using Application.DTOs.Request;
 using ApplicationCore.Entities.Products;
 using ApplicationCore.ValueObject;
 using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+using WebApi.Controllers.Common;
 
 namespace WebApi.Controllers.Admin
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = nameof(Role.Admin))]
-    public class ProductController : ControllerBase
+    [Authorize(Roles = nameof(Role.Admin))]
+    public class ProductController(ISender sender, IHttpContextAccessor context) 
+        : BaseAuthenticationController(sender,context)
     {
         [HttpPost("createProduct")]
-        public async Task<IActionResult> CreateProductAsync(ISender sender, [FromBody] ProductDetailViewModel product)
+        public async Task<IActionResult> CreateProductAsync([FromBody] ProductDetailViewModel product)
         {
-            var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
-            var command = new CreateProductCommand(userId, product);
-            var result = await sender.Send(command);
+            var result = await sender.Send(new CreateProductCommand(userId, product));
             if (result.Success)
             {
                 return Created();
@@ -29,9 +27,8 @@ namespace WebApi.Controllers.Admin
             return BadRequest(result.Errors);
         }
         [HttpDelete("deleteProduct")]
-        public async Task<IActionResult> DeleteProductAsync(ISender sender, string productId)
+        public async Task<IActionResult> DeleteProductAsync(string productId)
         {
-            var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
             var result = await sender.Send(new DeleteProductCommand(productId,userId));
             if (result.Success)
             {
@@ -40,9 +37,8 @@ namespace WebApi.Controllers.Admin
             return BadRequest(result.Errors);
         }
         [HttpPut("updatePutProduct")]
-        public async Task<IActionResult> UpdatePutAsync(ISender sender, string productId, [FromBody] ProductDetailViewModel productUpdate)
+        public async Task<IActionResult> UpdatePutAsync(string productId, [FromBody] ProductDetailViewModel productUpdate)
         {
-            var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
             var result = await sender.Send(new UpdatePutProductCommand(userId,productId,productUpdate));
             if(result.Success)
             {
@@ -51,9 +47,8 @@ namespace WebApi.Controllers.Admin
             return BadRequest(result.Errors);
         }
         [HttpPatch("updatePatchProduct")]
-        public async Task<IActionResult> UpdatePatchProductAsync(ISender sender,string productId, [FromBody] JsonPatchDocument<Product> productUpdateDoc)
+        public async Task<IActionResult> UpdatePatchProductAsync(string productId, [FromBody] JsonPatchDocument<Product> productUpdateDoc)
         {
-            var userId = User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
             var result = await sender.Send(new UpdatePatchProductCommand(userId,productId,productUpdateDoc));
             if (result.Success)
             {

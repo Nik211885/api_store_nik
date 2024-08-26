@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Application.CQRS.ProductPromotion.Commands
 {
-    public record CreateProductPromotionCommand(string ProductId, string PromotionDiscountId) : IRequest<IResult>;
+    public record CreateProductPromotionCommand(string UserId, string ProductId, string PromotionDiscountId) : IRequest<IResult>;
 }

@@ -1,5 +1,8 @@
 ﻿using Application.CQRS.Products.Queries;
 using Application.Interface;
+using ApplicationCore.Entities.Products;
+using ApplicationCore.ValueObject;
+using Ardalis.GuardClauses;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,11 +18,13 @@ namespace Application.CQRS.Products.Handlers
         public async Task Handle(IsProductForUserQuery request, CancellationToken cancellationToken)
         {
             var query1 = from p in _dbContext.Products
-                         where p.UserId.Equals(request.UserId)
-                         select p;
-            if(! await query1.AnyAsync(cancellationToken))
+                         where p.Id.Equals(request.ProductId)
+                         select p.UserId;
+            var userId = await query1.FirstOrDefaultAsync(cancellationToken);
+            Guard.Against.Null(userId,nameof(Product),VariableException.NotFound);
+            if(userId != request.UserId)
             {
-                throw new UnauthorizedAccessException("You don't can update this product");
+                throw new UnauthorizedAccessException("You don't can edit this product");
             }
         }
     }

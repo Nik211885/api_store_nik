@@ -2,31 +2,26 @@
 using Application.CQRS.Promotions.Commands;
 using Application.CQRS.Promotions.Queries;
 using Application.Interface;
-using ApplicationCore.Entities.Products;
 using AutoMapper;
 using MediatR;
 
 namespace Application.CQRS.Promotions.Handlers
 {
-    public class UpdatePromotionCommandHandler : IRequestHandler<UpdatePromotionCommand, IResult>
+    public class UpdatePutPromotionCommandHandler : IRequestHandler<UpdatePutPromotionCommand, IResult>
     {
         private readonly IStoreNikDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly ISender _sender;
-        public UpdatePromotionCommandHandler(IStoreNikDbContext dbContext, ISender sender, IMapper mapper)
+        public UpdatePutPromotionCommandHandler(IStoreNikDbContext dbContext, ISender sender, IMapper mapper)
         {
             _mapper = mapper;
             _dbContext = dbContext;
             _sender = sender;
         }
-        public async Task<IResult> Handle(UpdatePromotionCommand request, CancellationToken cancellationToken)
+        public async Task<IResult> Handle(UpdatePutPromotionCommand request, CancellationToken cancellationToken)
         {
-            var promotion = await _sender.Send(new GetPromotionByIdQuery(request.Id), cancellationToken);
-            if (promotion is null)
-            {
-                return FResult.NotFound(request.Id, nameof(PromotionDiscount));
-            }
-            promotion = _mapper.Map<PromotionDiscount>(request);
+            var promotion = await _sender.Send(new GetPromotionByIdManagerByUserQuery(request.PromotionId,request.UserId), cancellationToken);
+            promotion = _mapper.Map(request.Promotion,promotion);
             _dbContext.PromotionDiscounts.Update(promotion);
             await _dbContext.SaveChangesAsync(cancellationToken);
             return FResult.Success();

@@ -1,7 +1,7 @@
-﻿using ApplicationCore.Entities.Products;
+﻿using Application.DTOs.Reponse;
 using MediatR;
 
 namespace Application.CQRS.Promotions.Queries
 {
-    public record GetPromotionByIdQuery(string Id) : IRequest<PromotionDiscount>;
+    public record GetPromotionByIdQuery(string PromotionId) : IRequest<PromotionDiscountReponse>;
 }

@@ -24,7 +24,7 @@ namespace Application.CQRS.Carts.Handlers
                             && c.IsCheckOut == request.IsCheckOut
                         select c.Id;
             var cartId = await query.ToListAsync(cancellationToken);
-            if (!request.IsCheckOut && cartId is null)
+            if (!request.IsCheckOut &&( cartId is null || cartId.Count == 0))
             {
                 throw new ForbiddenException("You can access this source");
             }

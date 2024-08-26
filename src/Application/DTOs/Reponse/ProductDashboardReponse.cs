@@ -1,5 +1,7 @@
 ﻿using Application.CQRS.OrderDetails.Queries;
 using Application.CQRS.Ratings.Queries;
+using ApplicationCore.Entities.Products;
+using AutoMapper;
 using MediatR;
 
 namespace Application.DTOs.Reponse
@@ -29,6 +31,13 @@ namespace Application.DTOs.Reponse
                 RatingCount = RatingCount + count;
             }
             Rating = Math.Round(totalStar  / RatingCount,2);
+        }
+    }
+    public class MappingProductDashboard : Profile
+    {
+        public MappingProductDashboard()
+        {
+            CreateMap<Product, ProductDashboardReponse>();
         }
     }
 }

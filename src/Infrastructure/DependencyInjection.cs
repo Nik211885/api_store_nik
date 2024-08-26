@@ -3,7 +3,6 @@ using Infrastructure.Data;
 using Infrastructure.Data.Seeders;
 using Infrastructure.Services;
 using Infrastructure.Services.Email;
-using Infrastructure.Services.Middleware;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,7 +20,6 @@ namespace Infrastructure
                 options.UseSqlServer(connectionString);
             });
             services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
-            services.AddTransient<UserExitsHandlingMiddleware>();
             services.AddScoped<IAccountManager, AccountManagerServices>();
             services.AddTransient<IEmail,EmailServices>();  
             services.AddScoped<UserTokenProvideServices>();

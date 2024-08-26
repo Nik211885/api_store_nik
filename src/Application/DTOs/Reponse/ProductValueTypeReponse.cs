@@ -1,4 +1,5 @@
 ﻿using Application.CQRS.Products.Queries;
+using AutoMapper;
 using MediatR;
 
 namespace Application.DTOs.Reponse
@@ -11,6 +12,13 @@ namespace Application.DTOs.Reponse
         public virtual async Task Join(ISender sender, Option? option)
         {
             await Task.CompletedTask;
+        }
+    }
+    public class MappingProduct : Profile
+    {
+        public MappingProduct()
+        {
+            CreateMap<ApplicationCore.Entities.Products.ProductValueType, ProductValueTypeReponse>();
         }
     }
 }

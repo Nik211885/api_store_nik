@@ -1,4 +1,6 @@
 ﻿using Application.CQRS.Reactions.Queries;
+using ApplicationCore.Entities.Ratings;
+using AutoMapper;
 using MediatR;
 
 namespace Application.DTOs.Reponse
@@ -28,4 +30,11 @@ namespace Application.DTOs.Reponse
             }
         }
     };
+    public class MappingRating : Profile
+    {
+        public MappingRating()
+        {
+            CreateMap<Rating, RatingReponse>();
+        }
+    }
 }

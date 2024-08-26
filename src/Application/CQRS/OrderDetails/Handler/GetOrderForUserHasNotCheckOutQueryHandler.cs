@@ -24,7 +24,6 @@ namespace Application.CQRS.OrderDetails.Handler
             CancellationToken cancellationToken)
         {
             var cartId = await _sender.Send(new GetCartIdByUserQuery(request.UserId),cancellationToken);
-            Guard.Against.Null(cartId, nameof(cartId));
             var query = from o in _dbContext.OrderDetails
                         where o.CartId.Equals(cartId.First())
                         join p in _dbContext.Products on o.ProductId equals p.Id

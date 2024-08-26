@@ -19,8 +19,9 @@ namespace Application.CQRS.Promotions.Handlers
         }
         public async Task<IResult> Handle(CreatePromotionCommand request, CancellationToken cancellationToken)
         {
-            var promotion = _mapper.Map<PromotionDiscount>(request);
-            _dbContext.PromotionDiscounts.Add(promotion);
+            var promotionDiscount = new PromotionDiscount(request.UserId);
+            promotionDiscount = _mapper.Map(request.Promotion,promotionDiscount);
+            _dbContext.PromotionDiscounts.Add(promotionDiscount);
             await _dbContext.SaveChangesAsync(cancellationToken);
             return FResult.Success();
         }

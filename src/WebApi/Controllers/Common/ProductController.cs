@@ -41,5 +41,11 @@ namespace WebApi.Controllers.Common
             var product = await sender.Send(new GetProductDetailByIdQuery(id,accessToken));
             return Ok(product);
         }
+        [HttpGet("productHasPromotion")]
+        public async Task<dynamic> GetProductHasPromotion(ISender sender, string promotionId, int PageNumber)
+        {
+            var paginationProduct = await sender.Send(new GetProductHasPromotionWithPaginationQuery(promotionId, PageNumber));
+            return paginationProduct is null ? Ok("This promotion apply to all product") : Ok(paginationProduct);
+        }
     }
 }
